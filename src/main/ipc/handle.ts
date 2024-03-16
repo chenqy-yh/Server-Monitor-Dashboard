@@ -1,12 +1,5 @@
 import { IpcMainInvokeEvent, ipcMain } from 'electron'
 import { getServerInfo, pingServer, createWsService, getServerLog } from '../utils/api'
-import {
-  descInsList,
-  // descFirewallRules,
-  modifyFirewallRules,
-  addFirewallRules,
-  modifyFirewallRuleDescription
-} from '../utils/tencent/api'
 
 import { getClientInfo } from '../utils/tencent/client'
 import {
@@ -14,7 +7,11 @@ import {
   getFirewallConfig,
   setFirewallConfig,
   getFirewallConfigList,
-  deleteFirewallConfig
+  deleteFirewallConfig,
+  addFirewallRules,
+  modifyFirewallRules,
+  modifyFirewallRuleDescription,
+  deleteFirewallRules
 } from '../utils/tencent/firewall'
 
 const addIpcHandle = (channel: HandleChannel, handle: HandleCallback) => {
@@ -46,13 +43,7 @@ addIpcHandle('log:info', async (_e: IpcMainInvokeEvent, ...args: unknown[]) => {
   return getServerLog(url, type, page, size as unknown as number)
 })
 
-// COS
-
-// ins
-addIpcHandle('tc:ins:list', async (_e: IpcMainInvokeEvent, ...args: unknown[]) => {
-  const [parms] = args
-  return descInsList(parms)
-})
+// Tencent
 
 // firewall
 addIpcHandle('tc:firewall:rules', async (_e: IpcMainInvokeEvent, ...args: unknown[]) => {
@@ -74,12 +65,6 @@ addIpcHandle('tc:firewall:add', async (_e: IpcMainInvokeEvent, ...args: unknown[
 })
 
 addIpcHandle('tc:firewall:modify:desc', async (_e: IpcMainInvokeEvent, ...args: unknown[]) => {
-  const [params] = args
-  const params_obj = JSON.parse(params as string)
-  return modifyFirewallRuleDescription(params_obj)
-})
-
-addIpcHandle('tc:firewall:delete', async (_e: IpcMainInvokeEvent, ...args: unknown[]) => {
   const [params] = args
   const params_obj = JSON.parse(params as string)
   return modifyFirewallRuleDescription(params_obj)
@@ -116,3 +101,8 @@ addIpcHandle('tc:firewall:config:del', async (_e: IpcMainInvokeEvent, ...args: u
 })
 
 // example
+addIpcHandle('tc:firewall:rule:del', async (_e: IpcMainInvokeEvent, ...args: unknown[]) => {
+  const [params] = args
+  const params_obj = JSON.parse(params as string)
+  return deleteFirewallRules(params_obj)
+})

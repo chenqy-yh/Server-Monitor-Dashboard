@@ -56,10 +56,10 @@ const deleteFirewallRules = (parms) => {
 }
 
 export {
-  descInsList,
-  descFirewallRules,
-  modifyFirewallRules,
-  addFirewallRules,
-  modifyFirewallRuleDescription,
-  deleteFirewallRules
+  descInsList
+  // descFirewallRules,
+  // modifyFirewallRules,
+  // addFirewallRules,
+  // modifyFirewallRuleDescription,
+  // deleteFirewallRules
 }

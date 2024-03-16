@@ -150,17 +150,15 @@ const confirm = async () => {
   }
   try {
     await window.api.addFirewallRules(JSON.stringify(params))
-    firewall_rule_list.value = [
-      ...add_rules.value.map((x) => {
-        return {
-          AppType: '自定义',
-          ...x
-        } as FirewallRuleInfo
-      }),
-      ...firewall_rule_list.value
-    ]
+    const newFirewallRuleInfoList = add_rules.value.map((x) => {
+      return {
+        AppType: '自定义',
+        ...x
+      } as FirewallRuleInfo
+    })
+    firewall_rule_list.value = [...newFirewallRuleInfoList, ...firewall_rule_list.value]
     beforeClose()
-    emits('confirm')
+    emits('confirm', newFirewallRuleInfoList)
   } catch (error) {
     console.error('error:', error)
     submit_rules_error.value = true

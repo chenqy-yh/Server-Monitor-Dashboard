@@ -18,7 +18,8 @@ const methodMap: MethodMap<HandleChannel> = {
   getTencentInstanceInfo: { channel: 'tc:client:info:get', params: ['parms'] },
   getFirewallConfigList: { channel: 'tc:firewall:config:list', params: [] },
   setFirewallConfig: { channel: 'tc:firewall:config:set', params: ['config_str'] },
-  deleteFirewallConfig: { channel: 'tc:firewall:config:del', params: ['config_str'] }
+  deleteFirewallConfig: { channel: 'tc:firewall:config:del', params: ['config_str'] },
+  delFirewallRules: { channel: 'tc:firewall:rule:del', params: ['params'] }
 }
 
 const setupHandleApi = (api: any) => {

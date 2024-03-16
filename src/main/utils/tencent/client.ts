@@ -15,10 +15,6 @@ const client_config = {
   }
 }
 
-console.log('env:', import.meta.env)
-
-console.log('client_config', client_config)
-
 const tencent_client = new lhclient(client_config)
 
 const updateClientCredential = (secretId: string, secretKey: string) => {

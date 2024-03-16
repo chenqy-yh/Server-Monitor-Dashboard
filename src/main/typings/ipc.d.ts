@@ -17,6 +17,7 @@ type HandleChannel =
   | 'tc:firewall:add'
   | 'tc:firewall:modify:desc'
   | 'tc:firewall:delete'
+  | 'tc:firewall:rule:del'
 
 type SendChannel =
   | 'context-menu'

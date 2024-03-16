@@ -1,12 +1,26 @@
+import * as TC from 'tencentcloud-sdk-nodejs-lighthouse'
 import {
-  getFirewallConfigList as _getFirewallConfigList,
   deleteFirewallConfig as _deleteFirewallConfig,
+  getFirewallConfigList as _getFirewallConfigList,
   setFirewallConfig as _setFirewallConfig
 } from './config'
-import { store } from '../../../store'
-import * as TC from 'tencentcloud-sdk-nodejs-lighthouse'
 
 const lhclient = TC.lighthouse.v20200324.Client
+
+const createClient = (firewallConfig: FirewallConfig) => {
+  return new lhclient({
+    credential: {
+      secretId: firewallConfig.secretId,
+      secretKey: firewallConfig.secretKey
+    },
+    region: firewallConfig.region,
+    profile: {
+      httpProfile: {
+        endpoint: 'lighthouse.tencentcloudapi.com'
+      }
+    }
+  })
+}
 
 // ----------------- 配 置 相 关 --------------------
 /**
@@ -52,72 +66,104 @@ const getFirewallConfigList = () => {
 const descFirewallRules = (params: FirewallConfig) => {
   const { instanceId } = params
   const config = getFirewallConfig(params)
+  if (!config || !instanceId) {
+    throw new Error('未找到防火墙配置')
+  }
+  return createClient(config).DescribeFirewallRules({
+    InstanceId: instanceId
+  })
+}
+
+/**
+ * 添加防火墙规则
+ *
+ * */
+const addFirewallRules = (parms) => {
+  const { InstanceId } = parms
+  const config = getFirewallConfig({
+    instanceId: InstanceId
+  })
   if (!config) {
     throw new Error('未找到防火墙配置')
   }
-  const client = new lhclient({
-    credential: {
-      secretId: config.secretId,
-      secretKey: config.secretKey
-    },
-    region: config.region,
-    profile: {
-      httpProfile: {
-        endpoint: 'lighthouse.tencentcloudapi.com'
-      }
-    }
+  return createClient(config)
+    .CreateFirewallRules(parms)
+    .catch((err) => {
+      throw new Error(err)
+    })
+}
+
+/**
+ * 删除防火墙规则
+ *
+ * */
+// const params = {
+//   InstanceId: props.firewallConfig.instanceId,
+//   FirewallRules: [row]
+// }
+const deleteFirewallRules = (parms) => {
+  const { InstanceId } = parms
+  const config = getFirewallConfig({
+    instanceId: InstanceId
   })
-  return client.DescribeFirewallRules({
-    InstanceId: instanceId
+  if (!config) {
+    throw new Error('未找到防火墙配置')
+  }
+  return createClient(config)
+    .DeleteFirewallRules(parms)
+    .catch((err) => {
+      throw new Error(err)
+    })
+}
+
+/**
+ * 修改防火墙规则
+ *
+ */
+const modifyFirewallRules = (parms) => {
+  const { InstanceId } = parms
+  const config = getFirewallConfig({
+    instanceId: InstanceId
   })
+  if (!config) {
+    throw new Error('未找到防火墙配置')
+  }
+  return createClient(config)
+    .ModifyFirewallRules(parms)
+    .catch((err) => {
+      throw new Error(err)
+    })
+}
+
+/**
+ * 修改防火墙规则描述
+ *
+ * */
+const modifyFirewallRuleDescription = (parms) => {
+  const { InstanceId } = parms
+  const config = getFirewallConfig({
+    instanceId: InstanceId
+  })
+  if (!config) {
+    throw new Error('未找到防火墙配置')
+  }
+  return createClient(config)
+    .ModifyFirewallRuleDescription(parms)
+    .catch((err) => {
+      throw new Error(err)
+    })
 }
 
 export {
   // config
   deleteFirewallConfig,
-  setFirewallConfig,
   getFirewallConfig,
   getFirewallConfigList,
+  setFirewallConfig,
   // rules
-  descFirewallRules
+  deleteFirewallRules,
+  addFirewallRules,
+  descFirewallRules,
+  modifyFirewallRuleDescription,
+  modifyFirewallRules
 }
-
-// /**
-//  * 修改防火墙规则
-//  *
-//  */
-// const modifyFirewallRules = (parms) => {
-//   return tencent_client.ModifyFirewallRules(parms).catch((err) => {
-//     throw new Error(err)
-//   })
-// }
-
-// /**
-//  * 添加防火墙规则
-//  *
-//  * */
-// const addFirewallRules = (parms) => {
-//   return tencent_client.CreateFirewallRules(parms).catch((err) => {
-//     throw new Error(err)
-//   })
-// }
-
-// /**
-//  * 修改防火墙规则描述
-//  *
-//  * */
-// const modifyFirewallRuleDescription = (parms) => {
-//   return tencent_client.ModifyFirewallRuleDescription(parms).catch((err) => {
-//     throw new Error(err)
-//   })
-// }
-
-// /**
-//  * 删除防火墙规则
-//  *
-//  * */
-// const deleteFirewallRules = (parms) => {
-//   return tencent_client.DeleteFirewallRules(parms).catch((err) => {
-//     throw new Error(err)
-//   })
-// }

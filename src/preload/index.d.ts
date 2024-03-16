@@ -20,6 +20,7 @@ type handle_api = {
   getFirewallConfigList: () => Promise<FirewallConfig[]>
   setFirewallConfig: (config_str: string) => Promise<unknown>
   deleteFirewallConfig: (config_str: string) => Promise<unknown>
+  delFirewallRules: (params?: unknown) => Promise<CommonResponse> | Promise<string>
 }
 
 type on_api = {

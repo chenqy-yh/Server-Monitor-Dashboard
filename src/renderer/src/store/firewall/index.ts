@@ -144,6 +144,7 @@ export const useFirewallStore = defineStore('firewall', () => {
     const res = await window.api.descFirewallRules(JSON.stringify(params))
     firewall_rule_list.value = res.FirewallRuleSet
     firewall_rule_list_copy.value = firewall_rule_list.value.map((item) => infoToRule(item))
+    return firewall_rule_list.value
   }
 
   return {

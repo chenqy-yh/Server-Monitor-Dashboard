@@ -1,30 +1,18 @@
 <template>
-  <input v-model="_checked" type="checkbox" class="checkbox" @change="onChange" />
+  <input :checked="checked" type="checkbox" class="checkbox" @change="onChange" />
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
 // -------------------- P R O P S -------------------- //
-const props = defineProps({
+defineProps({
   checked: Boolean
 })
 
-const emits = defineEmits(['change'])
-
-// ----------------- C O N S T A N T ----------------- //
-const _checked = computed({
-  get() {
-    return props.checked
-  },
-  set(val) {
-    return val
-  }
-})
+const emits = defineEmits(['update', 'update:checked'])
 
 // ----------------- F U N C T I O N ----------------- //
 const onChange = (e: Event) => {
-  emits('change', (e.target as HTMLInputElement).checked)
+  emits('update:checked', (e.target as HTMLInputElement).checked)
 }
 </script>
 
@@ -32,7 +20,9 @@ const onChange = (e: Event) => {
 .checkbox {
   appearance: none;
   width: 20px;
+  min-width: 20px;
   height: 20px;
+  min-height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
