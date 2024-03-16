@@ -1,0 +1,24 @@
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-button {
+  width: 8px;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: 0 0;
+  border: 1px solid var(--border-color);
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 0;
+  background-color: var(--scroll-bar-thumb-color);
+  &:hover {
+    background-color: var(--scroll-bar-thumb-hover-color);
+  }
+}

@@ -1,0 +1,122 @@
+// text-area
+.el-textarea__inner {
+  background-color: var(--bg-color) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: none !important;
+  color: var(--font-color) !important;
+}
+
+// empty-block
+.el-table__empty-block {
+  background-color: var(--bg-color);
+}
+
+// table
+.el-table__inner-wrapper {
+  &::before {
+    background-color: transparent !important;
+  }
+}
+
+.el-table__cell {
+  border-color: var(--border-color) !important;
+  color: var(--font-color);
+}
+
+.el-table {
+  --el-table-bg-color: var(--bg-color) !important;
+  --el-table-header-bg-color: var(--bg-color) !important;
+  --el-table-tr-bg-color: var(--bg-color) !important;
+  --el-table-row-hover-bg-color: var(--bg-bt-color) !important;
+}
+
+// dialog
+.el-dialog {
+  --el-dialog-padding-primary: none !important;
+  background-color: var(--bg-color) !important;
+  .el-dialog__header {
+    .el-dialog__title {
+      color: var(--font-color) !important;
+    }
+  }
+  .el-dialog__body {
+    color: var(--font-color-2) !important;
+  }
+}
+
+// elmessage box
+.el-message-box {
+  background-color: var(--bg-color) !important;
+  border-color: var(--border-color) !important;
+  .el-message-box__header {
+    .el-message-box__title {
+      color: var(--font-color) !important;
+    }
+  }
+  .el-message-box__content {
+    color: var(--font-color-2) !important;
+  }
+}
+
+// 按钮
+.el-button {
+  background-color: transparent !important;
+  color: var(--font-color) !important;
+  border-color: var(--border-color) !important;
+  transition: var(--transition) !important;
+  &:hover {
+    border-color: var(--button-hover-color) !important;
+    color: var(--button-hover-color) !important;
+  }
+}
+
+.el-message {
+  background-color: var(--bg-color) !important;
+  padding: var(--space-sm) !important;
+
+  .el-message__content {
+    font-size: 0.8rem !important;
+  }
+}
+
+.el-button + .el-button {
+  margin-left: 0 !important;
+}
+
+.el-divider--vertical {
+  margin: 0 var(--space-ssm) !important;
+  border-color: #ccc !important;
+}
+
+// 输入框边框样式调整
+.el-input__wrapper {
+  box-shadow: none !important;
+  border: 1px solid var(--border-color);
+  background-color: transparent !important;
+  .el-input__inner {
+    color: var(--font-color) !important;
+  }
+}
+
+.el-input-number__decrease,
+.el-input-number__increase {
+  background-color: var(--bg-color) !important;
+  border-color: var(--border-color) !important;
+  .el-icon {
+    color: var(--font-color) !important;
+  }
+}
+
+// 单选
+.el-radio-button {
+  background-color: transparent !important;
+  &:not(.is-active) {
+    .el-radio-button__inner {
+      border-left-color: var(--border-color) !important;
+      border: 1px solid var(--border-color);
+      background-color: var(--radio-group-bg-color) !important;
+      color: var(--font-color) !important;
+      transition: var(--transition) !important;
+    }
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "en": {
+    "common": {
+      "open": "Open",
+      "close": "Close",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "yes": "Yes",
+      "no": "No",
+      "save": "Save",
+      "warning": "Warning",
+      "del": "Delete"
+    },
+    "brand": {
+      "name": "Spirit"
+    },
+    "menu": {
+      "index": "Index",
+      "setting": "Setting",
+      "terminal": "Terminal",
+      "log": "Log",
+      "firewall": "Firewall",
+      "test": "Test"
+    },
+    "index": {
+      "status": {
+        "title": "Status",
+        "load": "Load",
+        "cpu": "CPU",
+        "mem": "Memory",
+        "cores": "Cores",
+        "normal": "Normal",
+        "soHigh": "So High",
+        "high": "High"
+      },
+      "network": {
+        "title": "Network",
+        "upstream": "Upstream",
+        "Downstream": "Downstream",
+        "transmitted": "Transmitted",
+        "received": "Received",
+        "down": "Down",
+        "up": "Up"
+      }
+    },
+    "terminal": {
+      "title": "Terminal"
+    },
+    "setting": {
+      "common": {
+        "label": "Common",
+        "title": "Common Settings",
+        "host": "Host",
+        "save": "Save"
+      },
+      "personal": {
+        "label": "Personal",
+        "title": "Personal Settings",
+        "theme": "Theme",
+        "language": "Language",
+        "light": "Light",
+        "dark": "Dark",
+        "cn": "Chinese",
+        "en": "English",
+        "winsize": "Window Size",
+        "small": "Small 800 x 600",
+        "middle": "Middle 1024 x 768",
+        "large": "Large 1280 x 800",
+        "exit-direct": "Exit Direct"
+      },
+      "firewall": {
+        "title": "Firewall Settings",
+        "label": "Firewall"
+      },
+      "tencent": {
+        "label": "Tencent",
+        "title": "Tencent Settings",
+        "region": "Region",
+        "api-secret-id": "API Secret",
+        "api-secret-key": "API Key",
+        "ins-id": "Instance ID"
+      }
+    },
+    "log": {
+      "mysql": {
+        "title": "Mysql",
+        "time": "Time",
+        "id": "ID",
+        "command": "Command",
+        "argument": "Argument"
+      },
+      "nginx": {
+        "title": "Nginx",
+        "time": "Time",
+        "id": "ID",
+        "ip": "IP",
+        "method": "Method",
+        "url": "URL",
+        "protocol": "Protocol",
+        "status": "Status",
+        "bytes": "Bytes",
+        "referer": "Referer",
+        "ua": "UA",
+        "remoteUser": "Remote User"
+      }
+    },
+    "firewall": {
+      "title": {
+        "main": "Firewall",
+        "add": "Add Rule",
+        "edit": "Edit Rule"
+      },
+      "apptype": "App Type",
+      "source": "Source",
+      "protocol": "Protocol",
+      "port": "Port",
+      "action": "Action",
+      "description": "Description",
+      "op": "Operation",
+      "save": "Save",
+      "btn": {
+        "edit-rule": "Edit",
+        "delrule": "Delete",
+        "save": "Save",
+        "addrules": "Add",
+        "onclickrelease": "Click to release",
+        "delrules": "Delete",
+        "sort": "Sort"
+      }
+    },
+    "tips": {
+      "tips": "Tips",
+      "exit-tips": "Are you sure you want to exit?",
+      "no-prompt": "No prompt"
+    },
+    "error": {
+      "connect-server-failed": "Can't connect to the server",
+      "check-server-address": "Please check the server address and network connection"
+    },
+    "warning": {
+      "del-tab": "Are you sure you want to close the tab?",
+      "have-unsaved": "There are unsaved changes!"
+    }
+  },
+  "cn": {
+    "common": {
+      "open": "打开",
+      "close": "关闭",
+      "confirm": "确定",
+      "cancel": "取消",
+      "yes": "是",
+      "no": "否",
+      "save": "保存",
+      "warning": "警告",
+      "del": "删除"
+    },
+    "brand": {
+      "name": "Spirit"
+    },
+    "menu": {
+      "index": "首页",
+      "setting": "设置",
+      "terminal": "终端",
+      "log": "日志",
+      "firewall": "防火墙",
+      "test": "测试"
+    },
+    "index": {
+      "status": {
+        "title": "服务器状态",
+        "load": "负载",
+        "cpu": "CPU",
+        "mem": "内存",
+        "cores": "核心数",
+        "normal": "正常",
+        "soHigh": "超高",
+        "high": "高"
+      },
+      "network": {
+        "title": "网络",
+        "upstream": "上行",
+        "Downstream": "下行",
+        "transmitted": "已传输",
+        "received": "已接收",
+        "down": "下行",
+        "up": "上行"
+      }
+    },
+    "terminal": {
+      "title": "终端"
+    },
+    "setting": {
+      "common": {
+        "label": "通用",
+        "title": "通用设置",
+        "host": "远程主机",
+        "save": "保存"
+      },
+      "personal": {
+        "label": "个人",
+        "title": "个人设置",
+        "theme": "主题",
+        "language": "语言",
+        "light": "明亮",
+        "dark": "深色",
+        "cn": "中文",
+        "en": "英文",
+        "winsize": "窗口大小",
+        "small": "小 800 x 600",
+        "middle": "中 1024 x 768",
+        "large": "大 1280 x 800",
+        "exit-direct": "直接退出"
+      },
+      "firewall": {
+        "title": "防火墙设置",
+        "label": "防火墙"
+      },
+      "tencent": {
+        "label": "腾讯云",
+        "title": "腾讯云设置",
+        "region": "地域",
+        "api-secret-id": "API 密钥",
+        "api-secret-key": "API 密钥",
+        "ins-id": "实例ID"
+      }
+    },
+    "tips": {
+      "tips": "提示",
+      "exit-tips": "确定要退出吗？",
+      "no-prompt": "不再提示"
+    },
+    "firewall": {
+      "title": {
+        "main": "防火墙",
+        "add": "添加规则",
+        "edit": "编辑规则"
+      },
+      "apptype": "应用类型",
+      "source": "来源",
+      "protocol": "协议",
+      "port": "端口",
+      "action": "策略",
+      "description": "备注",
+      "op": "操作",
+      "save": "保存",
+      "btn": {
+        "edit-rule": "编辑",
+        "delrule": "删除",
+        "save": "保存",
+        "addrules": "添加",
+        "onclickrelease": "一键释放",
+        "delrules": "删除",
+        "sort": "排序"
+      }
+    },
+    "log": {
+      "mysql": {
+        "title": "Mysql",
+        "time": "时间",
+        "id": "ID",
+        "command": "命令",
+        "argument": "参数"
+      },
+      "nginx": {
+        "title": "Nginx",
+        "time": "时间",
+        "id": "ID",
+        "ip": "IP",
+        "method": "请求方法",
+        "url": "URL",
+        "protocol": "协议",
+        "status": "状态",
+        "bytes": "字节",
+        "referer": "请求地址",
+        "ua": "用户代理",
+        "remoteUser": "远程用户"
+      }
+    },
+    "error": {
+      "connect-server-failed": "无法连接服务器",
+      "check-server-address": "请检查服务器地址和网络连接"
+    },
+    "warning": {
+      "del-tab": "确定要关闭标签页吗？",
+      "have-unsaved": "有未保存的更改！"
+    }
+  }
+}

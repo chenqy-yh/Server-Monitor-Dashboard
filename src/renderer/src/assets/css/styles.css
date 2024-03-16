@@ -1,0 +1,17 @@
+@import url("./transition.css");
+@import url("./element-plus.scss");
+@import url("./font.css");
+@import url("./scrollbar.scss");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+
+
+/* .el-button{
+  background-color: red !important;
+} */

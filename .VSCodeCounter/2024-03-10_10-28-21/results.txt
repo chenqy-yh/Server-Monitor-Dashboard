@@ -1,0 +1,196 @@
+Date : 2024-03-10 10:28:21
+Directory : e:\MyDrive\my-drive
+Total : 89 files,  6679 codes, 196 comments, 1000 blanks, all 7875 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| YAML               |          4 |      4,085 |          0 |        611 |      4,696 |
+| Vue                |         18 |      1,287 |          1 |        142 |      1,430 |
+| TypeScript         |         50 |        813 |         99 |        190 |      1,102 |
+| JSON               |          4 |        208 |         67 |          4 |        279 |
+| CSS                |          5 |        110 |         21 |         22 |        153 |
+| SCSS               |          1 |         67 |          5 |          9 |         81 |
+| SVG                |          1 |         34 |          0 |          1 |         35 |
+| Markdown           |          1 |         22 |          0 |         13 |         35 |
+| JavaScript         |          2 |         21 |          1 |          4 |         26 |
+| HTML               |          1 |         15 |          2 |          2 |         19 |
+| JSON with Comments |          1 |         11 |          0 |          1 |         12 |
+| Ignore             |          1 |          6 |          0 |          1 |          7 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                             |         89 |      6,679 |        196 |      1,000 |      7,875 |
+| . (Files)                                                                     |         13 |      4,258 |         68 |        635 |      4,961 |
+| src                                                                           |         76 |      2,421 |        128 |        365 |      2,914 |
+| src\main                                                                      |         15 |        195 |         37 |         63 |        295 |
+| src\main (Files)                                                              |          1 |         53 |         21 |         13 |         87 |
+| src\main\ipc                                                                  |          3 |         63 |         11 |         12 |         86 |
+| src\main\model                                                                |          1 |          9 |          0 |          5 |         14 |
+| src\main\model\menu                                                           |          1 |          9 |          0 |          5 |         14 |
+| src\main\plugins                                                              |          3 |         22 |          0 |          9 |         31 |
+| src\main\store                                                                |          1 |          3 |          0 |          3 |          6 |
+| src\main\typings                                                              |          2 |          4 |          1 |          5 |         10 |
+| src\main\utils                                                                |          4 |         41 |          4 |         16 |         61 |
+| src\main\utils\api                                                            |          3 |         14 |          4 |          7 |         25 |
+| src\main\utils\api (Files)                                                    |          1 |          2 |          0 |          1 |          3 |
+| src\main\utils\api\common                                                     |          1 |          6 |          0 |          3 |          9 |
+| src\main\utils\api\os                                                         |          1 |          6 |          4 |          3 |         13 |
+| src\main\utils\http                                                           |          1 |         27 |          0 |          9 |         36 |
+| src\preload                                                                   |          7 |        111 |         14 |         26 |        151 |
+| src\preload (Files)                                                           |          2 |         28 |          8 |          5 |         41 |
+| src\preload\api                                                               |          4 |         82 |          6 |         20 |        108 |
+| src\preload\api (Files)                                                       |          1 |          9 |          0 |          3 |         12 |
+| src\preload\api\handle                                                        |          1 |         17 |          2 |          4 |         23 |
+| src\preload\api\on                                                            |          2 |         56 |          4 |         13 |         73 |
+| src\preload\typings                                                           |          1 |          1 |          0 |          1 |          2 |
+| src\renderer                                                                  |         54 |      2,115 |         77 |        276 |      2,468 |
+| src\renderer (Files)                                                          |          3 |         57 |         12 |          6 |         75 |
+| src\renderer\src                                                              |         51 |      2,058 |         65 |        270 |      2,393 |
+| src\renderer\src (Files)                                                      |          2 |         20 |          0 |          6 |         26 |
+| src\renderer\src\assets                                                       |          7 |        211 |         26 |         32 |        269 |
+| src\renderer\src\assets (Files)                                               |          1 |         34 |          0 |          1 |         35 |
+| src\renderer\src\assets\css                                                   |          6 |        177 |         26 |         31 |        234 |
+| src\renderer\src\components                                                   |          6 |        229 |          0 |         25 |        254 |
+| src\renderer\src\components (Files)                                           |          1 |         12 |          0 |          3 |         15 |
+| src\renderer\src\components\card                                              |          1 |         43 |          0 |          3 |         46 |
+| src\renderer\src\components\menu                                              |          3 |        146 |          0 |         16 |        162 |
+| src\renderer\src\components\progress                                          |          1 |         28 |          0 |          3 |         31 |
+| src\renderer\src\composables                                                  |          4 |         53 |          0 |         13 |         66 |
+| src\renderer\src\composables (Files)                                          |          2 |         23 |          0 |          6 |         29 |
+| src\renderer\src\composables\common                                           |          1 |          7 |          0 |          2 |          9 |
+| src\renderer\src\composables\menu                                             |          1 |         23 |          0 |          5 |         28 |
+| src\renderer\src\directive                                                    |          1 |         39 |         12 |         10 |         61 |
+| src\renderer\src\layouts                                                      |          1 |          5 |          0 |          3 |          8 |
+| src\renderer\src\layouts\common                                               |          1 |          5 |          0 |          3 |          8 |
+| src\renderer\src\plugins                                                      |          6 |        154 |          3 |         16 |        173 |
+| src\renderer\src\plugins (Files)                                              |          1 |         12 |          0 |          4 |         16 |
+| src\renderer\src\plugins\i18n                                                 |          2 |        128 |          0 |          5 |        133 |
+| src\renderer\src\plugins\pinia                                                |          1 |          7 |          0 |          3 |         10 |
+| src\renderer\src\plugins\style                                                |          1 |          5 |          0 |          2 |          7 |
+| src\renderer\src\plugins\terminal                                             |          1 |          2 |          3 |          2 |          7 |
+| src\renderer\src\router                                                       |          1 |         63 |          5 |          4 |         72 |
+| src\renderer\src\store                                                        |          2 |         79 |          5 |         15 |         99 |
+| src\renderer\src\store (Files)                                                |          1 |          1 |          0 |          1 |          2 |
+| src\renderer\src\store\config                                                 |          1 |         78 |          5 |         14 |         97 |
+| src\renderer\src\typings                                                      |          5 |         66 |          2 |         14 |         82 |
+| src\renderer\src\utils                                                        |          6 |         93 |         11 |         21 |        125 |
+| src\renderer\src\utils\img                                                    |          2 |         25 |          1 |          8 |         34 |
+| src\renderer\src\utils\os                                                     |          1 |         17 |          1 |          3 |         21 |
+| src\renderer\src\utils\size                                                   |          1 |         12 |          3 |          2 |         17 |
+| src\renderer\src\utils\store                                                  |          1 |         10 |          1 |          3 |         14 |
+| src\renderer\src\utils\time                                                   |          1 |         29 |          5 |          5 |         39 |
+| src\renderer\src\views                                                        |         10 |      1,046 |          1 |        111 |      1,158 |
+| src\renderer\src\views\home                                                   |          2 |        172 |          1 |         18 |        191 |
+| src\renderer\src\views\home (Files)                                           |          1 |         67 |          1 |          5 |         73 |
+| src\renderer\src\views\home\components                                        |          1 |        105 |          0 |         13 |        118 |
+| src\renderer\src\views\index                                                  |          2 |        452 |          0 |         38 |        490 |
+| src\renderer\src\views\index (Files)                                          |          1 |        226 |          0 |         21 |        247 |
+| src\renderer\src\views\index\components                                       |          1 |        226 |          0 |         17 |        243 |
+| src\renderer\src\views\log                                                    |          1 |         49 |          0 |          7 |         56 |
+| src\renderer\src\views\setting                                                |          3 |        198 |          0 |         24 |        222 |
+| src\renderer\src\views\setting (Files)                                        |          1 |         58 |          0 |         11 |         69 |
+| src\renderer\src\views\setting\components                                     |          2 |        140 |          0 |         13 |        153 |
+| src\renderer\src\views\terminal                                               |          1 |        169 |          0 |         16 |        185 |
+| src\renderer\src\views\test                                                   |          1 |          6 |          0 |          8 |         14 |
++-------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                      | language           | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| e:\MyDrive\my-drive\.eslintrc.cjs                                             | JavaScript         |         15 |          1 |          2 |         18 |
+| e:\MyDrive\my-drive\.prettierignore                                           | Ignore             |          6 |          0 |          1 |          7 |
+| e:\MyDrive\my-drive\.prettierrc.yaml                                          | YAML               |          4 |          0 |          1 |          5 |
+| e:\MyDrive\my-drive\README.md                                                 | Markdown           |         22 |          0 |         13 |         35 |
+| e:\MyDrive\my-drive\demo.js                                                   | JavaScript         |          6 |          0 |          2 |          8 |
+| e:\MyDrive\my-drive\dev-app-update.yml                                        | YAML               |          3 |          0 |          1 |          4 |
+| e:\MyDrive\my-drive\electron-builder.yml                                      | YAML               |         43 |          0 |          1 |         44 |
+| e:\MyDrive\my-drive\electron.vite.config.ts                                   | TypeScript         |         21 |          0 |          2 |         23 |
+| e:\MyDrive\my-drive\package.json                                              | JSON               |         70 |          0 |          1 |         71 |
+| e:\MyDrive\my-drive\pnpm-lock.yaml                                            | YAML               |      4,035 |          0 |        608 |      4,643 |
+| e:\MyDrive\my-drive\src\main\index.ts                                         | TypeScript         |         53 |         21 |         13 |         87 |
+| e:\MyDrive\my-drive\src\main\ipc\handle.ts                                    | TypeScript         |         13 |          4 |          4 |         21 |
+| e:\MyDrive\my-drive\src\main\ipc\index.ts                                     | TypeScript         |          2 |          0 |          1 |          3 |
+| e:\MyDrive\my-drive\src\main\ipc\on.ts                                        | TypeScript         |         48 |          7 |          7 |         62 |
+| e:\MyDrive\my-drive\src\main\model\menu\index.ts                              | TypeScript         |          9 |          0 |          5 |         14 |
+| e:\MyDrive\my-drive\src\main\plugins\auto-import.ts                           | TypeScript         |          8 |          0 |          3 |         11 |
+| e:\MyDrive\my-drive\src\main\plugins\componets.ts                             | TypeScript         |          8 |          0 |          3 |         11 |
+| e:\MyDrive\my-drive\src\main\plugins\index.ts                                 | TypeScript         |          6 |          0 |          3 |          9 |
+| e:\MyDrive\my-drive\src\main\store\index.ts                                   | TypeScript         |          3 |          0 |          3 |          6 |
+| e:\MyDrive\my-drive\src\main\typings\ipc.d.ts                                 | TypeScript         |          3 |          1 |          4 |          8 |
+| e:\MyDrive\my-drive\src\main\typings\menu.d.ts                                | TypeScript         |          1 |          0 |          1 |          2 |
+| e:\MyDrive\my-drive\src\main\utils\api\common\index.ts                        | TypeScript         |          6 |          0 |          3 |          9 |
+| e:\MyDrive\my-drive\src\main\utils\api\index.ts                               | TypeScript         |          2 |          0 |          1 |          3 |
+| e:\MyDrive\my-drive\src\main\utils\api\os\index.ts                            | TypeScript         |          6 |          4 |          3 |         13 |
+| e:\MyDrive\my-drive\src\main\utils\http\index.ts                              | TypeScript         |         27 |          0 |          9 |         36 |
+| e:\MyDrive\my-drive\src\preload\api\handle\index.ts                           | TypeScript         |         17 |          2 |          4 |         23 |
+| e:\MyDrive\my-drive\src\preload\api\index.ts                                  | TypeScript         |          9 |          0 |          3 |         12 |
+| e:\MyDrive\my-drive\src\preload\api\on\context-menu.ts                        | TypeScript         |         30 |          4 |          5 |         39 |
+| e:\MyDrive\my-drive\src\preload\api\on\index.ts                               | TypeScript         |         26 |          0 |          8 |         34 |
+| e:\MyDrive\my-drive\src\preload\index.d.ts                                    | TypeScript         |         13 |          2 |          2 |         17 |
+| e:\MyDrive\my-drive\src\preload\index.ts                                      | TypeScript         |         15 |          6 |          3 |         24 |
+| e:\MyDrive\my-drive\src\preload\typings\menu.d.ts                             | TypeScript         |          1 |          0 |          1 |          2 |
+| e:\MyDrive\my-drive\src\renderer\auto-imports.d.ts                            | TypeScript         |          3 |          5 |          2 |         10 |
+| e:\MyDrive\my-drive\src\renderer\components.d.ts                              | TypeScript         |         39 |          5 |          2 |         46 |
+| e:\MyDrive\my-drive\src\renderer\index.html                                   | HTML               |         15 |          2 |          2 |         19 |
+| e:\MyDrive\my-drive\src\renderer\src\App.vue                                  | Vue                |          7 |          0 |          3 |         10 |
+| e:\MyDrive\my-drive\src\renderer\src\assets\css\element-plus.scss             | SCSS               |         67 |          5 |          9 |         81 |
+| e:\MyDrive\my-drive\src\renderer\src\assets\css\font.css                      | CSS                |         10 |          1 |          2 |         13 |
+| e:\MyDrive\my-drive\src\renderer\src\assets\css\scrollbar.css                 | CSS                |         17 |          0 |          4 |         21 |
+| e:\MyDrive\my-drive\src\renderer\src\assets\css\styles.css                    | CSS                |         12 |          3 |          5 |         20 |
+| e:\MyDrive\my-drive\src\renderer\src\assets\css\theme.css                     | CSS                |         63 |         17 |          9 |         89 |
+| e:\MyDrive\my-drive\src\renderer\src\assets\css\transition.css                | CSS                |          8 |          0 |          2 |         10 |
+| e:\MyDrive\my-drive\src\renderer\src\assets\icons.svg                         | SVG                |         34 |          0 |          1 |         35 |
+| e:\MyDrive\my-drive\src\renderer\src\components\Versions.vue                  | Vue                |         12 |          0 |          3 |         15 |
+| e:\MyDrive\my-drive\src\renderer\src\components\card\card.vue                 | Vue                |         43 |          0 |          3 |         46 |
+| e:\MyDrive\my-drive\src\renderer\src\components\menu\left-menu.vue            | Vue                |         63 |          0 |          7 |         70 |
+| e:\MyDrive\my-drive\src\renderer\src\components\menu\menu-item.vue            | Vue                |         69 |          0 |          6 |         75 |
+| e:\MyDrive\my-drive\src\renderer\src\components\menu\menu.vue                 | Vue                |         14 |          0 |          3 |         17 |
+| e:\MyDrive\my-drive\src\renderer\src\components\progress\circle-progress.vue  | Vue                |         28 |          0 |          3 |         31 |
+| e:\MyDrive\my-drive\src\renderer\src\composables\common\navigate-to-view.ts   | TypeScript         |          7 |          0 |          2 |          9 |
+| e:\MyDrive\my-drive\src\renderer\src\composables\event-listener.ts            | TypeScript         |         10 |          0 |          3 |         13 |
+| e:\MyDrive\my-drive\src\renderer\src\composables\menu\index.ts                | TypeScript         |         23 |          0 |          5 |         28 |
+| e:\MyDrive\my-drive\src\renderer\src\composables\mouse.ts                     | TypeScript         |         13 |          0 |          3 |         16 |
+| e:\MyDrive\my-drive\src\renderer\src\directive\code-line.ts                   | TypeScript         |         39 |         12 |         10 |         61 |
+| e:\MyDrive\my-drive\src\renderer\src\layouts\common\common-layouts.vue        | Vue                |          5 |          0 |          3 |          8 |
+| e:\MyDrive\my-drive\src\renderer\src\main.ts                                  | TypeScript         |         13 |          0 |          3 |         16 |
+| e:\MyDrive\my-drive\src\renderer\src\plugins\i18n\index.json                  | JSON               |        116 |          0 |          1 |        117 |
+| e:\MyDrive\my-drive\src\renderer\src\plugins\i18n\index.ts                    | TypeScript         |         12 |          0 |          4 |         16 |
+| e:\MyDrive\my-drive\src\renderer\src\plugins\index.ts                         | TypeScript         |         12 |          0 |          4 |         16 |
+| e:\MyDrive\my-drive\src\renderer\src\plugins\pinia\index.ts                   | TypeScript         |          7 |          0 |          3 |         10 |
+| e:\MyDrive\my-drive\src\renderer\src\plugins\style\index.ts                   | TypeScript         |          5 |          0 |          2 |          7 |
+| e:\MyDrive\my-drive\src\renderer\src\plugins\terminal\index.ts                | TypeScript         |          2 |          3 |          2 |          7 |
+| e:\MyDrive\my-drive\src\renderer\src\router\index.ts                          | TypeScript         |         63 |          5 |          4 |         72 |
+| e:\MyDrive\my-drive\src\renderer\src\store\config\index.ts                    | TypeScript         |         78 |          5 |         14 |         97 |
+| e:\MyDrive\my-drive\src\renderer\src\store\index.ts                           | TypeScript         |          1 |          0 |          1 |          2 |
+| e:\MyDrive\my-drive\src\renderer\src\typings\env.d.ts                         | TypeScript         |          5 |          2 |          2 |          9 |
+| e:\MyDrive\my-drive\src\renderer\src\typings\menu.d.ts                        | TypeScript         |          3 |          0 |          1 |          4 |
+| e:\MyDrive\my-drive\src\renderer\src\typings\os.d.ts                          | TypeScript         |         46 |          0 |          6 |         52 |
+| e:\MyDrive\my-drive\src\renderer\src\typings\setting.d.ts                     | TypeScript         |          3 |          0 |          3 |          6 |
+| e:\MyDrive\my-drive\src\renderer\src\typings\vue-router.d.ts                  | TypeScript         |          9 |          0 |          2 |         11 |
+| e:\MyDrive\my-drive\src\renderer\src\utils\img\img.ts                         | TypeScript         |          9 |          0 |          2 |         11 |
+| e:\MyDrive\my-drive\src\renderer\src\utils\img\index.ts                       | TypeScript         |         16 |          1 |          6 |         23 |
+| e:\MyDrive\my-drive\src\renderer\src\utils\os\index.ts                        | TypeScript         |         17 |          1 |          3 |         21 |
+| e:\MyDrive\my-drive\src\renderer\src\utils\size\index.ts                      | TypeScript         |         12 |          3 |          2 |         17 |
+| e:\MyDrive\my-drive\src\renderer\src\utils\store\index.ts                     | TypeScript         |         10 |          1 |          3 |         14 |
+| e:\MyDrive\my-drive\src\renderer\src\utils\time\index.ts                      | TypeScript         |         29 |          5 |          5 |         39 |
+| e:\MyDrive\my-drive\src\renderer\src\views\home\components\header.vue         | Vue                |        105 |          0 |         13 |        118 |
+| e:\MyDrive\my-drive\src\renderer\src\views\home\home.vue                      | Vue                |         67 |          1 |          5 |         73 |
+| e:\MyDrive\my-drive\src\renderer\src\views\index\components\network-chart.vue | Vue                |        226 |          0 |         17 |        243 |
+| e:\MyDrive\my-drive\src\renderer\src\views\index\index.vue                    | Vue                |        226 |          0 |         21 |        247 |
+| e:\MyDrive\my-drive\src\renderer\src\views\log\log.vue                        | Vue                |         49 |          0 |          7 |         56 |
+| e:\MyDrive\my-drive\src\renderer\src\views\setting\components\common.vue      | Vue                |         65 |          0 |          6 |         71 |
+| e:\MyDrive\my-drive\src\renderer\src\views\setting\components\personal.vue    | Vue                |         75 |          0 |          7 |         82 |
+| e:\MyDrive\my-drive\src\renderer\src\views\setting\setting.vue                | Vue                |         58 |          0 |         11 |         69 |
+| e:\MyDrive\my-drive\src\renderer\src\views\terminal\terminal.vue              | Vue                |        169 |          0 |         16 |        185 |
+| e:\MyDrive\my-drive\src\renderer\src\views\test\test.vue                      | Vue                |          6 |          0 |          8 |         14 |
+| e:\MyDrive\my-drive\tsconfig.json                                             | JSON with Comments |         11 |          0 |          1 |         12 |
+| e:\MyDrive\my-drive\tsconfig.node.json                                        | JSON               |         14 |         26 |          1 |         41 |
+| e:\MyDrive\my-drive\tsconfig.web.json                                         | JSON               |          8 |         41 |          1 |         50 |
+| Total                                                                         |                    |      6,679 |        196 |      1,000 |      7,875 |
++-------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
