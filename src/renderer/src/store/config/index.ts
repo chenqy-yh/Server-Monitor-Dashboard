@@ -1,7 +1,7 @@
 import { i18n } from '@renderer/plugins/i18n'
 import { getItem, setItem } from '@renderer/utils/store'
 import { defineStore } from 'pinia'
-import { computed, onBeforeMount, ref, watch } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 
 export const useConfigStore = defineStore('config', () => {
   // common

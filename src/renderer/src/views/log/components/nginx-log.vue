@@ -139,10 +139,6 @@ watch(
 
 // ----------------- F U N C T I O N ----------------- //
 
-const log = () => {
-  console.log('total:', total)
-}
-
 async function getLogInfo(page: number) {
   const res = await window.api.getServerLog(server_url.value, 'nginx', page, page_size.value)
   const { data, total: _total } = res

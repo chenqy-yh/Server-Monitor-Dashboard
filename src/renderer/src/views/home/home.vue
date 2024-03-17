@@ -22,11 +22,11 @@
 </template>
 
 <script setup lang="ts">
-import Header from './components/header.vue'
-import LeftMenu from '@renderer/components/menu/left-menu.vue'
+import LeftMenu from '@renderer/components/menu/left-menu.vue';
+import Header from './components/header.vue';
 
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
 // ----------------- C O N S T A N T ----------------- //
 const router = useRouter()

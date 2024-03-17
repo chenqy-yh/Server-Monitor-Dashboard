@@ -1,8 +1,6 @@
-import { useConfigStore } from '@renderer/store'
-import { defineStore, storeToRefs } from 'pinia'
+import { defineStore } from 'pinia'
 import Sortable from 'sortablejs'
-import { onMounted, ref } from 'vue'
-import _ from 'lodash'
+import { ref } from 'vue'
 
 export const useFirewallStore = defineStore('firewall', () => {
   // -------------------- S T O R E -------------------- //

@@ -70,7 +70,7 @@ addIpcHandle('tc:firewall:modify:desc', async (_e: IpcMainInvokeEvent, ...args: 
   return modifyFirewallRuleDescription(params_obj)
 })
 
-addIpcHandle('tc:client:info:get', async (_e: IpcMainInvokeEvent, ...args: unknown[]) => {
+addIpcHandle('tc:client:info:get', async (_e: IpcMainInvokeEvent) => {
   return getClientInfo()
 })
 // 防火墙配置相关
@@ -89,7 +89,7 @@ addIpcHandle('tc:firewall:config:set', async (_e: IpcMainInvokeEvent, ...args: u
 })
 
 // 获取防火墙配置列表
-addIpcHandle('tc:firewall:config:list', async (_e: IpcMainInvokeEvent, ...args: unknown[]) => {
+addIpcHandle('tc:firewall:config:list', async (_e: IpcMainInvokeEvent) => {
   return getFirewallConfigList()
 })
 

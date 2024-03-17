@@ -1,6 +1,6 @@
+import hljs from 'highlight.js'; // 导入 highlight.js
+import 'highlight.js/styles/vs2015.css'; // 选择适合您的代码高亮样式
 import { App } from 'vue'
-import hljs from 'highlight.js' // 导入 highlight.js
-import 'highlight.js/styles/vs2015.css' // 选择适合您的代码高亮样式
 
 hljs.initHighlightingOnLoad()
 
@@ -26,7 +26,7 @@ function highlightCodeAndShowLineNumbers(el, binding) {
       lineNumberContainer.className = 'number-container'
 
       // 循环创建并添加行号
-      lines.forEach((line, index) => {
+      lines.forEach((_, index) => {
         const lineNumber = index + 1
         const lineNumberElement = document.createElement('span')
         lineNumberElement.className = 'line-number'

@@ -25,9 +25,9 @@ dependencies:
   '@types/sortablejs':
     specifier: ^1.15.8
     version: 1.15.8
-  '@types/ssh2':
-    specifier: ^1.15.0
-    version: 1.15.0
+  ajv:
+    specifier: ^8.12.0
+    version: 8.12.0
   axios:
     specifier: ^1.6.2
     version: 1.6.2
@@ -1132,12 +1132,6 @@ packages:
 
   /@types/sortablejs@1.15.8:
     resolution: {integrity: sha512-b79830lW+RZfwaztgs1aVPgbasJ8e7AXtZYHTELNXZPsERt4ymJdjV4OccDbHQAvHrCcFpbF78jkm0R6h/pZVg==}
-    dev: false
-
-  /@types/ssh2@1.15.0:
-    resolution: {integrity: sha512-YcT8jP5F8NzWeevWvcyrrLB3zcneVjzYY9ZDSMAMboI+2zR1qYWFhwsyOFVzT7Jorn67vqxC0FRiw8YyG9P1ww==}
-    dependencies:
-      '@types/node': 18.17.5
     dev: false
 
   /@types/tern@0.23.9:

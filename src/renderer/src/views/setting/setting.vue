@@ -8,9 +8,6 @@
       <el-radio-button label="firewall">
         {{ i18n.global.t('setting.firewall.label') }}
       </el-radio-button>
-      <!-- <el-radio-button label="tencent">{{
-        i18n.global.t('setting.tencent.label')
-      }}</el-radio-button> -->
     </el-radio-group>
     <Transition name="fade" mode="out-in">
       <component :is="setting_component"></component>
@@ -21,7 +18,6 @@
 <script setup lang="ts">
 import CommonSetting from './components/common-setting.vue'
 import PersonalSetting from './components/personal-setting.vue'
-import TencentSetting from './components/tencent-setting.vue'
 import FirewallSetting from './components/firewall-setting.vue'
 
 import { computed, ref } from 'vue'
@@ -32,7 +28,6 @@ import { i18n } from '@renderer/plugins/i18n'
 const setting_component_list = {
   common: CommonSetting,
   personal: PersonalSetting,
-  tencent: TencentSetting,
   firewall: FirewallSetting
 }
 

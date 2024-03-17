@@ -6,7 +6,7 @@ const router = createRouter({
     {
       name: 'home',
       path: '/',
-      component: () => import('@renderer/views/home/home.vue'),
+      component: () => import('../views/home/home.vue'),
       redirect: '/index',
       children: [
         {
@@ -15,10 +15,9 @@ const router = createRouter({
           meta: {
             icon: 'ri-home-6-fill',
             menuItem: true,
-            // title: i18n.global.t('menu.index'),
             title: 'menu.index'
           },
-          component: () => import('@renderer/views/index/index.vue')
+          component: () => import('../views/index/index.vue')
         },
         {
           name: 'terminal',
@@ -26,11 +25,10 @@ const router = createRouter({
           meta: {
             icon: 'ri-terminal-box-fill',
             menuItem: true,
-            // title: i18n.global.t('menu.terminal'),
             title: 'menu.terminal',
             keepAlive: true
           },
-          component: () => import('@renderer/views/terminal/terminal.vue')
+          component: () => import('../views/terminal/terminal.vue')
         },
         {
           name: 'log',
@@ -38,10 +36,9 @@ const router = createRouter({
           meta: {
             icon: 'ri-file-list-3-fill',
             menuItem: true,
-            // title: i18n.global.t('menu.log')
             title: 'menu.log'
           },
-          component: () => import('@renderer/views/log/log.vue')
+          component: () => import('../views/log/log.vue')
         },
         {
           name: 'firewall',
@@ -51,7 +48,7 @@ const router = createRouter({
             menuItem: true,
             title: 'menu.firewall'
           },
-          component: () => import('@renderer/views/firewall/firewall.vue')
+          component: () => import('../views/firewall/firewall.vue')
         },
         {
           name: 'setting',
@@ -59,28 +56,22 @@ const router = createRouter({
           meta: {
             icon: 'ri-settings-6-fill',
             menuItem: true,
-            // title: i18n.global.t('menu.setting')
             title: 'menu.setting'
           },
-          component: () => import('@renderer/views/setting/setting.vue')
-        },
-        {
-          name: 'test',
-          path: 'test',
-          meta: {
-            icon: 'ri-settings-6-fill',
-            menuItem: true,
-            // title: i18n.global.t('menu.setting')
-            title: 'menu.test'
-          },
-          component: () => import('@renderer/views/test/test.vue')
+          component: () => import('../views/setting/setting.vue')
         }
+        // {
+        //   name: 'test',
+        //   path: 'test',
+        //   meta: {
+        //     icon: 'ri-settings-6-fill',
+        //     menuItem: true,
+        //     // title: i18n.global.t('menu.setting')
+        //     title: 'menu.test'
+        //   },
+        //   component: () => import('../views/test/test.vue')
+        // }
       ]
-    },
-    {
-      name: 'add-firewall-rules',
-      path: '/addfirewallrules',
-      component: () => import('@renderer/views/firewall/add-rules.vue')
     }
   ]
 })

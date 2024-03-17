@@ -36,13 +36,10 @@ import Tabbed from '@renderer/components/tabbed/tabbed.vue'
 import FirewallConfigItem from './firewall-config-item.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
-import { useI18n } from 'vue-i18n'
-import { onMounted, ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
+import { onMounted, ref } from 'vue'
 
 // ----------------- C O N S T A N T ----------------- //
-
-const { t } = useI18n()
 
 const loading = ref(false) // 加载状态
 
