@@ -9,7 +9,7 @@ export const useServerInfoStore = defineStore('server-info', () => {
   // ----------------- C O N S T A N T ----------------- //
 
   const interval = ref(5) // 每次记录网络信息的时间间隔（单位：秒）
-  const maxL = 20 // Echarts横坐标最大长度
+  const maxL = 15 // Echarts横坐标最大长度
 
   const server_info = ref<ServerData>() // 服务器信息
 
@@ -26,6 +26,8 @@ export const useServerInfoStore = defineStore('server-info', () => {
   const down_cur = ref(0) // 当前下载速度（单位：KB/s）
   const up_cur = ref(0) // 当前上传速度（单位：KB/s）
 
+  const cpu_usage_list = ref<[Date, number][]>([]) // CPU使用率列表
+
   // ------------------- C I R C L E ------------------- //
 
   onMounted(async () => {
@@ -36,13 +38,6 @@ export const useServerInfoStore = defineStore('server-info', () => {
       })(),
       5 * 1000
     )
-  })
-
-  // 定时更新network chart
-  watch(server_info, () => {
-    if (server_info.value) {
-      step(server_info.value.network)
-    }
   })
 
   // ----------------- F U N C T I O N ----------------- //
@@ -62,15 +57,18 @@ export const useServerInfoStore = defineStore('server-info', () => {
 
   const getServerInfo = async () => {
     server_info.value = await window.api.getServerInfo(server_url.value)
+    console.log(server_info.value)
+    network_step(server_info.value.network)
+    cput_step(server_info.value.cpu)
   }
 
   // ----------------- F U N C T I O N ----------------- //
 
   /**
-   * 获取服务器网络信息
+   * @description 获取服务器网络信息
    *
    * */
-  const step = async (info: NetworkData) => {
+  const network_step = (info: NetworkData) => {
     const { downT, upT } = info
     down_total.value = downT
     up_total.value = upT
@@ -97,6 +95,20 @@ export const useServerInfoStore = defineStore('server-info', () => {
     pre = [info.downT, info.upT]
   }
 
+  /**
+   *  @description 获取CPU信息
+   *
+   */
+  const cput_step = (info: CpuData) => {
+    const { usage } = info
+    if (cpu_usage_list.value.length > maxL) {
+      cpu_usage_list.value.shift()
+    }
+    const currentTime = new Date()
+    const formattedDate = formatDateString(currentTime)
+    cpu_usage_list.value.push([formattedDate, usage * 100])
+  }
+
   return {
     // -------------------- I N D E X -------------------- //
     server_info,
@@ -108,6 +120,8 @@ export const useServerInfoStore = defineStore('server-info', () => {
     down_total,
     up_total,
     down_cur,
-    up_cur
+    up_cur,
+    // -------------------- C P U -----------------------//
+    cpu_usage_list
   }
 })

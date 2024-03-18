@@ -19,7 +19,8 @@ const methodMap: MethodMap<HandleChannel> = {
   getFirewallConfigList: { channel: 'tc:firewall:config:list', params: [] },
   setFirewallConfig: { channel: 'tc:firewall:config:set', params: ['config_str'] },
   deleteFirewallConfig: { channel: 'tc:firewall:config:del', params: ['config_str'] },
-  delFirewallRules: { channel: 'tc:firewall:rule:del', params: ['params'] }
+  delFirewallRules: { channel: 'tc:firewall:rule:del', params: ['params'] },
+  getFileList: { channel: 'file:list', params: ['url', 'path'] }
 }
 
 const setupHandleApi = (api: any) => {

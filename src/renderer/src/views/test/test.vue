@@ -1,58 +1,98 @@
 <template>
-  <div>
-    <!-- 全选按钮 -->
-    <input type="checkbox" v-model="allChecked" @change="selectAll" />
-
-    <!-- 对象数组 -->
-    <div v-for="(item, index) in items" :key="index">
-      <input type="checkbox" v-model="item.checked" @change="selectOne(index)" />
-      <span>{{ item.name }}</span>
-    </div>
-  </div>
+  <div ref="codeEditBox" class="codeEditBox"></div>
 </template>
-
 <script lang="ts">
-import { ref, computed } from 'vue'
-
-export default {
-  setup() {
-    // 对象数组
-    const items = ref([
-      { name: 'Item 1', checked: false },
-      { name: 'Item 2', checked: false },
-      { name: 'Item 3', checked: false }
-    ])
-
-    // 全选按钮的状态
-    const allChecked = computed({
-      get() {
-        return items.value.every((item) => item.checked)
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { editorProps } from './monacoEditorType'
+import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
+import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
+import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
+import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
+import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
+import * as monaco from 'monaco-editor'
+export default defineComponent({
+  name: 'monacoEditor',
+  props: editorProps,
+  emits: ['update:modelValue', 'change', 'editor-mounted'],
+  setup(props, { emit }) {
+    self.MonacoEnvironment = {
+      getWorker(_: string, label: string) {
+        if (label === 'json') {
+          return new jsonWorker()
+        }
+        if (['css', 'scss', 'less'].includes(label)) {
+          return new cssWorker()
+        }
+        if (['html', 'handlebars', 'razor'].includes(label)) {
+          return new htmlWorker()
+        }
+        if (['typescript', 'javascript'].includes(label)) {
+          return new tsWorker()
+        }
+        return new EditorWorker()
+      }
+    }
+    let editor: monaco.editor.IStandaloneCodeEditor
+    const codeEditBox = ref()
+    const init = () => {
+      monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+        noSyntaxValidation: false
+      })
+      monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+        target: monaco.languages.typescript.ScriptTarget.ES2020,
+        allowNonTsExtensions: true
+      })
+      editor = monaco.editor.create(codeEditBox.value, {
+        value: props.modelValue,
+        language: props.language,
+        theme: props.theme,
+        ...props.options
+      })
+      editor.onDidChangeModelContent(() => {
+        const value = editor.getValue()
+        emit('update:modelValue', value)
+        emit('change', value)
+      })
+      emit('editor-mounted', editor)
+    }
+    watch(
+      () => props.modelValue,
+      (newValue) => {
+        if (editor) {
+          const value = editor.getValue()
+          if (newValue !== value) {
+            editor.setValue(newValue)
+          }
+        }
+      }
+    )
+    watch(
+      () => props.options,
+      (newValue) => {
+        editor.updateOptions(newValue)
       },
-      set(value) {
-        items.value.forEach((item) => (item.checked = value))
+      { deep: true }
+    )
+    watch(
+      () => props.language,
+      (newValue) => {
+        monaco.editor.setModelLanguage(editor.getModel()!, newValue)
       }
+    )
+    onBeforeUnmount(() => {
+      editor.dispose()
     })
-
-    // 当全选按钮的状态变化时更新对象数组的选中状态
-    const selectAll = () => {
-      allChecked.value = !allChecked.value
-    }
-
-    // 当单个对象的选中状态变化时检查是否所有对象都被选中
-    const selectOne = (index) => {
-      if (!items.value[index].checked) {
-        allChecked.value = false
-      } else {
-        allChecked.value = items.value.every((item) => item.checked)
-      }
-    }
-
-    return {
-      items,
-      allChecked,
-      selectAll,
-      selectOne
-    }
+    onMounted(() => {
+      init()
+    })
+    return { codeEditBox }
   }
-}
+})
 </script>
+<style lang="scss" scoped>
+.codeEditBox {
+  width: v-bind(width);
+  height: v-bind(height);
+}
+</style>

@@ -11,6 +11,13 @@ export const useFirewallStore = defineStore('firewall', () => {
   // 表格列 配置
   const col_list = ref([
     {
+      prop: 'AppType',
+      label: 'firewall.apptype',
+      align: 'center',
+      width: 120,
+      showOverflowTooltip: true
+    },
+    {
       prop: 'CidrBlock',
       label: 'firewall.source',
       width: 120,

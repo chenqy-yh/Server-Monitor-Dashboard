@@ -1,5 +1,5 @@
 {
-  "name": "my-drive",
+  "name": "server-monitor",
   "version": "1.0.0",
   "description": "An Electron application with Vue and TypeScript",
   "main": "./out/main/index.js",
@@ -17,7 +17,8 @@
     "postinstall": "electron-builder install-app-deps",
     "build:win": "npm run build && electron-builder --win --config",
     "build:mac": "npm run build && electron-builder --mac --config",
-    "build:linux": "npm run build && electron-builder --linux --config"
+    "build:linux": "npm run build && electron-builder --linux --config",
+    "win": "vite build && electron-builder --win"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
@@ -36,12 +37,14 @@
     "electron-updater": "^6.1.1",
     "element-plus": "^2.4.4",
     "lodash": "^4.17.21",
+    "monaco-editor": "^0.47.0",
     "pinia": "^2.1.7",
     "reflect-metadata": "^0.2.1",
     "remixicon": "^4.2.0",
     "sass": "^1.69.5",
     "sortablejs": "^1.15.2",
     "tencentcloud-sdk-nodejs-lighthouse": "^4.0.808",
+    "vite-plugin-monaco-editor": "^1.1.0",
     "vue-i18n": "^9.9.0",
     "vue-router": "^4.2.5",
     "ws": "^8.16.0",

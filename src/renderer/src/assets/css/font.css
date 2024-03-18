@@ -10,3 +10,9 @@
   font-family: 'Poppins';
   src: url('../fonts/Poppins/Poppins-Medium.ttf');
 }
+
+
+@font-face {
+  font-family: 'roboto';
+  src: url("../fonts/roboto/Roboto-Medium.ttf");
+}

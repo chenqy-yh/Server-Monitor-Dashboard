@@ -65,7 +65,7 @@ import NetworkChart from './components/network-chart.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
 import { useConfigStore, useServerInfoStore } from '@renderer/store'
-import { sizeFormat } from '@renderer/utils/os'
+import { sizeFormat, sortDisk } from '@renderer/utils/os'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -84,10 +84,10 @@ const status_item_list = computed(() => {
     ? [
         {
           title: t('index.status.load'),
-          value: getLoadRate(server_info.value.load.active_total_per),
+          value: getLoadRate(server_info.value.load.process),
           unit: '%',
           desc: (() => {
-            const per = +server_info.value.load.active_total_per
+            const per = getLoadRate(server_info.value.load.process)
             if (per > 0.7) {
               return t('index.status.soHigh')
             } else if (per > 0.5) {
@@ -109,19 +109,15 @@ const status_item_list = computed(() => {
             ((server_info.value.mem.used / server_info.value.mem.total) * 100).toFixed(2)
           ),
           unit: '%',
-          desc:
-            sizeFormat(+server_info.value.mem.used) +
-            ' / ' +
-            sizeFormat(+server_info.value.mem.total)
+          desc: server_info.value.mem.used + 'M / ' + server_info.value.mem.total + 'M'
         },
-        ...server_info.value.disk.map((disk_item) => {
-          const rate = parseFloat(disk_item._capacity.slice(0, -1))
-          const total = disk_item._blocks + disk_item._used
+        ...sortDisk(server_info.value.disk).map((disk_item) => {
+          const rate = parseFloat(disk_item.capacity.slice(0, -1))
           return {
-            title: disk_item._mounted,
+            title: disk_item.mountedOn,
             value: rate,
             unit: '%',
-            desc: sizeFormat(+disk_item._used) + ' / ' + sizeFormat(total)
+            desc: disk_item.used + ' / ' + disk_item.size
           }
         })
       ]

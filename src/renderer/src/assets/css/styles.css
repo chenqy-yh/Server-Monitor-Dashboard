@@ -1,7 +1,9 @@
+@import url("./font.css");
 @import url("./transition.css");
 @import url("./element-plus.scss");
-@import url("./font.css");
 @import url("./scrollbar.scss");
+
+
 
 * {
   padding: 0;

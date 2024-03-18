@@ -1,6 +1,16 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
 
-type handle_api = {
+/**
+ *  @description ipc handle api
+ *
+ */
+type HandleApi = ServerHandleApi & FirewallHandleApi & FileHandleApi
+
+/**
+ * @description 服务器信息 API
+ *
+ * */
+type ServerHandleApi = {
   ping: (url: string) => Promise<string>
   getServerInfo: (url: string) => Promise<ServerData>
   createWsService: (url: string) => Promise<number>
@@ -10,6 +20,13 @@ type handle_api = {
     page: number,
     size?: number
   ) => Promise<{ total: number; data: string[] }>
+}
+
+/**
+ *  @description 防火墙 API
+ *
+ */
+type FirewallHandleApi = {
   descInsList: (parms?: unknown) => Promise<{ InstanceSet: CosInstance[] }>
   descFirewallRules: (params: string) => Promise<QueryFirewallrulesResponse>
   modifyFirewallRules: (params?: unknown) => Promise<CommonResponse> | Promise<string>
@@ -23,7 +40,19 @@ type handle_api = {
   delFirewallRules: (params?: unknown) => Promise<CommonResponse> | Promise<string>
 }
 
-type on_api = {
+/**
+ *  @description 文件 API
+ *
+ */
+type FileHandleApi = {
+  getFileList: (url: string, path: string) => Promise<FileStat[]>
+}
+
+/**
+ *  @description ipc on api
+ *
+ */
+type OnApi = {
   showContextMenu: (menu_key?: string) => void
   winMove: (move_x: number, move_y: number) => void
   winResize: (width: number, height: number) => void
@@ -39,6 +68,6 @@ type on_api = {
 declare global {
   interface Window {
     electron: ElectronAPI
-    api: handle_api & on_api
+    api: HandleApi & OnApi
   }
 }

@@ -35,21 +35,15 @@
           class="dragTable"
           style="width: 100%"
         >
-          <el-table-column prop="AppType" width="150" show-overflow-tooltip>
+          <el-table-column width="50">
             <template #header>
-              <div class="apptype-header">
-                <Checkbox v-model:checked="select_page_all"></Checkbox>
-                <span>{{ i18n.global.t('firewall.apptype') }}</span>
-              </div>
+              <Checkbox v-model:checked="select_page_all"></Checkbox>
             </template>
             <template #default="{ row }">
-              <div class="apptype-content">
-                <Checkbox
-                  v-model:checked="row.checked"
-                  @update:checked="(e) => ondelCheckChange(e, row.firewallRuleInfo)"
-                ></Checkbox>
-                <span>{{ row.firewallRuleInfo.AppType }}</span>
-              </div>
+              <Checkbox
+                v-model:checked="row.checked"
+                @update:checked="(e) => ondelCheckChange(e, row.firewallRuleInfo)"
+              ></Checkbox>
             </template>
           </el-table-column>
           <el-table-column

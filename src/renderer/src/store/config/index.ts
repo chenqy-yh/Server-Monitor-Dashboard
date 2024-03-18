@@ -26,9 +26,9 @@ export const useConfigStore = defineStore('config', () => {
   // Other
   // 窗口大小映射
   const sizeMap: Record<WinSize, [number, number]> = {
-    small: [800, 600],
-    middle: [1024, 768],
-    large: [1280, 800]
+    small: [1024, 600],
+    middle: [1280, 768],
+    large: [1440, 800]
   }
 
   // ------------------- C I R C L E ------------------- //

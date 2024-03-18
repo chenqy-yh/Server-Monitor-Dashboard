@@ -1,11 +1,8 @@
 type HandleCallback = (event: IpcMainInvokeEvent, ...args: unknown[]) => Promise<unknown> | unknown
 
-type HandleChannel =
-  | 'ping'
-  | 'os:grt'
-  | 'os:info'
-  | 'ws:cws'
-  | 'log:info'
+type ServerHandleChannel = 'ping' | 'os:grt' | 'os:info' | 'ws:cws' | 'log:info'
+
+type FirewallHandleChannel =
   | 'tc:ins:list'
   | 'tc:client:info:get'
   | 'tc:firewall:config:get'
@@ -18,6 +15,10 @@ type HandleChannel =
   | 'tc:firewall:modify:desc'
   | 'tc:firewall:delete'
   | 'tc:firewall:rule:del'
+
+type FileWallHandleChannel = 'file:list'
+
+type HandleChannel = ServerHandleChannel | FirewallHandleChannel | FileWallHandleChannel
 
 type SendChannel =
   | 'context-menu'

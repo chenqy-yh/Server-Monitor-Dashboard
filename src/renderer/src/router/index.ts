@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(), // 特别注意：electron 环境下请使用 createWebHashHistory
   routes: [
     {
       name: 'home',
@@ -17,7 +17,7 @@ const router = createRouter({
             menuItem: true,
             title: 'menu.index'
           },
-          component: () => import('../views/index/index.vue')
+          component: () => import('../views/index/dashbard.vue')
         },
         {
           name: 'terminal',
@@ -25,10 +25,19 @@ const router = createRouter({
           meta: {
             icon: 'ri-terminal-box-fill',
             menuItem: true,
-            title: 'menu.terminal',
-            keepAlive: true
+            title: 'menu.terminal'
           },
           component: () => import('../views/terminal/terminal.vue')
+        },
+        {
+          name: 'file',
+          path: 'file',
+          meta: {
+            icon: 'ri-file-copy-fill',
+            menuItem: true,
+            title: 'menu.file'
+          },
+          component: () => import('../views/file/file.vue')
         },
         {
           name: 'log',
@@ -59,18 +68,26 @@ const router = createRouter({
             title: 'menu.setting'
           },
           component: () => import('../views/setting/setting.vue')
+        },
+        {
+          name: 'test',
+          path: 'test',
+          meta: {
+            icon: 'ri-flask-line',
+            menuItem: true,
+            title: 'menu.test'
+          },
+          component: () => import('../views/test/test.vue')
+        },
+        {
+          name: 'processor',
+          path: 'processor',
+          meta: {
+            icon: 'ri-flask-line',
+            title: 'menu.test'
+          },
+          component: () => import('../views/index/processor.vue')
         }
-        // {
-        //   name: 'test',
-        //   path: 'test',
-        //   meta: {
-        //     icon: 'ri-settings-6-fill',
-        //     menuItem: true,
-        //     // title: i18n.global.t('menu.setting')
-        //     title: 'menu.test'
-        //   },
-        //   component: () => import('../views/test/test.vue')
-        // }
       ]
     }
   ]

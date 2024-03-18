@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Card: typeof import('./src/components/card/card.vue')['default']
+    Card2: typeof import('./src/components/card/card-2.vue')['default']
     Checkbox1: typeof import('./src/components/checkbox/checkbox-1.vue')['default']
     CircleProgress: typeof import('./src/components/progress/circle-progress.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
@@ -28,12 +29,15 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    GlassCard: typeof import('./src/components/card/glass-card.vue')['default']
     LeftMenu: typeof import('./src/components/menu/left-menu.vue')['default']
     Menu: typeof import('./src/components/menu/menu.vue')['default']
     MenuItem: typeof import('./src/components/menu/menu-item.vue')['default']
     Pagination1: typeof import('./src/components/pagination/pagination-1.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SelfCard: typeof import('./src/components/card/self-card.vue')['default']
+    SocialCard: typeof import('./src/components/card/social-card.vue')['default']
     Tabbed: typeof import('./src/components/tabbed/tabbed.vue')['default']
     Versions: typeof import('./src/components/Versions.vue')['default']
   }

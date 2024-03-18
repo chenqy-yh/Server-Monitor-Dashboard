@@ -1,15 +1,25 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app, shell } from 'electron'
 import { join } from 'path'
+import icon from '../../resources/icon.png?asset'
 import './ipc'
 import { store } from './store'
-import { windowSet } from './windows'
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 function createWindow(): void {
   // Create the browser window.
-  const mainWindow = windowSet['mainWindow']()
+  const mainWindow = new BrowserWindow({
+    show: false,
+    titleBarStyle: 'hidden',
+    autoHideMenuBar: true,
+    resizable: false,
+    ...(process.platform === 'linux' ? { icon } : {}),
+    webPreferences: {
+      preload: join(__dirname, '../preload/index.js'),
+      sandbox: false
+    }
+  })
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
@@ -31,6 +41,8 @@ function createWindow(): void {
     width: mainWindow.getSize()[0],
     height: mainWindow.getSize()[1]
   })
+  // // Open the DevTools.
+  // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

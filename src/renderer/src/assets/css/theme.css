@@ -25,7 +25,7 @@
   --menu-item-font-size: 1rem;
   --menu-icon-size: 3rem;
   --menu-border-color: var(--border-color);
-  --menu-item-bg: var(--color);
+  --menu-item-bg: var(--bg-color);
   --menu-item-border-color: var(--border-color);
   --menu-item-padding: var(--space-sm);
   --menu-item-color: var(--font-color);
@@ -56,20 +56,28 @@
   /* font */
   --font-color: #1a1a1a;
   --font-color-2: #888;
+  --font-color-3: #b3b3b3;
   --font-sub-color: color-mix(in srgb, var(--font-color) 40%, #fff);
   --border-color: color-mix(in lch, var(--color) 90%, black);
   --border-color-hover: color-mix(in lch, var(--color) 50%, black);
   --bg-bt-color: color-mix(in lch, var(--bg-color) 95%, black);
-  --bg-color-hover: var(--bg-color)
-    /* menu */
-    --menu-item-hover-bg: color-mix(in lch, var(--menu-item-bg) 98%, black);
+  --bg-color-hover: var(--bg-color);
+  /* menu */
+  --menu-item-hover-bg: color-mix(in lch, var(--menu-item-bg) 98%, black);
   --menu-item-icon-color: color-mix(in srgb, var(--font-color) 90%, #fff);
   /* brand */
   --brand-icon-color: color-mix(in srgb, var(--color) 30%, #002a4e);
   /* scroll */
   --scroll-bar-thumb-color: color-mix(in lch, var(--color) 98%, black);
   --scroll-bar-thumb-hover-color: color-mix(in lch, var(--color) 100%, black);
-
+  /* checkbox */
+  --checkbox-unchecked-boxshadow: -2px -2px 5px rgba(255, 255, 255, 1),
+    3px 3px 5px rgba(0, 0, 0, 0.1);
+  --checkbox-checked-boxshadow: inset 3px 3px 6px rgba(0, 0, 0, 0.4),
+    inset 0px 0px 4px rgba(255, 255, 255, 0.08);
+  /* card */
+  --card-bg-color: color-mix(in lch, var(--color) 95%, black);
+  --card-footer-font-color: #1a1a1a;
 }
 
 :root[theme="dark"] {
@@ -77,6 +85,7 @@
   /* font */
   --font-color: #ccc;
   --font-color-2: #aaa;
+  --font-color-3: #666;
   --font-sub-color: color-mix(in srgb, var(--font-color) 40%, #000);
   --border-color: color-mix(in lch, var(--color) 80%, #fff);
   --border-color-hover: color-mix(in lch, var(--color) 50%, #fff);
@@ -90,5 +99,14 @@
   /* scroll */
   --scroll-bar-thumb-color: color-mix(in lch, var(--color) 80%, #fff);
   --scroll-bar-thumb-hover-color: color-mix(in lch, var(--color) 75%, #fff);
-
+  /* checkbox */
+  --checkbox-unchecked-boxshadow: 3px 3px 6px rgba(0, 0, 0, 0.4),
+    -1px -1px 4px rgba(255, 255, 255, 0.08);
+  --checkbox-checked-boxshadow: 3px 3px 6px rgba(0, 0, 0, 0.4),
+    -1px -1px 4px rgba(255, 255, 255, 0.08),
+    inset 3px 3px 6px rgba(0, 0, 0, 0.4),
+    inset -1px -1px 4px rgba(255, 255, 255, 0.08);
+  /* card */
+  --card-bg-color: color-mix(in lch, var(--color) 95%, #fff);
+  --card-footer-font-color: #1a1a1a;
 }

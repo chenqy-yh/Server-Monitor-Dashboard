@@ -4,6 +4,10 @@ interface ServerData {
   mem: MemoryData
   disk: DriveData[]
   network: NetworkData
+  sname: string
+  bit: string
+  procs: string
+  disk_name: string
 }
 
 interface CpuData {
@@ -17,10 +21,15 @@ interface CpuData {
 }
 
 interface LoadData {
-  avload_1: string
-  avload_5: string
-  avload_15: string
-  active_total_per: string
+  // avload_1: string
+  // avload_5: string
+  // avload_15: string
+  // active_total_per: string
+  one: string
+  five: string
+  fifteen: string
+  process: string
+  last_pid: string
 }
 
 interface MemoryData {
@@ -28,15 +37,19 @@ interface MemoryData {
   free: number
   used: number
   available: number
+  shared: number
+  buff_cache: number
+  size: string
+  type: string
 }
 
 interface DriveData {
-  _filesystem: string
-  _blocks: number
-  _used: number
-  _available: number
-  _capacity: string
-  _mounted: string
+  filesystem: string
+  size: string
+  used: string
+  available: string
+  capacity: string
+  mountedOn: string
 }
 interface NetworkData {
   list: NetworkItemData[]

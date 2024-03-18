@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="network-content">
     <div class="info-list">
       <div class="info-item">
         <div class="desc">
@@ -54,6 +54,7 @@ const { down_list, up_list, down_total, up_total, down_cur, up_cur } = storeToRe
 
 const option: EChartsOption = {
   color: ['#16a085', '#f39c12'],
+  // 设置图标宽
   tooltip: {
     trigger: 'axis',
     axisPointer: {
@@ -78,7 +79,6 @@ const option: EChartsOption = {
   xAxis: [
     {
       type: 'category',
-      boundaryGap: false,
       axisLabel: {
         show: false
       }
@@ -87,7 +87,10 @@ const option: EChartsOption = {
   yAxis: [
     {
       type: 'value',
-      name: 'KB/s'
+      name: 'kb/s',
+      splitLine: {
+        show: false
+      }
     }
   ],
   series: [
@@ -175,19 +178,39 @@ watch([down_cur, down_total, up_cur, up_total], () => {
 </script>
 
 <style lang="scss" scoped>
+.network-content {
+  --base-size: 1rem;
+  height: calc(var(--base-size) * 15);
+  width: 100%;
+  background-color: var(--card-bg-color);
+  border-radius: calc(var(--base-size) * 1.25);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 8px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  &:hover {
+    border-color: var(--border-color);
+  }
+}
+
 .info-list {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: calc(var(--base-size) * 0.5);
+  height: calc(var(--base-size) * 3);
+  margin-top: calc(var(--base-size) * 0.5);
+  margin-inline: calc(var(--base-size) * 1);
   .info-item {
+    font-size: calc(var(--base-size) * 0.75);
+    color: var(--font-color);
     .desc {
       display: flex;
       align-items: center;
       i {
-        width: 10px;
-        height: 10px;
+        width: calc(var(--base-size) * 0.75);
+        height: calc(var(--base-size) * 0.75);
         border-radius: 50%;
-        margin-right: 5px;
+        margin-right: calc(var(--base-size) * 0.5);
         background-color: var(--clr);
       }
     }
@@ -199,6 +222,6 @@ watch([down_cur, down_total, up_cur, up_total], () => {
 
 .network-chart {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: calc(var(--base-size) * 10);
 }
 </style>

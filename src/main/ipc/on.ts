@@ -10,7 +10,6 @@ import {
 import { MenuContextMap } from '../model/menu/index'
 import { store } from '../store'
 import { closeWsService } from '../utils/api'
-import { windowSet } from '../windows'
 import { updateClientCredential, updateClientRegion } from '../utils/tencent/client'
 
 type WinSize = {
@@ -19,16 +18,6 @@ type WinSize = {
 }
 
 const main_win_size = store.get('win-size') as unknown as WinSize
-
-// 创建新窗口
-ipcMain.on('new-window', (_: IpcMainEvent, url: string, win_name: string) => {
-  // 创建一个新窗口
-  const new_win = windowSet[win_name]()
-  new_win.loadURL('http://localhost:5173' + url)
-  new_win.on('ready-to-show', () => {
-    new_win.show()
-  })
-})
 
 let is_full_screen = false
 // 全屏
