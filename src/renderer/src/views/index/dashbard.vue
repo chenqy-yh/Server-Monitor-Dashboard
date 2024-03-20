@@ -1,23 +1,25 @@
 <template>
   <div class="server-content">
     <div class="card-container">
-      <SocialCard key="scard"></SocialCard>
-      <InfoCard
-        v-for="(item, i) in card_list ?? 3"
-        :key="i"
-        :footer="item.footer"
-        :title="item.title"
-        :title-desc="item.titleDesc"
-        :rate="item.rate"
-        :rate-desc="item.rateDesc"
-        :color="item.color"
-        :point-color="item.pointColor"
-        :to="item.to ?? ''"
-      ></InfoCard>
-      <div key="network" class="network">
-        <Transition name="fade">
-          <NetworkChart v-if="server_info" />
-        </Transition>
+      <div class="card-list">
+        <SocialCard key="scard"></SocialCard>
+        <InfoCard
+          v-for="(item, i) in card_list ?? 3"
+          :key="i"
+          :footer="item.footer"
+          :title="item.title"
+          :title-desc="item.titleDesc"
+          :rate="item.rate"
+          :rate-desc="item.rateDesc"
+          :color="item.color"
+          :point-color="item.pointColor"
+          :to="item.to ?? ''"
+        ></InfoCard>
+        <div key="network" class="network">
+          <Transition name="fade">
+            <NetworkChart v-if="server_info" />
+          </Transition>
+        </div>
       </div>
     </div>
   </div>
@@ -96,32 +98,21 @@ const card_list = computed(() => {
 
 <style lang="scss" scoped>
 .server-content {
-  padding: var(--space-1x);
-  padding-top: var(--space-lg);
-  overflow-y: auto;
-  background-color: var(--bg-color);
-  display: flex;
-  justify-content: center;
-  transition: var(--transition);
   .card-container {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    justify-items: center;
-    gap: var(--space-lg);
-    width: max-content;
-    height: max-content;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    padding-block: var(--space-1x);
+    .card-list {
+      width: max-content;
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: var(--space-1x);
+    }
 
     .network {
       display: none;
     }
-
-    // //屏幕宽度大于1024
-    // @media (min-width: 1024px) {
-    // }
-
-    // // 屏幕宽度大于1280
-    // @media (min-width: 1280px) {
-    // }
   }
 }
 

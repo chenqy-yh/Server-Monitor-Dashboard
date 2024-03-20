@@ -71,6 +71,7 @@ const installContextMenu = () => {
       height: 100%;
       overflow-y: auto;
       padding-right: var(--space-sm);
+      border-radius: var(--radius-sm);
       &::-webkit-scrollbar {
         width: 0.8rem;
       }

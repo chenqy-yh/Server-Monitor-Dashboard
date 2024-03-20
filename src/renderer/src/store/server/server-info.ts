@@ -57,7 +57,7 @@ export const useServerInfoStore = defineStore('server-info', () => {
 
   const getServerInfo = async () => {
     server_info.value = await window.api.getServerInfo(server_url.value)
-    console.log(server_info.value)
+    // console.log(server_info.value)
     network_step(server_info.value.network)
     cput_step(server_info.value.cpu)
   }

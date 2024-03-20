@@ -16,3 +16,8 @@
   font-family: 'roboto';
   src: url("../fonts/roboto/Roboto-Medium.ttf");
 }
+
+@font-face {
+  font-family: 'Consolas';
+  src: url("../fonts/Consolas/consola-1.ttf");
+}
