@@ -1,11 +1,11 @@
 <template>
-  <div class="explorer">
+  <div ref="explorerRef" class="explorer">
     <div class="dir-name" @click="toggleOpenFolder">
       <i :class="openFolder ? openIcon : closeIcon"></i>
       <span>{{ tree.name }}</span>
     </div>
     <div v-if="openFolder" class="content">
-      <ExplorerRow2
+      <ExplorerRow
         v-for="(file, i) in tree.children"
         :key="file.name"
         :row="file"
@@ -14,6 +14,7 @@
         :explorer="explorer"
         :level="0"
         :last-child="file.open && i === tree.children.length - 1"
+        :mask-width="explorerRef!.clientWidth"
       />
     </div>
   </div>
@@ -21,7 +22,6 @@
 
 <script setup lang="ts">
 import ExplorerRow from './explorer-row.vue'
-import ExplorerRow2 from './explorer-row-2.vue'
 import { RowItem } from './index'
 import { Explorer } from './explorer'
 import { reactive, ref } from 'vue'
@@ -31,6 +31,8 @@ import { reactive, ref } from 'vue'
 defineProps<{ path: string; tree: RowItem }>()
 
 // ----------------- C O N S T A N T ----------------- //
+
+const explorerRef = ref<HTMLElement>()
 
 const openIcon = 'ri-arrow-down-s-line ri-lg'
 
@@ -66,9 +68,13 @@ const setActivePath = (path: string) => {
   height: 100%;
   width: 100%;
   overflow-y: auto;
-
   &::-webkit-scrollbar {
     display: none;
+  }
+  .content {
+    padding-left: 1rem;
+    height: max-content;
+    // border: 1px solid red;
   }
 
   .dir-name {

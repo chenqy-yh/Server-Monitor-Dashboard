@@ -91,6 +91,7 @@ const clamp = (x: number, min: number, max: number) => {
 <style lang="scss" scoped>
 .slot-container {
   transform: translate(0);
+  height: 100%;
 }
 
 .resize-layout {

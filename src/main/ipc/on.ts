@@ -1,5 +1,6 @@
 import {
   BrowserWindow,
+  BrowserWindowConstructorOptions,
   IpcMainEvent,
   Menu,
   MenuItem,
@@ -11,6 +12,7 @@ import { MenuContextMap } from '../model/menu/index'
 import { store } from '../store'
 import { closeWsService } from '../utils/api'
 import { updateClientCredential, updateClientRegion } from '../utils/tencent/client'
+import { WindowKey, windowMap } from '../model/windows'
 
 type WinSize = {
   width: number
@@ -111,4 +113,11 @@ ipcMain.on('update-credential', (_: IpcMainEvent, secretId: string, secretKey: s
 // 更新腾讯云地域
 ipcMain.on('update-region', (_: IpcMainEvent, region: string) => {
   updateClientRegion(region)
+})
+
+// 新开窗口
+ipcMain.on('open-window', (_: IpcMainEvent, windowKey: WindowKey, url) => {
+  const win = windowMap.get(windowKey)
+  if (!win) return
+  win.loadURL(url)
 })

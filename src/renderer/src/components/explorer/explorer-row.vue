@@ -13,14 +13,17 @@
       }"
       @click.prevent="() => setActivePath(selfPath)"
     >
-      <i
-        :class="{
-          'ri-arrow-right-s-line ri-lg': row.open,
-          'opcaity-0': !row.open
-        }"
-      ></i>
-      <img class="file-type-icon" :src="imgHelper.getImg(fileType)" />
-      <span>{{ row.name }}</span>
+      <div class="row-content">
+        <i
+          :class="{
+            'ri-arrow-right-s-line ri-lg': !open,
+            'ri-arrow-down-s-line ri-lg': open,
+            'opcaity-0': !row.open
+          }"
+        ></i>
+        <img class="file-type-icon" :src="imgHelper.getImg(fileType)" />
+        <span>{{ row.name }}</span>
+      </div>
     </div>
     <div v-if="open" class="children-row">
       <explorer-row
@@ -32,6 +35,7 @@
         :explorer="explorer"
         :level="level + 1"
         :last-child="row.open && i === row.children.length - 1"
+        :mask-width="maskWidth"
       ></explorer-row>
     </div>
   </div>
@@ -50,11 +54,13 @@ const props = defineProps<{
   path: string
   explorer: Explorer
   setPath: (path: string) => void
+  maskWidth: number
 }>()
 
 // -------------------- P R O P S -------------------- //
 
 const open = ref(false)
+const _maskWidth = computed(() => props.maskWidth - 1 + 'px')
 
 // ----------------- C O N S T A N T ----------------- //
 const selfPath = computed(() => props.path + '/' + props.row.name)
@@ -79,96 +85,60 @@ const setChildrenActivePath = (path: string) => {
 </script>
 
 <style lang="scss" scoped>
-@keyframes border-gradient {
-  0% {
-    border-color: #36363600;
-  }
-  100% {
-    border-color: #363636ff;
-  }
+.file-type-icon {
+  width: 1rem;
+  height: 1rem;
 }
 .row-container {
-  width: 100%;
-  height: 100%;
-  border-left: 1px solid #363636;
-  position: relative;
-  &.active {
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 1.5rem;
-      background-color: #0078d44c;
-      border: 1px solid #0078d4;
-      z-index: 99999;
-    }
-  }
-}
-.explorer-row {
   color: var(--font-color);
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  height: 1.5rem;
+  border-left: 1px solid var(--border-color);
+  padding-left: 1rem;
+}
+
+.explorer-row {
+  // border: 1px solid red;
+  margin-left: -1.5rem;
+  background-color: #181818;
   position: relative;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 1.5rem;
+  line-height: 1.5rem;
   &::before {
-    position: absolute;
     content: '';
+    position: absolute;
     top: 0;
     right: 0;
-    width: 199px;
-    height: 100%;
+    height: 1.5rem;
+    width: v-bind(_maskWidth);
+    background-color: transparent;
     border: 1px solid transparent;
-    z-index: 3;
+    z-index: 99;
   }
-
-  // &:hover {
-  //   &::before {
-  //     background-color: #5959594c;
-  //   }
-  // }
-
-  i {
-    margin-left: -0.5rem;
-    background-color: #181818;
-    width: 1rem;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 0.1rem;
-    z-index: 2;
-    &.opcaity-0 {
-      opacity: 0;
+  &:hover::before {
+    background-color: #51515148;
+  }
+  &.active {
+    &::before {
+      background-color: #0078d44c;
+      border: 1px solid #0078d4;
     }
   }
-  .file-type-icon {
-    width: 1rem;
-    height: 1rem;
-    margin-right: 0.3rem;
+  .row-content {
+    display: flex;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    gap: 0.3rem;
+    i {
+      max-width: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &.opcaity-0 {
+        display: none;
+      }
+    }
+    span {
+      font-size: 14px;
+    }
   }
-  span {
-    line-height: 1.5rem;
-    height: 1.5rem;
-  }
-  // &.active {
-  //   &::before {
-  //     position: absolute;
-  //     content: '';
-  //     top: 0;
-  //     right: 0;
-  //     width: 199px;
-  //     height: 100%;
-  //     background-color: #0078d44c;
-  //     border: 1px solid #0078d4;
-  //     z-index: 3;
-  //   }
-  // }
-}
-.children-row {
-  padding-left: 1rem;
 }
 </style>

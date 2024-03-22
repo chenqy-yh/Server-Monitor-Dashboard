@@ -8,8 +8,7 @@
 import { EditorOptions } from '@renderer/components/editor'
 import Editor from '@renderer/components/editor/custom-editor.vue'
 import { RowItem } from '@renderer/components/explorer'
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -81,13 +80,6 @@ const file: RowItem = {
     }
   ]
 }
-
-// ------------------- C I R C L E ------------------- //
-onMounted(() => {
-  const router = useRouter()
-  // print fullpath
-  console.log(router.currentRoute.value.fullPath)
-})
 </script>
 
 <style lang="scss" scoped>
