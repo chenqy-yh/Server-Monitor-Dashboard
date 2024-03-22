@@ -5,7 +5,7 @@
       <span>{{ tree.name }}</span>
     </div>
     <div v-if="openFolder" class="content">
-      <ExplorerRow
+      <ExplorerRow2
         v-for="(file, i) in tree.children"
         :key="file.name"
         :row="file"
@@ -21,6 +21,7 @@
 
 <script setup lang="ts">
 import ExplorerRow from './explorer-row.vue'
+import ExplorerRow2 from './explorer-row-2.vue'
 import { RowItem } from './index'
 import { Explorer } from './explorer'
 import { reactive, ref } from 'vue'
@@ -63,30 +64,15 @@ const setActivePath = (path: string) => {
 .explorer {
   background-color: #181818;
   height: 100%;
-  width: 200px;
-  padding-left: 1rem;
+  width: 100%;
   overflow-y: auto;
-  transition: all 1s;
 
   &::-webkit-scrollbar {
-    // behavior: smooth;
-    scroll-behavior: unset;
-    width: 0.5rem;
-  }
-  &::-webkit-scrollbar-thumb {
-    opacity: 0;
-
-    transition: background-color 2s ease;
-  }
-  &:hover {
-    &::-webkit-scrollbar-thumb {
-      background-color: #363636;
-    }
+    display: none;
   }
 
   .dir-name {
     height: 1.5rem;
-    margin-left: -1rem;
     font-size: 11px;
     display: flex;
     align-items: center;

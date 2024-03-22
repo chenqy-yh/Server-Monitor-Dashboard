@@ -1,17 +1,25 @@
 <template>
-  <div class="main-content">
-    <Explorer ref="explorerRef" :path="''" :tree="fileTree"></Explorer>
-    <div class="editor-container">
-      <Editor v-model:value="editorValue" :options="options" @update:value="onInput"></Editor>
-    </div>
-  </div>
+  <ResizeLayout @resize="onResize">
+    <template #left>
+      <Explorer ref="explorerRef" :path="''" :tree="fileTree"></Explorer>
+    </template>
+    <template #right>
+      <Editor
+        ref="editorRef"
+        v-model:value="editorValue"
+        :options="options"
+        @update:value="onInput"
+      ></Editor>
+    </template>
+  </ResizeLayout>
 </template>
 
 <script lang="ts" setup>
+import ResizeLayout from '@renderer/components/resize/resize-layout.vue'
 import Explorer from '../explorer/explorer.vue'
 import Editor from './editor.vue'
 
-import { ref } from 'vue'
+import { onMounted, ref, toRaw } from 'vue'
 import { RowItem } from '../explorer'
 import { EditorOptions } from '.'
 
@@ -24,12 +32,18 @@ const emits = defineEmits(['update:value', 'input'])
 
 const explorerRef = ref<HTMLElement>()
 
+const editorRef = ref<HTMLElement>()
+
 const editorValue = ref('//hello world !')
 
 // ----------------- F U N C T I O N ----------------- //
 const onInput = (value) => {
   emits('update:value', value)
   emits('input', value)
+}
+
+const onResize = () => {
+  toRaw((editorRef.value as any).editor).layout()
 }
 </script>
 

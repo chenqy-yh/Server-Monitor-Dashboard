@@ -3,33 +3,10 @@
 </template>
 
 <script lang="ts" setup>
+import './init'
 import { onMounted, ref, toRaw } from 'vue'
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.main.js'
-import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
-import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
-import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
-import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
-import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 import { EditorOptions } from '.'
-
-// @ts-ignore: worker
-self.MonacoEnvironment = {
-  getWorker(_: string, label: string) {
-    if (label === 'json') {
-      return new jsonWorker()
-    }
-    if (['css', 'scss', 'less'].includes(label)) {
-      return new cssWorker()
-    }
-    if (['html', 'handlebars', 'razor'].includes(label)) {
-      return new htmlWorker()
-    }
-    if (['typescript', 'javascript'].includes(label)) {
-      return new tsWorker()
-    }
-    return new EditorWorker()
-  }
-}
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{ value: string; options: EditorOptions }>()
@@ -52,10 +29,14 @@ const init = () => {
   monacoEditor.value = monaco.editor.create(editContainer.value, {
     value: props.value,
     readOnly: false,
-    language: 'javascript',
+    language: props.options.language,
     theme: props.options.theme,
     selectOnLineNumbers: true, // 选择行号
-    renderSideBySide: false // 渲染侧边栏
+    renderSideBySide: false, // 渲染侧边栏
+    // 关闭缩略图
+    minimap: {
+      enabled: false
+    }
   })
 }
 
@@ -65,6 +46,11 @@ const addValueChangeLister = () => {
     emit('update:value', value)
   })
 }
+
+// ------------ E X P O S E ------------ //
+defineExpose({
+  editor: monacoEditor
+})
 </script>
 <style scoped>
 .code-editor {
