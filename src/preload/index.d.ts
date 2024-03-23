@@ -1,10 +1,23 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
+import { BrowserViewConstructorOptions } from 'electron'
 
 /**
  *  @description ipc handle api
  *
  */
-type HandleApi = ServerHandleApi & FirewallHandleApi & FileHandleApi
+type HandleApi = ServerHandleApi & FirewallHandleApi & FileHandleApi & CommonHandleApi
+
+/**
+ *  @description 通用 API
+ *
+ */
+type CommonHandleApi = {
+  openWindow: (
+    url: BrowserViewConstructorOptions,
+    hash: string
+  ) => Promise<BrowserViewConstructorOptions>
+  getData: () => Promise<string>
+}
 
 /**
  * @description 服务器信息 API
@@ -46,6 +59,8 @@ type FirewallHandleApi = {
  */
 type FileHandleApi = {
   getFileList: (url: string, path: string) => Promise<FileStat[]>
+  getFilePath: () => Promise<string>
+  getFileContent: (url: string, path: string) => Promise<string>
 }
 
 /**
@@ -63,11 +78,17 @@ type OnApi = {
   createNewWindow: (url: string, winName: string) => void
   updateTencentCredential: (secretId: string, secretKey: string) => void
   updateTencentRegion: (region: string) => void
+  emitFilePath: (path: string) => void
+}
+
+type RendererResponse = {
+  onResponse: (data) => void
 }
 
 declare global {
   interface Window {
     electron: ElectronAPI
-    api: HandleApi & OnApi
+    api: HandleApi & OnApi & RendererResponse
+    ipcRenderer: Electron.IpcRenderer
   }
 }

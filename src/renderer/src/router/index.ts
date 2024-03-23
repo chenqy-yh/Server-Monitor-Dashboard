@@ -89,6 +89,11 @@ const router = createRouter({
           component: () => import('../views/index/processor.vue')
         }
       ]
+    },
+    {
+      name: 'editor',
+      path: '/editor',
+      component: () => import('../views/editor/editor.vue')
     }
   ]
 })

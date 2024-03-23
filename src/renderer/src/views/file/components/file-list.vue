@@ -1,12 +1,15 @@
 <template>
   <div>
-    <el-table :data="fileList" style="width: 100%" @row-dblclick="handleRowDbclick">
+    <el-table :data="_fileList" style="width: 100%" @row-dblclick="handleRowDbclick">
       <el-table-column width="50">
         <template #header>
-          <CheckBox @update:checked="(e) => onSelectAll(e)"></CheckBox>
+          <CheckBox v-model:checked="select_all"></CheckBox>
         </template>
         <template #default="{ row }">
-          <CheckBox @update:checked="(e) => onSelectOne(e, row)"></CheckBox>
+          <CheckBox
+            v-model:checked="row.checked"
+            @update:checked="(e) => onSelectOne(e, row)"
+          ></CheckBox>
         </template>
       </el-table-column>
       <el-table-column width="150" prop="name" label="File Name" show-overflow-tooltip>
@@ -65,12 +68,13 @@
 <script setup lang="ts">
 import CheckBox from '@renderer/components/checkbox/checkbox-1.vue'
 
-import { PropType, ref } from 'vue'
 import { formatDateString } from '@renderer/utils/time'
-import { useConfigStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
+import { PropType, computed, ref, watch } from 'vue'
+
+type _FileStat = FileStat & { checked: boolean }
+
 // -------------------- P R O P S -------------------- //
-defineProps({
+const props = defineProps({
   filePath: {
     type: String,
     required: true
@@ -89,62 +93,64 @@ defineProps({
   }
 })
 
-const emits = defineEmits(['update:filePath', 'dbclickFile', 'selectAll', 'selectOne'])
-
-// -------------------- S T O R E -------------------- //
-const { server_url } = storeToRefs(useConfigStore())
+const emits = defineEmits(['update:filePath', 'dbclickFile'])
 
 // ----------------- C O N S T A N T ----------------- //
 
 const select_file_list = ref<string[]>([])
 
+const _fileList = ref<_FileStat[]>([])
+
+const select_all = computed({
+  get: () => {
+    return _fileList.value.length > 0 && _fileList.value.every((row) => row.checked)
+  },
+  set: (checked) => {
+    _fileList.value.forEach((row: _FileStat) => {
+      row.checked = checked
+      if (checked) {
+        select_file_list.value.push(row.name)
+      }
+    })
+    select_file_list.value = checked
+      ? Array.from(new Set(_fileList.value)).map((row) => row.name)
+      : []
+  }
+})
+
+// ------------------- C I R C L E ------------------- //
+watch(
+  () => props.fileList,
+  (value) => {
+    resetFileList()
+    _fileList.value = value.map((row) => ({ ...row, checked: false }))
+  }
+)
+
 // ----------------- F U N C T I O N ----------------- //
+
+const resetFileList = () => {
+  select_file_list.value = []
+}
+
+/**
+ *  @description 双击文件
+ *
+ */
 const handleRowDbclick = async (row: FileStat) => {
   emits('dbclickFile', row)
 }
 
+/**
+ *  @description 选择一个文件
+ *
+ */
 const onSelectOne = (e: boolean, row: FileStat) => {
-  // console.log('onSelectOne', e, row)
-  // emits('selectOne', e, row)
   if (e) {
     select_file_list.value.push(row.name)
   } else {
     select_file_list.value = select_file_list.value.filter((name) => name !== row.name)
   }
-}
-
-const onSelectAll = (e: boolean) => {
-  // emits('selectAll')
-  if (select_file_list.value) {
-    if (e) {
-      select_file_list.value.forEach((row: any) => {
-        select_file_list.value.push(row.name)
-      })
-    } else {
-      select_file_list.value = []
-    }
-  }
-}
-
-const handleSelectOne = (e: boolean, row: FileStat) => {
-  if (e) {
-    select_file_list.value.push(row.name)
-  } else {
-    select_file_list.value = select_file_list.value.filter((name) => name !== row.name)
-  }
-  // console.log(select_file_map.value)
-}
-
-const handleSelectAll = (e: boolean) => {
-  // if (file_stat_list.value) {
-  //   if (e) {
-  //     file_stat_list.value.forEach((row) => {
-  //       select_file_list.value.push(row.name)
-  //     })
-  //   } else {
-  //     select_file_list.value = []
-  //   }
-  // }
 }
 </script>
 

@@ -22,11 +22,11 @@
 </template>
 
 <script setup lang="ts">
-import LeftMenu from '@renderer/components/menu/left-menu.vue';
-import Header from './components/header.vue';
+import LeftMenu from '@renderer/components/menu/left-menu.vue'
+import Header from './components/header.vue'
 
-import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 // ----------------- C O N S T A N T ----------------- //
 const router = useRouter()
@@ -71,7 +71,6 @@ const installContextMenu = () => {
       height: 100%;
       overflow-y: auto;
       padding-right: var(--space-sm);
-      border-radius: var(--radius-sm);
       &::-webkit-scrollbar {
         width: 0.8rem;
       }

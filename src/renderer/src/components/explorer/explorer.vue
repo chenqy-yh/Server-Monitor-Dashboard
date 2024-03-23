@@ -15,6 +15,8 @@
         :level="0"
         :last-child="file.open && i === tree.children.length - 1"
         :mask-width="explorerRef!.clientWidth"
+        :handle-click-dir="handleClickDir"
+        @update:row="(newRow) => updateRow(newRow, i)"
       />
     </div>
   </div>
@@ -28,7 +30,13 @@ import { reactive, ref } from 'vue'
 
 // -------------------- P R O P S -------------------- //
 
-defineProps<{ path: string; tree: RowItem }>()
+const props = defineProps<{
+  path: string
+  tree: RowItem
+  handleClickDir: (path: string) => Promise<RowItem[]>
+}>()
+
+const emits = defineEmits(['update:tree'])
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -52,13 +60,18 @@ defineExpose({
 
 // ----------------- F U N C T I O N ----------------- //
 
+const updateRow = (row: RowItem, index: number) => {
+  const newRow = { ...props.tree }
+  newRow.children[index] = row
+  emits('update:tree', newRow)
+}
+
 const toggleOpenFolder = () => {
   openFolder.value = !openFolder.value
 }
 
 const setActivePath = (path: string) => {
   explorer.path = path
-  console.log('setActivePath:', path)
 }
 </script>
 
@@ -72,7 +85,7 @@ const setActivePath = (path: string) => {
     display: none;
   }
   .content {
-    padding-left: 1rem;
+    padding-left: 1.5rem;
     height: max-content;
     // border: 1px solid red;
   }
@@ -83,7 +96,7 @@ const setActivePath = (path: string) => {
     display: flex;
     align-items: center;
     font-weight: 800;
-    color: var(--font-color);
+    color: var(--editor-font-color);
     position: sticky;
     top: 0;
     background-color: #181818;

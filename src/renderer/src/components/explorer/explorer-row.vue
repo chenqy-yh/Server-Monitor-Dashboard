@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="row-container"
-    :class="{
-      active: isActive
-    }"
-  >
+  <div class="row-container">
     <div
       class="explorer-row"
       :class="{
@@ -36,6 +31,8 @@
         :level="level + 1"
         :last-child="row.open && i === row.children.length - 1"
         :mask-width="maskWidth"
+        :handle-click-dir="handleClickDir"
+        @update:row="(newRow) => updateRow(newRow, i)"
       ></explorer-row>
     </div>
   </div>
@@ -55,12 +52,15 @@ const props = defineProps<{
   explorer: Explorer
   setPath: (path: string) => void
   maskWidth: number
+  handleClickDir: (path: string) => Promise<RowItem[]>
 }>()
 
 // -------------------- P R O P S -------------------- //
 
 const open = ref(false)
-const _maskWidth = computed(() => props.maskWidth - 1 + 'px')
+const _maskWidth = computed(() => props.maskWidth - 2 + 'px')
+
+const emits = defineEmits(['update:row'])
 
 // ----------------- C O N S T A N T ----------------- //
 const selfPath = computed(() => props.path + '/' + props.row.name)
@@ -74,7 +74,20 @@ const fileType = computed(() => {
 })
 
 // ----------------- F U N C T I O N ----------------- //
-const setActivePath = (path: string) => {
+
+const updateRow = (row: RowItem, index: number) => {
+  const newRow = { ...props.row }
+  newRow.children[index] = row
+  emits('update:row', newRow)
+}
+
+const setActivePath = async (path: string) => {
+  if (!props.row.vis) {
+    const res = await props.handleClickDir(path)
+    const newRow = { ...props.row, children: res }
+    newRow.vis = true
+    emits('update:row', newRow)
+  }
   open.value = !open.value
   props.setPath(path)
 }
@@ -90,8 +103,8 @@ const setChildrenActivePath = (path: string) => {
   height: 1rem;
 }
 .row-container {
-  color: var(--font-color);
-  border-left: 1px solid var(--border-color);
+  color: var(--editor-font-color);
+  border-left: 1px solid var(--editor-border-color);
   padding-left: 1rem;
 }
 

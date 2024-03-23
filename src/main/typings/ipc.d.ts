@@ -16,9 +16,14 @@ type FirewallHandleChannel =
   | 'tc:firewall:delete'
   | 'tc:firewall:rule:del'
 
-type FileWallHandleChannel = 'file:list'
+type FileWallHandleChannel = 'file:list' | 'file:path' | 'file:content'
+type CommonHandleChannel = 'open-window' | 'get-data' | 'request-data-from-child'
 
-type HandleChannel = ServerHandleChannel | FirewallHandleChannel | FileWallHandleChannel
+type HandleChannel =
+  | ServerHandleChannel
+  | FirewallHandleChannel
+  | FileWallHandleChannel
+  | CommonHandleChannel
 
 type SendChannel =
   | 'context-menu'
@@ -31,3 +36,4 @@ type SendChannel =
   | 'new-window'
   | 'tencent-credential-update'
   | 'tencent-region-update'
+  | 'emit-file-path'

@@ -1,7 +1,13 @@
 <template>
   <ResizeLayout @resize="onResize">
     <template #left>
-      <Explorer ref="explorerRef" :path="''" :tree="fileTree"></Explorer>
+      <Explorer
+        ref="explorerRef"
+        :path="path"
+        :tree="fileTree"
+        :handle-click-dir="handleDirClick"
+        @update:tree="updateFileTree"
+      ></Explorer>
     </template>
     <template #right>
       <Editor
@@ -19,14 +25,20 @@ import ResizeLayout from '@renderer/components/resize/resize-layout.vue'
 import Explorer from '../explorer/explorer.vue'
 import Editor from './editor.vue'
 
-import { onMounted, ref, toRaw } from 'vue'
-import { RowItem } from '../explorer'
+import { ref, toRaw, watch } from 'vue'
 import { EditorOptions } from '.'
+import { RowItem } from '../explorer'
 
 // -------------------- P R O P S -------------------- //
-defineProps<{ value: string; fileTree: RowItem; path: string; options: EditorOptions }>()
+const props = defineProps<{
+  value: string
+  fileTree: RowItem
+  path: string
+  options: EditorOptions
+  handleDirClick: (path: string) => Promise<RowItem[]>
+}>()
 
-const emits = defineEmits(['update:value', 'input'])
+const emits = defineEmits(['update:value', 'update:fileTree', 'input'])
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -34,9 +46,22 @@ const explorerRef = ref<HTMLElement>()
 
 const editorRef = ref<HTMLElement>()
 
-const editorValue = ref('//hello world !')
+const editorValue = ref(props.value)
+
+// ------------------- C I R C L E ------------------- //
+watch(
+  () => props.value,
+  (value) => {
+    editorValue.value = value
+  }
+)
 
 // ----------------- F U N C T I O N ----------------- //
+
+const updateFileTree = (tree: RowItem) => {
+  emits('update:fileTree', tree)
+}
+
 const onInput = (value) => {
   emits('update:value', value)
   emits('input', value)

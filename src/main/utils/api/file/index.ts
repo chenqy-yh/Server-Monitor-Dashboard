@@ -8,4 +8,13 @@ const getFileList = (url, path) => {
   })
 }
 
-export { getFileList }
+const getFileContent = (url, path) => {
+  return httpService.get(url + '/file/content', {
+    params: {
+      path
+    },
+    responseType: 'text'
+  })
+}
+
+export { getFileList, getFileContent }

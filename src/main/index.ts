@@ -41,6 +41,7 @@ function createWindow(): void {
     width: mainWindow.getSize()[0],
     height: mainWindow.getSize()[1]
   })
+
   // // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
@@ -83,3 +84,5 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+export { is }

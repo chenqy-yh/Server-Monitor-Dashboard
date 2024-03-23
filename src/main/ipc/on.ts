@@ -1,18 +1,17 @@
 import {
   BrowserWindow,
-  BrowserWindowConstructorOptions,
   IpcMainEvent,
   Menu,
   MenuItem,
   MenuItemConstructorOptions,
   ipcMain,
+  ipcRenderer,
   screen
 } from 'electron'
 import { MenuContextMap } from '../model/menu/index'
 import { store } from '../store'
 import { closeWsService } from '../utils/api'
 import { updateClientCredential, updateClientRegion } from '../utils/tencent/client'
-import { WindowKey, windowMap } from '../model/windows'
 
 type WinSize = {
   width: number
@@ -115,9 +114,7 @@ ipcMain.on('update-region', (_: IpcMainEvent, region: string) => {
   updateClientRegion(region)
 })
 
-// 新开窗口
-ipcMain.on('open-window', (_: IpcMainEvent, windowKey: WindowKey, url) => {
-  const win = windowMap.get(windowKey)
-  if (!win) return
-  win.loadURL(url)
+// 获得主窗口返回的文件路径信息
+ipcMain.on('emit-file-path', (_: IpcMainEvent, data: string) => {
+  ipcMain.emit('get-file-path-ret', data)
 })

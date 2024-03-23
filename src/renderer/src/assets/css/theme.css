@@ -7,7 +7,7 @@
   --space-lg: 1.5rem;
   /* color */
   --bg-color: var(--color);
-  --active-color: #1e90ff;
+  --active-color: #1677ff;
   /* radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.4rem;
@@ -32,7 +32,7 @@
   --menu-item-active-color: var(--active-color);
   --menu-item-icon-active-color: var(--active-color);
   /* button */
-  --button-hover-color: #1e90ff;
+  --button-hover-color: #1677ff;
   /* brand */
   --brand-height: 4rem;
   --brand-icon-size: 1.8rem;
@@ -46,8 +46,14 @@
   --scroll-bar-thumb-color: var(--border-color);
   /* radio */
   --radio-group-bg-color: var(--bg-color);
-
-
+  /* brand */
+  --brand-icon-color: #1677ff;
+  /* editor */
+  --editor-color: #1a1a1a;
+  --editor-bg-color: color-mix(in lch, var(--editor-color) 95%, #fff);
+  --editor-bg-bt-color: color-mix(in lch, var(--editor-bg-color) 95%, #fff);
+  --editor-font-color: #ccc;
+  --editor-border-color: color-mix(in lch, var(--editor-color) 80%, #fff);
 }
 
 
@@ -65,8 +71,6 @@
   /* menu */
   --menu-item-hover-bg: color-mix(in lch, var(--menu-item-bg) 98%, black);
   --menu-item-icon-color: color-mix(in srgb, var(--font-color) 90%, #fff);
-  /* brand */
-  --brand-icon-color: color-mix(in srgb, var(--color) 30%, #002a4e);
   /* scroll */
   --scroll-bar-thumb-color: color-mix(in lch, var(--color) 98%, black);
   --scroll-bar-thumb-hover-color: color-mix(in lch, var(--color) 100%, black);
@@ -94,8 +98,6 @@
   /* menu */
   --menu-item-hover-bg: color-mix(in lch, var(--menu-item-bg) 98%, #fff);
   --menu-item-icon-color: color-mix(in srgb, var(--font-color) 90%, #000);
-  /* brand */
-  --brand-icon-color: color-mix(in srgb, var(--color) 30%, #2a8de4);
   /* scroll */
   --scroll-bar-thumb-color: color-mix(in lch, var(--color) 80%, #fff);
   --scroll-bar-thumb-hover-color: color-mix(in lch, var(--color) 75%, #fff);

@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import './init'
-import { onMounted, ref, toRaw } from 'vue'
+import { onMounted, ref, toRaw, watch } from 'vue'
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.main.js'
 import { EditorOptions } from '.'
 
@@ -24,6 +24,13 @@ onMounted(() => {
   addValueChangeLister()
 })
 
+watch(
+  () => props.value,
+  (value) => {
+    if (value !== toRaw(monacoEditor.value).getValue()) monacoEditor.value.setValue(value)
+  }
+)
+
 // ----------------- F U N C T I O N ----------------- //
 const init = () => {
   monacoEditor.value = monaco.editor.create(editContainer.value, {
@@ -32,7 +39,8 @@ const init = () => {
     language: props.options.language,
     theme: props.options.theme,
     selectOnLineNumbers: true, // 选择行号
-    renderSideBySide: false, // 渲染侧边栏
+    renderSideBySide: false, // 渲染侧边栏,
+    fontSize: 16, // 只能设置为16,否则光标错位
     // 关闭缩略图
     minimap: {
       enabled: false
