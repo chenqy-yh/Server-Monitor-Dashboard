@@ -1,9 +1,16 @@
+/*
+ * @Date: 2023-12-26 22:24:59
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-25 22:18:54
+ * @FilePath: \server-monitor\src\preload\api\on\index.ts
+ * @Description: True or False
+ */
 import { ipcRenderer } from 'electron'
 
 const methodMap: MethodMap<SendChannel> = {
   appFullScreen: {
     channel: 'app-full-screen',
-    params: []
+    params: ['isFullScreen', 'width', 'height']
   },
   appMin: {
     channel: 'app-min',
@@ -15,7 +22,7 @@ const methodMap: MethodMap<SendChannel> = {
   },
   winMove: {
     channel: 'win-move',
-    params: ['move_x', 'move_y']
+    params: ['move_x', 'move_y', 'width', 'height', 'isFullScreen']
   },
   winResize: {
     channel: 'win-resize',
@@ -40,6 +47,14 @@ const methodMap: MethodMap<SendChannel> = {
   emitFilePath: {
     channel: 'emit-file-path',
     params: ['path']
+  },
+  winClose: {
+    channel: 'win-close',
+    params: []
+  },
+  editorOpenFile: {
+    channel: 'editor-open-file:main',
+    params: ['winId', 'filePath', 'fileSize']
   }
 }
 

@@ -51,9 +51,9 @@
               <el-option
                 v-for="item in win_size_list"
                 :key="item"
-                :label="i18n.global.t('setting.personal.' + item)"
+                :label="transformSize(item)"
                 :value="item"
-                >{{ i18n.global.t('setting.personal.' + item) }}</el-option
+                >{{ transformSize(item) }}</el-option
               >
             </el-select>
           </el-form-item>
@@ -68,6 +68,21 @@
               @change="updateDirectExitSetting"
             ></el-switch>
           </el-form-item>
+          <el-form-item>
+            <template #label>
+              <div class="form-label">{{ i18n.global.t('setting.personal.opacity') }}</div>
+            </template>
+            <template #default>
+              <el-slider
+                v-model="opacity_setting"
+                style="width: 240px"
+                :min="0.9"
+                :max="1"
+                :step="0.01"
+                @change="updateOpacity"
+              ></el-slider>
+            </template>
+          </el-form-item>
         </el-form>
       </template>
     </Card>
@@ -79,15 +94,22 @@ import Card from '@renderer/components/card/card.vue'
 import { useConfigStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { i18n } from '@renderer/plugins/i18n'
+import { computed, reactive } from 'vue'
 // -------------------- S T O R E -------------------- //
 const configStore = useConfigStore()
-const { theme_setting, lang_setting, win_size_setting, direct_exit_setting } =
+const { theme_setting, lang_setting, win_size_setting, direct_exit_setting, opacity_setting } =
   storeToRefs(configStore)
 // ----------------- C O N S T A N T ----------------- //
 
 const lang_list: Lang[] = ['en', 'cn']
 
 const win_size_list: WinSize[] = ['small', 'middle', 'large']
+
+const { sizeMap } = useConfigStore()
+
+const transformSize = computed(() => (size: string) => {
+  return i18n.global.t('setting.personal.' + size) + ' ' + sizeMap[size].join(' x ')
+})
 
 // ----------------- F U N C T I O N ----------------- //
 /**
@@ -120,6 +142,14 @@ const updateWinSizeSetting = (val) => {
 const updateDirectExitSetting = (val) => {
   configStore.update_direct_exit_setting(val)
 }
+
+/**
+ *  @description: 更新透明度设置
+ *
+ */
+const updateOpacity = (val) => {
+  configStore.update_opacity_setting(val)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -129,5 +159,6 @@ const updateDirectExitSetting = (val) => {
 
 .form-label {
   color: var(--font-color);
+  width: 100%;
 }
 </style>

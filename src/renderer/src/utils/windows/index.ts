@@ -1,9 +1,17 @@
+/*
+ * @Date: 2024-03-23 12:02:58
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-25 11:59:16
+ * @FilePath: \server-monitor\src\renderer\src\utils\windows\index.ts
+ * @Description: True or False
+ */
 import { BrowserWindowConstructorOptions } from 'electron'
 
 const editorWinOptions: BrowserWindowConstructorOptions = {
   width: 1024,
   height: 768,
   autoHideMenuBar: true,
-  resizable: false
+  resizable: false,
+  titleBarStyle: 'hidden'
 }
 export { editorWinOptions }

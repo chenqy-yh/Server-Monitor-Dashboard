@@ -1,8 +1,15 @@
+<!--
+ * @Date: 2023-12-22 15:54:21
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-25 12:33:13
+ * @FilePath: \server-monitor\src\renderer\src\components\menu\left-menu.vue
+ * @Description: True or False
+-->
 <template>
   <Menu>
     <menu-item>
       <template #icon>
-        <i class="ri-centos-fill brand"></i>
+        <BrandIcon />
       </template>
       <template #default>
         <span class="brand-title">{{ i18n.global.t('brand.name') }}</span>
@@ -25,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+import BrandIcon from '@renderer/components/icon/brand.vue'
 import Menu from './menu.vue'
 import MenuItem from './menu-item.vue'
 

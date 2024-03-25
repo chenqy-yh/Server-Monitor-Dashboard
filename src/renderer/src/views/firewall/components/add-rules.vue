@@ -1,3 +1,10 @@
+<!--
+ * @Date: 2024-03-12 23:33:35
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-24 23:19:18
+ * @FilePath: \server-monitor\src\renderer\src\views\firewall\components\add-rules.vue
+ * @Description: True or False
+-->
 <template>
   <el-dialog
     ref="dialog_ref"
@@ -5,8 +12,6 @@
     width="800"
     :before-close="cancel"
     :close-on-click-modal="false"
-    @opened="installDrag"
-    @closed="uninstallDrag"
   >
     <template #header>
       <span ref="header_ref" class="dialog-header">{{ i18n.global.t('firewall.title.main') }}</span>
@@ -77,11 +82,10 @@
 </template>
 
 <script setup lang="ts">
-import { Drag } from '@renderer/composables/common/drag'
-import { useFirewallStore, useConfigStore } from '@renderer/store'
+import { i18n } from '@renderer/plugins/i18n'
+import { useConfigStore, useFirewallStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
-import { i18n } from '@renderer/plugins/i18n'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps({
@@ -91,16 +95,19 @@ const props = defineProps({
 const emits = defineEmits(['cancel', 'confirm'])
 
 // -------------------- S T O R E -------------------- //
-const { ins_id } = storeToRefs(useConfigStore())
+const configStore = useConfigStore()
+const { ins_id } = storeToRefs(configStore)
 const { firewall_rule_list } = storeToRefs(useFirewallStore())
-const idx = ref<number>(0)
-const add_rules = ref<FirewallRule[]>([{}])
-const submit_rules_error = ref<boolean>(false)
 
 // ----------------- C O N S T A N T ----------------- //
-const header_ref = ref<HTMLElement>()
 
-const drag = new Drag()
+const idx = ref<number>(0)
+
+const add_rules = ref<FirewallRule[]>([{}])
+
+const submit_rules_error = ref<boolean>(false)
+
+const header_ref = ref<HTMLElement>()
 
 const dialogShow = computed({
   get() {
@@ -111,8 +118,6 @@ const dialogShow = computed({
   }
 })
 
-// ------------------- C I R C L E ------------------- //
-
 // ----------------- F U N C T I O N ----------------- //
 
 const delRules = (scope: any) => {
@@ -122,16 +127,6 @@ const delRules = (scope: any) => {
 const addMoreRules = () => {
   idx.value++
   add_rules.value.push({})
-}
-
-const installDrag = () => {
-  if (!header_ref.value) return
-  drag.install(header_ref.value)
-}
-
-const uninstallDrag = () => {
-  if (!header_ref.value) return
-  drag.uninstall(header_ref.value)
 }
 
 const cancel = () => {

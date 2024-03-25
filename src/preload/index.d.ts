@@ -1,3 +1,10 @@
+/*
+ * @Date: 2023-12-21 23:40:23
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-25 22:19:23
+ * @FilePath: \server-monitor\src\preload\index.d.ts
+ * @Description: True or False
+ */
 import { ElectronAPI } from '@electron-toolkit/preload'
 import { BrowserViewConstructorOptions } from 'electron'
 
@@ -12,10 +19,7 @@ type HandleApi = ServerHandleApi & FirewallHandleApi & FileHandleApi & CommonHan
  *
  */
 type CommonHandleApi = {
-  openWindow: (
-    url: BrowserViewConstructorOptions,
-    hash: string
-  ) => Promise<BrowserViewConstructorOptions>
+  openWindow: (url: BrowserViewConstructorOptions, hash: string) => Promise<number>
   getData: () => Promise<string>
 }
 
@@ -61,6 +65,9 @@ type FileHandleApi = {
   getFileList: (url: string, path: string) => Promise<FileStat[]>
   getFilePath: () => Promise<string>
   getFileContent: (url: string, path: string) => Promise<string>
+  saveFileContent: (url: string, path: string, content: string) => Promise<string>
+  findEditorWindow: (win_id: number) => Promise<boolean>
+  getWinId: () => Promise<number>
 }
 
 /**
@@ -69,20 +76,28 @@ type FileHandleApi = {
  */
 type OnApi = {
   showContextMenu: (menu_key?: string) => void
-  winMove: (move_x: number, move_y: number) => void
+  winMove: (
+    move_x: number,
+    move_y: number,
+    width: number,
+    height: number,
+    isFullScreen: boolean
+  ) => void
   winResize: (width: number, height: number) => void
   appQuit: () => void
-  appFullScreen: () => void
+  appFullScreen: (isFullScreen: boolean, width: number, height: number) => void
   appMin: () => void
   closeWebSocket: (url: string, port: number) => void
   createNewWindow: (url: string, winName: string) => void
   updateTencentCredential: (secretId: string, secretKey: string) => void
   updateTencentRegion: (region: string) => void
   emitFilePath: (path: string) => void
+  winClose: () => void
+  editorOpenFile: (winId: number, filePath: string, fileSize: number) => void
 }
 
 type RendererResponse = {
-  onResponse: (data) => void
+  onResponse: (eventKey: string, callback: (...args: unknown[]) => unknown) => void
 }
 
 declare global {

@@ -22,6 +22,7 @@
 import { onMounted, ref } from 'vue'
 
 // -------------------- P R O P S -------------------- //
+
 const emits = defineEmits(['resize'])
 
 // ----------------- C O N S T A N T ----------------- //
@@ -60,7 +61,7 @@ const mouseMoveHandler = (e: MouseEvent) => {
   leftLayout.value.style.width = leftLayoutWidth + 'px'
   rightLayout.value.style.width = `${rightLayoutWidth}px`
   document.body.style.cursor = 'ew-resize'
-  emits('resize')
+  emits('resize', leftLayoutWidth)
 }
 
 const mouseUpHandler = () => {
@@ -92,6 +93,11 @@ const clamp = (x: number, min: number, max: number) => {
 .slot-container {
   transform: translate(0);
   height: 100%;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: red;
+  }
 }
 
 .resize-layout {

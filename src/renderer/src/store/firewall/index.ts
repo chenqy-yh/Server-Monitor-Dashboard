@@ -3,10 +3,6 @@ import Sortable from 'sortablejs'
 import { ref } from 'vue'
 
 export const useFirewallStore = defineStore('firewall', () => {
-  // -------------------- S T O R E -------------------- //
-
-  // const { ins_id } = storeToRefs(useConfigStore())
-
   // ----------------- C O N S T A N T ----------------- //
   // 表格列 配置
   const col_list = ref([

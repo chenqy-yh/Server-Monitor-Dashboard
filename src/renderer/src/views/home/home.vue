@@ -1,5 +1,12 @@
+<!--
+ * @Date: 2023-12-22 00:35:03
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-25 22:07:14
+ * @FilePath: \server-monitor\src\renderer\src\views\home\home.vue
+ * @Description: True or False
+-->
 <template>
-  <div class="main-content">
+  <div class="home-content">
     <el-container class="container">
       <el-aside width="170px">
         <LeftMenu></LeftMenu>
@@ -27,6 +34,11 @@ import Header from './components/header.vue'
 
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useConfigStore } from '@renderer/store'
+import { storeToRefs } from 'pinia'
+
+// -------------------- P R O P S -------------------- //
+const { opacity_setting } = storeToRefs(useConfigStore())
 
 // ----------------- C O N S T A N T ----------------- //
 const router = useRouter()
@@ -54,8 +66,12 @@ const installContextMenu = () => {
 </script>
 
 <style lang="scss" scoped>
-.main-content {
+.home-content {
   height: 100vh;
+  opacity: v-bind(opacity_setting);
+  border-radius: var(--space-sm);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
   .container {
     height: 100%;
   }

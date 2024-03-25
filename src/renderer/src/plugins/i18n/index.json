@@ -23,6 +23,19 @@
       "test": "Test",
       "file": "File"
     },
+    "dashboard": {
+      "index": {
+        "processor": "Processor",
+        "cores": "Cores",
+        "threads": "Threads",
+        "bit": "Bit",
+        "ram": "RAM",
+        "procs": "Procs",
+        "mem": "Memory",
+        "storage": "Storage",
+        "usage": "Usage"
+      }
+    },
     "index": {
       "status": {
         "title": "Status",
@@ -67,7 +80,8 @@
         "small": "Small 800 x 600",
         "middle": "Middle 1024 x 768",
         "large": "Large 1280 x 800",
-        "exit-direct": "Exit Direct"
+        "exit-direct": "Exit Direct",
+        "opacity": "Opacity"
       },
       "firewall": {
         "title": "Firewall Settings",
@@ -77,8 +91,8 @@
         "label": "Tencent",
         "title": "Tencent Settings",
         "region": "Region",
-        "api-secret-id": "API Secret",
-        "api-secret-key": "API Key",
+        "api-secret-id": "API ID",
+        "api-secret-key": "API Secret",
         "ins-id": "Instance ID"
       }
     },
@@ -167,6 +181,19 @@
       "test": "测试",
       "file": "文件"
     },
+    "dashboard": {
+      "index": {
+        "processor": "处理器",
+        "cores": "核心数",
+        "threads": "线程数",
+        "bit": "位数",
+        "ram": "内存",
+        "procs": "进程数",
+        "mem": "内存",
+        "storage": "存储",
+        "usage": "使用率"
+      }
+    },
     "index": {
       "status": {
         "title": "服务器状态",
@@ -208,10 +235,11 @@
         "cn": "中文",
         "en": "英文",
         "winsize": "窗口大小",
-        "small": "小 800 x 600",
-        "middle": "中 1024 x 768",
-        "large": "大 1280 x 800",
-        "exit-direct": "直接退出"
+        "small": "小 ",
+        "middle": "中 ",
+        "large": "大 ",
+        "exit-direct": "直接退出",
+        "opacity": "透明度"
       },
       "firewall": {
         "title": "防火墙设置",
@@ -221,7 +249,7 @@
         "label": "腾讯云",
         "title": "腾讯云设置",
         "region": "地域",
-        "api-secret-id": "API 密钥",
+        "api-secret-id": "API ID",
         "api-secret-key": "API 密钥",
         "ins-id": "实例ID"
       }

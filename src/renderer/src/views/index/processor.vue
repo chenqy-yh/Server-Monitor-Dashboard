@@ -30,15 +30,14 @@
 </template>
 
 <script setup lang="ts">
-import { useServerInfoStore } from '@renderer/store'
+import { useServerInfoStore, useConfigStore } from '@renderer/store'
 import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
-import { title } from 'process'
-import { text } from 'stream/consumers'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 // -------------------- S T O R E -------------------- //
+const { theme_setting } = storeToRefs(useConfigStore())
 const { server_info, cpu_usage_list } = storeToRefs(useServerInfoStore())
 
 // ----------------- C O N S T A N T ----------------- //
@@ -62,7 +61,7 @@ const option = {
     left: 'center',
     // 标题文本样式
     textStyle: {
-      color: '#888'
+      color: theme_setting.value === 'dark' ? '#fefefe' : '#181818'
     },
     text: 'CPU Usage',
     top: 15
@@ -78,6 +77,10 @@ const option = {
   },
   yAxis: {
     type: 'value',
+    // 改变Y轴刻度描述文字的颜色
+    axisLabel: {
+      color: theme_setting.value === 'dark' ? '#fefefe' : '#181818'
+    },
     splitLine: {
       show: true,
       lineStyle: {
@@ -124,6 +127,7 @@ const back = () => {
   background-color: var(--bg-color);
   border-radius: var(--radius-sm);
   color: var(--font-color);
+  border: 1px solid var(--border-color);
   .header {
     position: sticky;
     top: 0;

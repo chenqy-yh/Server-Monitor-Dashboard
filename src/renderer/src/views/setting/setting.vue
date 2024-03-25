@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="setting-content">
     <el-radio-group v-model="setting_block" class="radio-group">
       <el-radio-button label="common">{{ i18n.global.t('setting.common.label') }}</el-radio-button>
       <el-radio-button label="personal">{{
@@ -52,7 +52,7 @@ const setting_component = computed(() => {
   border-color: var(--border-color);
 }
 
-.main-content {
+.setting-content {
   .title {
     font-size: var(--font-size-title);
     padding-bottom: var(--space-sm);

@@ -1,3 +1,10 @@
+/*
+ * @Date: 2023-12-22 22:19:19
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-25 20:54:07
+ * @FilePath: \server-monitor\src\main\typings\ipc.d.ts
+ * @Description: True or False
+ */
 type HandleCallback = (event: IpcMainInvokeEvent, ...args: unknown[]) => Promise<unknown> | unknown
 
 type ServerHandleChannel = 'ping' | 'os:grt' | 'os:info' | 'ws:cws' | 'log:info'
@@ -16,8 +23,13 @@ type FirewallHandleChannel =
   | 'tc:firewall:delete'
   | 'tc:firewall:rule:del'
 
-type FileWallHandleChannel = 'file:list' | 'file:path' | 'file:content'
-type CommonHandleChannel = 'open-window' | 'get-data' | 'request-data-from-child'
+type FileWallHandleChannel =
+  | 'file:list'
+  | 'file:path'
+  | 'file:content'
+  | 'file:save'
+  | 'file:editor:find'
+type CommonHandleChannel = 'open-window' | 'get-win-id'
 
 type HandleChannel =
   | ServerHandleChannel
@@ -37,3 +49,5 @@ type SendChannel =
   | 'tencent-credential-update'
   | 'tencent-region-update'
   | 'emit-file-path'
+  | 'win-close'
+  | 'editor-open-file:main'

@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ArrowRight: typeof import('./src/components/icon/arrow-right.vue')['default']
+    Brand: typeof import('./src/components/icon/brand.vue')['default']
     Card: typeof import('./src/components/card/card.vue')['default']
     Card2: typeof import('./src/components/card/card-2.vue')['default']
     Checkbox1: typeof import('./src/components/checkbox/checkbox-1.vue')['default']
@@ -21,10 +22,7 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDialog: typeof import('element-plus/es')['ElDialog']
-    ElForm: typeof import('element-plus/es')['ElForm']
-    ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
-    ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
@@ -36,6 +34,9 @@ declare module 'vue' {
     Explorer: typeof import('./src/components/explorer/explorer.vue')['default']
     ExplorerRow: typeof import('./src/components/explorer/explorer-row.vue')['default']
     LeftMenu: typeof import('./src/components/menu/left-menu.vue')['default']
+    Loading1: typeof import('./src/components/loading/loading-1.vue')['default']
+    Loading2: typeof import('./src/components/loading/loading-2.vue')['default']
+    Loading3: typeof import('./src/components/loading/loading-3.vue')['default']
     Menu: typeof import('./src/components/menu/menu.vue')['default']
     MenuItem: typeof import('./src/components/menu/menu-item.vue')['default']
     Pagination1: typeof import('./src/components/pagination/pagination-1.vue')['default']
@@ -45,8 +46,5 @@ declare module 'vue' {
     SocialCard: typeof import('./src/components/card/social-card.vue')['default']
     Tabbed: typeof import('./src/components/tabbed/tabbed.vue')['default']
     Versions: typeof import('./src/components/Versions.vue')['default']
-  }
-  export interface ComponentCustomProperties {
-    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

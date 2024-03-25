@@ -2,6 +2,7 @@ import { useConfigStore } from '@renderer/store'
 import { formatDateString } from '@renderer/utils/time'
 import { defineStore, storeToRefs } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
+
 export const useServerInfoStore = defineStore('server-info', () => {
   // -------------------- S T O R E -------------------- //
   const { server_url } = storeToRefs(useConfigStore())

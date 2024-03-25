@@ -19,6 +19,7 @@ export const useConfigStore = defineStore('config', () => {
   const theme_setting = ref<Theme>() // 主题设置
   const win_size_setting = ref<WinSize>() // 窗口大小设置
   const direct_exit_setting = ref<boolean>() // 直接退出设置
+  const opacity_setting = ref<number>() // 透明度设置
 
   // COS
   const ins_id = ref<string>(import.meta.env.RE_InstanceID) // 实例ID
@@ -26,7 +27,7 @@ export const useConfigStore = defineStore('config', () => {
   // Other
   // 窗口大小映射
   const sizeMap: Record<WinSize, [number, number]> = {
-    small: [1024, 600],
+    small: [1024, 700],
     middle: [1280, 768],
     large: [1440, 800]
   }
@@ -56,6 +57,11 @@ export const useConfigStore = defineStore('config', () => {
     init_personal_setting_of_theme()
     init_personal_setting_of_win_size()
     init_personal_setting_of_direct_exit()
+    init_personal_setting_of_opacity()
+  }
+
+  const init_personal_setting_of_opacity = () => {
+    opacity_setting.value = getItem('opacity_setting') || 100
   }
 
   /**
@@ -91,6 +97,11 @@ export const useConfigStore = defineStore('config', () => {
    */
   const init_personal_setting_of_direct_exit = () => {
     direct_exit_setting.value = getItem('direct_exit_setting') || false
+  }
+
+  const update_opacity_setting = (val: number) => {
+    opacity_setting.value = val
+    setItem('opacity_setting', val)
   }
 
   /**
@@ -142,6 +153,11 @@ export const useConfigStore = defineStore('config', () => {
     setItem('direct_exit_setting', val)
   }
 
+  const getWinSizeVal = (): [number, number] => {
+    if (!win_size_setting.value) return sizeMap.middle
+    return sizeMap[win_size_setting.value]
+  }
+
   return {
     ins_id,
     host,
@@ -150,10 +166,14 @@ export const useConfigStore = defineStore('config', () => {
     theme_setting,
     win_size_setting,
     direct_exit_setting,
+    opacity_setting,
+    sizeMap,
     update_host_setting,
     update_theme_setting,
     update_lang_setting,
     update_win_size_setting,
-    update_direct_exit_setting
+    update_direct_exit_setting,
+    update_opacity_setting,
+    getWinSizeVal
   }
 })

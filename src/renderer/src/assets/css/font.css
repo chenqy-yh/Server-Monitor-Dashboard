@@ -21,3 +21,8 @@
   font-family: 'Consolas';
   src: url("../fonts/Consolas/consola-1.ttf");
 }
+
+@font-face {
+  font-family: 'noto-sans';
+  src: url("../fonts/noto-sans/NotoSansSC-Bold.ttf");
+}

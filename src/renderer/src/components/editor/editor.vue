@@ -1,3 +1,10 @@
+<!--
+ * @Date: 2024-03-19 14:38:10
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-24 20:39:39
+ * @FilePath: \server-monitor\src\renderer\src\components\editor\editor.vue
+ * @Description: True or False
+-->
 <template>
   <div ref="editContainer" class="code-editor"></div>
 </template>
@@ -27,12 +34,13 @@ onMounted(() => {
 watch(
   () => props.value,
   (value) => {
-    if (value !== toRaw(monacoEditor.value).getValue()) monacoEditor.value.setValue(value)
+    if (value !== toRaw(monacoEditor.value).getValue()) toRaw(monacoEditor.value).setValue(value)
   }
 )
 
 // ----------------- F U N C T I O N ----------------- //
 const init = () => {
+  monaco.editor.remeasureFonts()
   monacoEditor.value = monaco.editor.create(editContainer.value, {
     value: props.value,
     readOnly: false,
@@ -40,7 +48,7 @@ const init = () => {
     theme: props.options.theme,
     selectOnLineNumbers: true, // 选择行号
     renderSideBySide: false, // 渲染侧边栏,
-    fontSize: 16, // 只能设置为16,否则光标错位
+    fontSize: 15, // 只能设置为16,否则光标错位
     // 关闭缩略图
     minimap: {
       enabled: false
@@ -64,6 +72,6 @@ defineExpose({
 .code-editor {
   width: 100%;
   height: 100%;
-  /* min-height: 200px; */
+  font-family: 'Consolas', 'Courier New', 'monospace';
 }
 </style>

@@ -5,8 +5,6 @@
     width="500"
     :before-close="cancel"
     :close-on-click-modal="false"
-    @opened="opened"
-    @closed="closed"
   >
     <template #header>
       <span class="dialog-header" ref="header_ref">{{ i18n.global.t('firewall.title.edit') }}</span>
@@ -53,12 +51,11 @@
 </template>
 
 <script setup lang="ts">
-import { Drag } from '@renderer/composables/common/drag'
 import { i18n } from '@renderer/plugins/i18n'
 import { useConfigStore, useFirewallStore } from '@renderer/store'
+import _ from 'lodash'
 import { storeToRefs } from 'pinia'
 import { PropType, computed, ref } from 'vue'
-import _ from 'lodash'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps({
@@ -76,15 +73,14 @@ const props = defineProps({
 const emits = defineEmits(['cancel', 'confirm'])
 
 // -------------------- S T O R E -------------------- //
-const { ins_id } = storeToRefs(useConfigStore())
+const configStore = useConfigStore()
+const { ins_id } = storeToRefs(configStore)
 const firewallStore = useFirewallStore()
 const { firewall_rule_list } = storeToRefs(firewallStore)
 const submit_rules_error = ref<boolean>(false)
 
 // ----------------- C O N S T A N T ----------------- //
 const header_ref = ref<HTMLElement>()
-
-const drag = new Drag()
 
 const dialogShow = computed({
   get() {
@@ -98,25 +94,6 @@ const dialogShow = computed({
 const edit_firewall_rule = ref<FirewallRuleInfo>()
 
 // ----------------- F U N C T I O N ----------------- //
-
-const opened = () => {
-  edit_firewall_rule.value = _.cloneDeep(props.firewallrule)
-  installDrag()
-}
-
-const closed = () => {
-  uninstallDrag()
-}
-
-const installDrag = () => {
-  if (!header_ref.value) return
-  drag.install(header_ref.value)
-}
-
-const uninstallDrag = () => {
-  if (!header_ref.value) return
-  drag.uninstall(header_ref.value)
-}
 
 const cancel = () => {
   beforeClose()

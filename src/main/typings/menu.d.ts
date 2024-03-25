@@ -1,1 +1,1 @@
-type MenuContextKey = 'default' | '/firewall' | '/terminal'
+type MenuContextKey = 'default' | '/firewall' | '/terminal' | '/file'

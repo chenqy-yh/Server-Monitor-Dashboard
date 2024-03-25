@@ -54,6 +54,8 @@
   --editor-bg-bt-color: color-mix(in lch, var(--editor-bg-color) 95%, #fff);
   --editor-font-color: #ccc;
   --editor-border-color: color-mix(in lch, var(--editor-color) 80%, #fff);
+  /* dashboard */
+  --dashboard-size: 1.2rem;
 }
 
 
@@ -80,8 +82,13 @@
   --checkbox-checked-boxshadow: inset 3px 3px 6px rgba(0, 0, 0, 0.4),
     inset 0px 0px 4px rgba(255, 255, 255, 0.08);
   /* card */
-  --card-bg-color: color-mix(in lch, var(--color) 95%, black);
+  --card-bg-color: color-mix(in lch, var(--color) 100%, black);
   --card-footer-font-color: #1a1a1a;
+  /* pagination */
+  --pagination-color: #2b2b2b;
+  --pagination-bg-color: #fefefe;
+  --pagination-border-color: var(--border-color);
+  --pagination-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 :root[theme="dark"] {
@@ -111,4 +118,8 @@
   /* card */
   --card-bg-color: color-mix(in lch, var(--color) 95%, #fff);
   --card-footer-font-color: #1a1a1a;
+  /* pagination */
+  --pagination-color: #bbbbbb;
+  --pagination-bg-color: #181818;
+  --pagination-border-color: var(--border-color);
 }

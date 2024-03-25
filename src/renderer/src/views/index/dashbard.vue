@@ -1,7 +1,7 @@
 <template>
   <div class="server-content">
     <div class="card-container">
-      <div class="card-list">
+      <TransitionGroup v-if="!loading" class="card-list" name="fade" tag="div" mode="out-in">
         <SocialCard key="scard"></SocialCard>
         <InfoCard
           v-for="(item, i) in card_list ?? 3"
@@ -20,7 +20,7 @@
             <NetworkChart v-if="server_info" />
           </Transition>
         </div>
-      </div>
+      </TransitionGroup>
     </div>
   </div>
 </template>
@@ -33,7 +33,8 @@ import NetworkChart from '@renderer/views/index/components/network-chart.vue'
 import { useServerInfoStore } from '@renderer/store'
 import { sizeStrToByte, sortDisk } from '@renderer/utils/os'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted, ref } from 'vue'
+import { computed, watch } from 'vue'
+import { i18n } from '@renderer/plugins/i18n'
 
 type CardItem = {
   title: string
@@ -47,7 +48,7 @@ type CardItem = {
 }
 
 // -------------------- S T O R E -------------------- //
-const { server_info } = storeToRefs(useServerInfoStore())
+const { server_info, loading } = storeToRefs(useServerInfoStore())
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -57,28 +58,29 @@ const card_list = computed(() => {
 
   return [
     {
-      title: 'Processor',
+      title: i18n.global.t('dashboard.index.processor'),
       titleDesc: server_info.value.cpu.manufacturer + ' ' + server_info.value.cpu.brand,
       rate: Math.ceil(server_info.value.cpu.usage * 100),
-      rateDesc: 'Processor Usage',
+      rateDesc:
+        i18n.global.t('dashboard.index.processor') + ' ' + i18n.global.t('dashboard.index.usage'),
       footer: [
-        server_info.value.cpu.physical + ' Cores',
-        server_info.value.cpu.speed + ' Threads',
-        '64-bit'
+        server_info.value.cpu.physical + ' ' + i18n.global.t('dashboard.index.cores'),
+        server_info.value.cpu.speed + ' ' + i18n.global.t('dashboard.index.threads'),
+        '64-' + i18n.global.t('dashboard.index.bit')
       ],
       to: 'processor',
       color: '#4bcffa',
       pointColor: '#0be881'
     },
     {
-      title: 'Machine',
+      title: i18n.global.t('dashboard.index.mem'),
       titleDesc: server_info.value.sname,
       rate: Math.ceil((server_info.value.mem.used * 100) / server_info.value.mem.total),
-      rateDesc: 'Memory Usage',
+      rateDesc: i18n.global.t('dashboard.index.mem') + ' ' + i18n.global.t('dashboard.index.usage'),
       footer: [
         server_info.value.mem.size,
         server_info.value.mem.type,
-        server_info.value.procs + ' Procs'
+        server_info.value.procs + ' ' + i18n.global.t('dashboard.index.procs')
       ],
       color: '#ef5777',
       pointColor: '#e056fd'
@@ -94,12 +96,24 @@ const card_list = computed(() => {
     }
   ] as CardItem[]
 })
+
+// ------------------- C I R C L E ------------------- //
+watch(
+  () => loading.value,
+  () => {
+    console.log('loading', loading.value)
+  }
+)
 </script>
 
 <style lang="scss" scoped>
 .server-content {
   .card-container {
+    min-height: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
     background-color: var(--bg-color);
+    overflow-y: auto;
     display: flex;
     justify-content: center;
     padding-block: var(--space-1x);

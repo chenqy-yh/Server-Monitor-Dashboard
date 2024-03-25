@@ -1,9 +1,15 @@
+/*
+ * @Date: 2023-12-21 23:40:23
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-25 12:01:18
+ * @FilePath: \server-monitor\src\main\index.ts
+ * @Description: True or False
+ */
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
 import './ipc'
-import { store } from './store'
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
@@ -14,6 +20,7 @@ function createWindow(): void {
     titleBarStyle: 'hidden',
     autoHideMenuBar: true,
     resizable: false,
+    transparent: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -36,11 +43,6 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
-
-  store.set('win-size', {
-    width: mainWindow.getSize()[0],
-    height: mainWindow.getSize()[1]
-  })
 
   // // Open the DevTools.
   // mainWindow.webContents.openDevTools()

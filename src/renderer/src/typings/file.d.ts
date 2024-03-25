@@ -1,5 +1,5 @@
 type FileStat = {
-  mode: 420
+  mode: number
   dir: boolean
   mtime: string
   name: string

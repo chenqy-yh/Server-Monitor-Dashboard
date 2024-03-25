@@ -11,28 +11,28 @@
       <div class="row-content">
         <i
           :class="{
-            'ri-arrow-right-s-line ri-lg': !open,
-            'ri-arrow-down-s-line ri-lg': open,
-            'opcaity-0': !row.open
+            'ri-arrow-right-s-line ri-lg': !row.open,
+            'ri-arrow-down-s-line ri-lg': row.open,
+            'opcaity-0': !row.dir
           }"
         ></i>
         <img class="file-type-icon" :src="imgHelper.getImg(fileType)" />
         <span>{{ row.name }}</span>
       </div>
     </div>
-    <div v-if="open" class="children-row">
+    <div v-if="row.open" class="children-row">
       <explorer-row
         v-for="(item, i) in row.children"
         :key="i"
         :row="item"
         :path="selfPath"
-        :set-path="setChildrenActivePath"
-        :explorer="explorer"
         :level="level + 1"
-        :last-child="row.open && i === row.children.length - 1"
+        :last-child="row.dir && i === row.children.length - 1"
         :mask-width="maskWidth"
+        :win-id="winId"
         :handle-click-dir="handleClickDir"
         @update:row="(newRow) => updateRow(newRow, i)"
+        @open-file="openFile"
       ></explorer-row>
     </div>
   </div>
@@ -40,60 +40,101 @@
 
 <script setup lang="ts">
 import { imgHelper } from '@renderer/utils/img'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { RowItem } from '.'
-import { Explorer } from './explorer'
+import { useEditor } from '@renderer/composables/editor'
 
 const props = defineProps<{
   row: RowItem
   lastChild: boolean
   level: number
   path: string
-  explorer: Explorer
-  setPath: (path: string) => void
   maskWidth: number
+  winId: number
   handleClickDir: (path: string) => Promise<RowItem[]>
 }>()
 
 // -------------------- P R O P S -------------------- //
 
-const open = ref(false)
-const _maskWidth = computed(() => props.maskWidth - 2 + 'px')
-
-const emits = defineEmits(['update:row'])
+const emits = defineEmits(['update:row', 'open-file'])
 
 // ----------------- C O N S T A N T ----------------- //
+
+const { filePath } = useEditor(props.winId)
+
+// 是否展开
+// const open = ref(false)
+
+// 遮罩宽度
+const _maskWidth = computed(() => props.maskWidth - 2 + 'px')
+
+// 当前节点的路径
 const selfPath = computed(() => props.path + '/' + props.row.name)
 
+// 当前节点是否激活
 const isActive = computed(() => {
-  return props.explorer.path === selfPath.value
+  // console.log(filePath.value, selfPath.value)
+  return filePath.value === selfPath.value
 })
 
+// 文件类型
 const fileType = computed(() => {
-  return props.row.open ? 'directory' : 'file'
+  return props.row.dir ? 'directory' : 'file'
 })
+
 
 // ----------------- F U N C T I O N ----------------- //
 
+/**
+ * @description:  更新当前目录树节点信息
+ * @param {*} row
+ * @param {*} index
+ * @return {*}
+ */
 const updateRow = (row: RowItem, index: number) => {
   const newRow = { ...props.row }
   newRow.children[index] = row
   emits('update:row', newRow)
 }
 
+
+/**
+ * @description: 设置当前激活的路径
+ * @param {*} path
+ * @return {*}
+ */
 const setActivePath = async (path: string) => {
+  if (props.row.dir) {
+    openDir(path)
+  } else {
+    openFile(path)
+  }
+  const newRow = { ...props.row }
+  newRow.open = !newRow.open
+  emits('update:row', newRow)
+}
+
+/**
+ * @description: 点击文件
+ * @return {*}
+ */
+const openFile = (path: string) => {
+  filePath.value = path
+}
+
+/**
+ * @description: 点击目录
+ * @param {*} path
+ * @return {*}
+ */
+const openDir = async (path: string) => {
+  filePath.value = path
   if (!props.row.vis) {
     const res = await props.handleClickDir(path)
     const newRow = { ...props.row, children: res }
     newRow.vis = true
     emits('update:row', newRow)
   }
-  open.value = !open.value
-  props.setPath(path)
-}
-
-const setChildrenActivePath = (path: string) => {
-  props.setPath(path)
 }
 </script>
 

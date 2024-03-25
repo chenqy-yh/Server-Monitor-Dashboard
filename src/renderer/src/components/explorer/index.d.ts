@@ -1,7 +1,9 @@
 type RowItem = {
   name: string
-  open: boolean
+  dir: boolean
   children: RowItem[]
+  open: boolean
+  size: number
   vis?: boolean
 }
 

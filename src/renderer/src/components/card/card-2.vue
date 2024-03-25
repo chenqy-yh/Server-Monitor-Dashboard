@@ -104,7 +104,7 @@ const linkTo = () => {
 
 .card {
   --bg-color-anim-duration: 5s;
-  --base-size: 1rem;
+  --base-size: var(--dashboard-size);
   background-color: var(--card-bg-color);
   height: calc(var(--base-size) * 15);
   aspect-ratio: 1.32;
@@ -119,7 +119,7 @@ const linkTo = () => {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 8px;
   transition: var(--transition);
   border: 1px solid transparent;
-  cursor: po;
+  cursor: pointer;
   &:hover {
     border-color: var(--border-color);
   }
@@ -218,6 +218,7 @@ const linkTo = () => {
     flex-grow: 1;
     background-color: v-bind(color);
     animation: color var(--bg-color-anim-duration) ease infinite;
+    font-family: 'roboto', 'noto-sans';
     .footer-item {
       width: 100%;
       border-top: 1px solid var(--bg-color);

@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { i18n } from '@renderer/plugins/i18n'
-import { useServerInfoStore } from '@renderer/store'
+import { useServerInfoStore, useConfigStore } from '@renderer/store'
 import { sizeFormat } from '@renderer/utils/os'
 import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
@@ -45,7 +45,7 @@ import { onMounted, ref, watch } from 'vue'
 type EChartsOption = echarts.EChartsOption
 
 // -------------------- S T O R E -------------------- //
-
+const { theme_setting } = storeToRefs(useConfigStore())
 const { down_list, up_list, down_total, up_total, down_cur, up_cur } = storeToRefs(
   useServerInfoStore()
 )
@@ -67,7 +67,7 @@ const option: EChartsOption = {
   legend: {
     data: ['Down', 'Up'],
     textStyle: {
-      color: '#888888'
+      color: theme_setting.value === 'dark' ? '#fefefe' : '#181818'
     }
   },
   grid: {
@@ -81,13 +81,20 @@ const option: EChartsOption = {
       type: 'category',
       axisLabel: {
         show: false
+      },
+      // 去除刻度
+      axisTick: {
+        show: false
       }
     }
   ],
   yAxis: [
     {
       type: 'value',
-      name: 'kb/s',
+      axisLabel: {
+        formatter: '{value} KB',
+        color: theme_setting.value === 'dark' ? '#fefefe' : '#181818'
+      },
       splitLine: {
         show: false
       }
@@ -179,7 +186,7 @@ watch([down_cur, down_total, up_cur, up_total], () => {
 
 <style lang="scss" scoped>
 .network-content {
-  --base-size: 1rem;
+  --base-size: var(--dashboard-size);
   height: calc(var(--base-size) * 15);
   width: 100%;
   background-color: var(--card-bg-color);

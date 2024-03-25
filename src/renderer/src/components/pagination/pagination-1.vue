@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination">
+  <div class="pagination" v-if="!loading">
     <button class="arrow first" @click="goFirst">
       <i class="ri-skip-left-line ri-2x"></i>
     </button>
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 // -------------------- P R O P S -------------------- //
 const props = defineProps({
   minNum: {
@@ -51,11 +51,16 @@ const emits = defineEmits(['update:modelValue'])
 
 // ----------------- C O N S T A N T ----------------- //
 
+const loading = ref<boolean>(false)
+
 const active_btn = ref<number>(0)
 const start_num = ref<number>(0)
 
 // ------------------- C I R C L E ------------------- //
-onMounted(() => {
+onMounted(() => init())
+
+// ----------------- F U N C T I O N ----------------- //
+const init = () => {
   if (props.maxNum - props.modelValue + 1 < props.btnNum) {
     active_btn.value = props.maxNum - props.modelValue
     start_num.value = props.maxNum - props.btnNum + 1
@@ -63,9 +68,7 @@ onMounted(() => {
     active_btn.value = 0
     start_num.value = props.modelValue
   }
-})
-
-// ----------------- F U N C T I O N ----------------- //
+}
 
 const changeActiveBtn = (index: number) => {
   active_btn.value = index
@@ -103,22 +106,32 @@ const post = () => {
   }
   emits('update:modelValue', props.modelValue + 1)
 }
+
+defineExpose({
+  change: init
+})
 </script>
 
 <style lang="scss" scoped>
 .pagination {
+  --size: 0.8rem;
+
   width: max-content;
   height: max-content;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-
+  border: 1px solid var(--pagination-border-color);
+  border-radius: var(--radius-sm);
+  padding-inline: calc(var(--size) * 0.5);
+  padding-block: calc(var(--size) * 0.3);
+  background-color: var(--pagination-bg-color);
   .arrow {
     background-color: transparent;
     border: none;
     cursor: pointer;
     i {
-      color: var(--font-color);
+      color: var(--pagination-color);
     }
 
     .last {
@@ -130,24 +143,31 @@ const post = () => {
   }
   .p-btn-list {
     display: flex;
-    gap: 10px;
+    gap: calc(var(--size) * 0.5);
   }
 
   .p-btn {
-    border: 1.5px solid var(--font-color);
+    font-family: 'roboto';
+    border: none;
     background-color: transparent;
-    color: var(--font-color);
-    width: 30px;
-    height: 30px;
+    color: var(--pagination-color);
+    width: calc(var(--size) * 1.8);
+    height: calc(var(--size) * 1.8);
     border-radius: 15px;
     transition: var(--transition);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: var(--font-size);
+    font-size: var(--size);
     cursor: pointer;
     &.active {
-      width: 100px;
+      width: calc(var(--size) * 6);
+      background-color: var(--pagination-color);
+      color: var(--pagination-bg-color);
+    }
+    &:hover {
+      background-color: var(--pagination-color);
+      color: var(--pagination-bg-color);
     }
   }
 }

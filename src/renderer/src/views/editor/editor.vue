@@ -1,210 +1,170 @@
+<!--
+ * @Date: 2024-03-23 00:16:02
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-26 00:39:04
+ * @FilePath: \server-monitor\src\renderer\src\views\editor\editor.vue
+ * @Description: True or False
+-->
 <template>
   <div class="main-content">
-    <Editor
-      v-if="isReady"
-      v-model:value="editContent"
-      :options="options"
-      :file-tree="fileTree!"
-      :path="dirPath"
-      :handle-dir-click="handleClickDir"
-      @update:file-tree="updateFileTree"
-    ></Editor>
+    <div ref="headerRef" class="header-bar">
+      <div class="brand">
+        <BrandIcon></BrandIcon>
+        <span class="brand-title">{{ i18n.global.t('brand.name') }}</span>
+      </div>
+      <div class="tool-bar">
+        <el-button text circle @click="_appMin">
+          <i class="ri-subtract-line ri-2x"></i>
+        </el-button>
+        <el-button text circle @click="_fullScreen">
+          <i class="ri-square-line ri-lg"></i>
+        </el-button>
+        <el-button text circle @click="_exit">
+          <i class="ri-close-line ri-2x"></i>
+        </el-button>
+      </div>
+    </div>
+    <div class="editor-box">
+      <Editor
+        v-if="isReady && win_id"
+        v-model:value="editContent"
+        :options="options"
+        :path="dirPath"
+        :win-id="win_id"
+        :handle-dir-click="handleClickDir"
+        @open-file="openFile"
+      ></Editor>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Editor from '@renderer/components/editor/custom-editor.vue'
+import BrandIcon from '@renderer/components/icon/brand.vue'
 
-import { EditorOptions } from '@renderer/components/editor'
-import { RowItem } from '@renderer/components/explorer'
-import { onMounted, ref } from 'vue'
-import * as monaco from 'monaco-editor'
-import { dirComparer } from '@renderer/utils/file'
+import { useHeader } from '@renderer/composables/common/header'
+import { setupEditor, registerEditorStore } from '@renderer/composables/editor'
+import { i18n } from '@renderer/plugins/i18n'
+import { onMounted, ref, watch } from 'vue'
 
 // ----------------- C O N S T A N T ----------------- //
 
-const isReady = ref<boolean>(false) // 内容加载状态
+const editorStore = setupEditor()
 
-const languages = monaco.languages.getLanguages() // 语言列表
+const {
+  win_id,
+  filePath,
+  dirPath,
+  editContent,
+  options,
+  isReady,
+  winSize,
+  handleClickDir,
+  openFile,
+  register
+} = editorStore
 
-const winHeight = ref<string>(window.innerHeight + 'px') // 窗口高度
+// const { installDrag, appMin, exit, fullScreen } = useHeader(winSize.value)
+const { installDrag, appMin, exit, fullScreen } = useHeader([1024, 768])
 
-const editContent = ref<string>('') // 编辑器内容
-
-const options: EditorOptions = {
-  theme: 'vs-dark',
-  language: 'plaintext'
-} // 编辑器配置
-
-const file: RowItem = {
-  name: 'Server-Monitor',
-  open: true,
-  children: [
-    {
-      name: 'src',
-      open: true,
-      children: [
-        {
-          name: 'main',
-          open: true,
-          children: [
-            {
-              name: 'index',
-              open: true,
-              children: [
-                {
-                  name: 'index.vue',
-                  open: false,
-                  children: []
-                },
-                {
-                  name: 'dashboard.vue',
-                  open: false,
-                  children: []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          name: 'renderer',
-          open: true,
-          children: [
-            {
-              name: 'index',
-              open: true,
-              children: [
-                {
-                  name: 'index.vue',
-                  open: false,
-                  children: []
-                },
-                {
-                  name: 'dashboard.vue',
-                  open: false,
-                  children: []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          name: 'style.css',
-          open: false,
-          children: []
-        }
-      ]
-    }
-  ]
-}
-
-const fileTree = ref<RowItem>() // 文件树
-
-const dirPath = ref<string>('') // 目录路径
-
-const filePath = ref<string>('') // 文件路径
-
-const serverUrl = ref<string>('') // 服务器地址
+const headerRef = ref<HTMLElement>()
 
 // ------------------- C I R C L E ------------------- //
-onMounted(async () => {
-  isReady.value = false
-  await getFileData()
-  await getFileContent()
-  initLanguage()
-  await getDirInfo()
-  isReady.value = true
+
+onMounted(() => {
+  if (!headerRef.value) return
+  installDrag(headerRef.value)
 })
+
+const winIdWatcherStop = watch(
+  () => win_id.value,
+  async () => {
+    await initEditorStore()
+    winIdWatcherStop()
+  }
+)
 
 // ----------------- F U N C T I O N ----------------- //
 
-const updateFileTree = (row: RowItem) => {
-  fileTree.value = row
-}
-
-const handleClickDir = async (path: string) => {
-  const res = (await window.api.getFileList(serverUrl.value, path))
-    .sort((a, b) => dirComparer(a, b))
-    .map((item) => {
-      return {
-        name: item.name,
-        open: item.dir,
-        children: [],
-        vis: false
-      } as RowItem
-    })
-  return res
-}
-
-const getDirInfo = async () => {
-  dirPath.value = filePath.value.slice(0, filePath.value.lastIndexOf('/'))
-  fileTree.value = {
-    name: getNameFromPath(dirPath.value),
-    open: true,
-    vis: false,
-    children: (await window.api.getFileList(serverUrl.value, dirPath.value))
-      .sort((a, b) => dirComparer(a, b))
-      .map((item) => {
-        return {
-          name: item.name,
-          open: item.dir,
-          children: [],
-          vis: false
-        } as RowItem
-      })
-  }
-}
-
-const getNameFromPath = (path) => {
-  return path === '/' ? '/' : path.slice(path.lastIndexOf('/') + 1)
+const initEditorStore = async () => {
+  register((win_id) => {
+    registerEditorStore(win_id, editorStore)
+  })
 }
 
 /**
- *  @description 获取文件相关信息
- *
+ * @description: 全屏
+ * @param {*}
+ * @return {*}
  */
-const getFileData = async () => {
-  const data_str = await window.api.getFilePath()
-
-  const data = JSON.parse(data_str)
-  filePath.value = data.path
-  serverUrl.value = data.serverUrl
+const _fullScreen = () => {
+  fullScreen(...winSize.value)
 }
 
 /**
- *  @description 获取文件内容
- *
+ * @description: 最小化
+ * @param {*}
+ * @return {*}
  */
-const getFileContent = async () => {
-  editContent.value = await window.api.getFileContent(serverUrl.value, filePath.value)
+const _appMin = () => {
+  appMin()
 }
 
 /**
- *  @description 初始化语言
- *
+ * @description: 退出
+ * @param {*}
+ * @return {*}
  */
-const initLanguage = () => {
-  options.language = getLanguagesForFile(filePath.value)?.id || 'plaintext'
+const _exit = () => {
+  exit()
 }
 
-/**
- *  @description 获取文件对应的语言
- *
- */
-function getLanguagesForFile(file) {
-  const ext = '.' + file.split('.').pop()
-  return languages.find((lang) => lang.extensions && lang.extensions.includes(ext))
+const updateActivePath = (path: string) => {
+  filePath.value = path
 }
 </script>
 
 <style lang="scss" scoped>
-* {
-  padding: 0;
-  margin: 0;
-}
 .main-content {
-  background-color: var(--bg-color);
-  height: v-bind(winHeight);
+  --color: #181818;
+  --border-color: #333;
+  --font-color: #ccc;
+  background-color: var(--color);
+  height: 100vh;
+  width: 100%;
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  border-radius: var(--space-sm);
+  overflow: hidden;
+  .header-bar {
+    background-color: var(--color);
+    padding: var(--space-sm);
+    font-size: var(--font-size-content);
+    border: 1px solid var(--border-color);
+    color: var(--font-color);
+    display: flex;
+    justify-content: space-between;
+    cursor: move;
+    .brand {
+      display: flex;
+      gap: var(--space-md);
+      align-items: center;
+      .brand-title {
+        font-size: var(--brand-font-size);
+        font-weight: bold;
+        font-family: 'josefin-sans', sans-serif;
+        text-align: center;
+      }
+    }
+    .tool-bar {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+  .editor-box {
+    flex-grow: 1;
+  }
 }
 </style>
