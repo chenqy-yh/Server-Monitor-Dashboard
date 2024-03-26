@@ -6,3 +6,6 @@ out
 
 .env
 demo1.js
+.vscode
+.VSCodeCounter
+.gitignore
