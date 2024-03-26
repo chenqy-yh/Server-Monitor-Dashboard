@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-23 12:02:58
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 11:59:16
+ * @LastEditTime: 2024-03-26 23:58:56
  * @FilePath: \server-monitor\src\renderer\src\utils\windows\index.ts
  * @Description: True or False
  */
@@ -12,6 +12,7 @@ const editorWinOptions: BrowserWindowConstructorOptions = {
   height: 768,
   autoHideMenuBar: true,
   resizable: false,
+  transparent: true,
   titleBarStyle: 'hidden'
 }
 export { editorWinOptions }

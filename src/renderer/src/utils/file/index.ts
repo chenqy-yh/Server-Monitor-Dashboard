@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-23 23:54:08
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 11:09:27
+ * @LastEditTime: 2024-03-26 23:42:40
  * @FilePath: \server-monitor\src\renderer\src\utils\file\index.ts
  * @Description: True or False
  */
@@ -74,8 +74,12 @@ const checkFileSize = (size: number) => {
   return size < READ_FILE_SIZE_LIMIT
 }
 
-const checkIsReadable = (path: string, size?: number) => {
-  return checkFileSize(size || 0)
+const checkIsReadable = (path: string, type: string, size?: number) => {
+  return checkFileSize(size || 0) && checkIsFile(type)
+}
+
+const checkIsFile = (type: string) => {
+  return type === 'file'
 }
 
 export { solveNextPath, dirComparer, checkIsReadable }

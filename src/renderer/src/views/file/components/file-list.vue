@@ -1,28 +1,5 @@
 <template>
   <div class="main-content">
-    <Transition name="fade">
-      <div v-if="select_file_list.length > 0" class="btn-groups">
-        <el-button text circle>
-          <i class="ri-cursor-fill"></i>
-        </el-button>
-        <el-button text circle>
-          <i class="ri-clipboard-line"></i>
-        </el-button>
-        <el-button text circle>
-          <i class="ri-scissors-cut-line"></i>
-        </el-button>
-        <el-button text circle>
-          <i class="ri-font-family"></i>
-        </el-button>
-        <el-button text circle>
-          <i class="ri-tools-line"></i>
-        </el-button>
-        <el-button text circle>
-          <i class="ri-delete-bin-line"></i>
-        </el-button>
-      </div>
-    </Transition>
-
     <div class="table-box">
       <el-table :data="_fileList" style="width: 100%" class="table">
         <el-table-column width="50">
@@ -41,8 +18,9 @@
             <div class="file-name" @dblclick="() => handleRowDbclick(row)">
               <i
                 :class="{
-                  'ri-folder-line ri-lg': row.dir,
-                  'ri-file-line ri-lg': !row.dir
+                  'ri-folder-line ri-lg': row.type === 'dir',
+                  'ri-file-line ri-lg': row.type === 'file',
+                  'ri-link ri-lg': row.type === 'link'
                 }"
               ></i>
               <span> {{ row.name }}</span>
@@ -51,14 +29,14 @@
         </el-table-column>
         <el-table-column width="110" prop="mode" label="Permissions">
           <template #default="{ row }">
-            {{ row.mode.toString(8) }}
+            {{ row.mode.slice(1) }}
           </template>
         </el-table-column>
         <el-table-column width="100" prop="owner" label="Owner"></el-table-column>
         <el-table-column width="100" prop="size" label="Size"></el-table-column>
         <el-table-column prop="mtime" label="Edit Time">
           <template #default="{ row }">
-            {{ formatDateString(row.mtime) }}
+            {{ row.mtime }}
           </template>
         </el-table-column>
       </el-table>
@@ -71,6 +49,28 @@
         :min-num="1"
         :max-num="total"
       ></Pagination>
+      <Transition name="fade">
+        <div v-if="select_file_list.length > 0" class="btn-groups">
+          <el-button text circle>
+            <i class="ri-cursor-fill"></i>
+          </el-button>
+          <el-button text circle>
+            <i class="ri-clipboard-line"></i>
+          </el-button>
+          <el-button text circle>
+            <i class="ri-scissors-cut-line"></i>
+          </el-button>
+          <el-button text circle>
+            <i class="ri-font-family"></i>
+          </el-button>
+          <el-button text circle>
+            <i class="ri-tools-line"></i>
+          </el-button>
+          <el-button text circle>
+            <i class="ri-delete-bin-line"></i>
+          </el-button>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
@@ -80,7 +80,6 @@ import CheckBox from '@renderer/components/checkbox/checkbox-1.vue'
 import Pagination from '@renderer/components/pagination/pagination-1.vue'
 
 import { useConfigStore } from '@renderer/store'
-import { formatDateString } from '@renderer/utils/time'
 import { storeToRefs } from 'pinia'
 import { PropType, computed, nextTick, ref, watch } from 'vue'
 
@@ -117,7 +116,6 @@ const pagination_ref = ref<HTMLElement>()
 
 const select_file_list = ref<string[]>([])
 
-// const _fileList = ref<_FileStat[]>([])
 
 const page_size_map = {
   small: 8,
@@ -129,11 +127,7 @@ const cur_page = ref<number>(1) // 当前页码
 
 const total = computed(() => Math.ceil(props.fileList.length / page_size.value)) // 总页数
 
-const _fileList = computed(() => {
-  const start = (cur_page.value - 1) * page_size.value
-  const end = cur_page.value * page_size.value
-  return props.fileList.map((row) => ({ ...row, checked: false })).slice(start, end)
-})
+const _fileList = ref<_FileStat[]>([])
 
 const select_all = computed({
   get: () => {
@@ -146,13 +140,23 @@ const select_all = computed({
         select_file_list.value.push(row.name)
       }
     })
-    select_file_list.value = checked
-      ? Array.from(new Set(_fileList.value)).map((row) => row.name)
-      : []
+    return checked ? Array.from(new Set(_fileList.value)).map((row) => row.name) : []
   }
 })
 
 // ------------------- C I R C L E ------------------- //
+watch(
+  () => cur_page.value,
+  () => {
+    const start = (cur_page.value - 1) * page_size.value
+    const end = cur_page.value * page_size.value
+    _fileList.value = props.fileList.map((row) => ({ ...row, checked: false })).slice(start, end)
+  },
+  {
+    immediate: true
+  }
+)
+
 watch(
   () => props.fileList,
   () => {
@@ -205,24 +209,6 @@ const onSelectOne = (e: boolean, row: FileStat) => {
     display: none;
   }
 }
-.btn-groups {
-  z-index: 99999;
-  position: fixed;
-  right: 5vw;
-  top: 50%;
-  transform: translateY(-50%);
-  overflow-x: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-color);
-  border-radius: var(--radius-md);
-  padding: var(--space-ssm);
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
 
 .table-box {
   border: 1px solid var(--border-color);
@@ -242,5 +228,24 @@ const onSelectOne = (e: boolean, row: FileStat) => {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  // border: 1px solid red;
+  position: relative;
+  .btn-groups {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    justify-self: flex-end;
+    z-index: 99999;
+    overflow-x: auto;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-ssm);
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 </style>

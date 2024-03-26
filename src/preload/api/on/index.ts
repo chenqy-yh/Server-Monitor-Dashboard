@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-26 22:24:59
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 22:18:54
+ * @LastEditTime: 2024-03-26 23:46:56
  * @FilePath: \server-monitor\src\preload\api\on\index.ts
  * @Description: True or False
  */
@@ -54,7 +54,7 @@ const methodMap: MethodMap<SendChannel> = {
   },
   editorOpenFile: {
     channel: 'editor-open-file:main',
-    params: ['winId', 'filePath', 'fileSize']
+    params: ['winId', 'filePath', 'fileSize', 'fileType']
   }
 }
 

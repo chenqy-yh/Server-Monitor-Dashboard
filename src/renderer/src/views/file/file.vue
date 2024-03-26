@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-18 18:35:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 19:19:37
+ * @LastEditTime: 2024-03-26 23:35:05
  * @FilePath: \server-monitor\src\renderer\src\views\file\file.vue
  * @Description: True or False
 -->
@@ -60,11 +60,19 @@ const {
     padding: var(--space-md);
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-color);
-
+    overflow-x: auto;
+    &::-webkit-scrollbar-track {
+      border-color: transparent;
+    }
+    &::-webkit-scrollbar-corner {
+      border-color: transparent;
+    }
     .path-item {
       cursor: pointer;
       color: #409eff;
       font-size: 1rem;
+      // 不允许换行
+      white-space: nowrap;
       &:hover {
         text-decoration: underline;
       }

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-19 20:42:50
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 00:40:16
+ * @LastEditTime: 2024-03-26 23:53:57
  * @FilePath: \server-monitor\src\renderer\src\components\explorer\explorer.vue
  * @Description: True or False
 -->
@@ -15,6 +15,7 @@
       <ExplorerRow
         v-for="(file, i) in fileTree.children"
         :key="file.name"
+        :loading="explorer_loading"
         :row="file"
         :path="path"
         :level="0"
@@ -24,6 +25,7 @@
         :handle-click-dir="handleClickDir"
         @update:row="(newRow) => updateRow(newRow, i)"
         @open-file="openFile"
+        @upadte:loading="updateLoading"
       />
     </div>
   </div>
@@ -49,7 +51,7 @@ const emits = defineEmits(['open-file'])
 
 // ----------------- C O N S T A N T ----------------- //
 
-const { fileTree ,updateFileTree} = useEditor(props.winId)
+const { fileTree } = useEditor(props.winId)
 
 const explorerRef = ref<HTMLElement>()
 
@@ -57,25 +59,19 @@ const openIcon = 'ri-arrow-down-s-line ri-lg'
 
 const closeIcon = 'ri-arrow-right-s-line ri-lg'
 
-// const explorer = new Explorer()
-
-// ------------------- C I R C L E ------------------- //
+const explorer_loading = ref(false)
 
 // ----------------- F U N C T I O N ----------------- //
 
+const updateLoading = (loading: boolean) => {
+  explorer_loading.value = loading
+}
+
 const updateRow = (row: RowItem, index: number) => {
-  // const newRow = { ...props.tree }
-  // newRow.children[index] = row
-  // emits('update:tree', newRow)
-  // console.log('updateRow', row, index)
-  // console.log('fileTree', fileTree.value)
   fileTree.value && (fileTree.value.children[index] = row)
 }
 
 const toggleOpenFolder = () => {
-  // const newRow = { ...props.tree }
-  // newRow.open = !newRow.open
-  // emits('update:tree', newRow)
   fileTree.value && (fileTree.value.open = !fileTree.value.open)
 }
 
@@ -102,7 +98,6 @@ const openFile = (path: string) => {
   .content {
     padding-left: 1.5rem;
     height: max-content;
-    // border: 1px solid red;
   }
 
   .dir-name {

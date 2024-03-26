@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-21 23:40:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 22:19:23
+ * @LastEditTime: 2024-03-26 23:46:34
  * @FilePath: \server-monitor\src\preload\index.d.ts
  * @Description: True or False
  */
@@ -93,7 +93,7 @@ type OnApi = {
   updateTencentRegion: (region: string) => void
   emitFilePath: (path: string) => void
   winClose: () => void
-  editorOpenFile: (winId: number, filePath: string, fileSize: number) => void
+  editorOpenFile: (winId: number, filePath: string, fileSize: number, fileType: string) => void
 }
 
 type RendererResponse = {

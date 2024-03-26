@@ -16,6 +16,7 @@ const useFile = () => {
 
   const file_stat_list = ref<FileStat[]>() // 文件列表
 
+  // const file_path = ref<string>('/root/test1/node_modules/.pnpm/node_modules') // 文件路径
   const file_path = ref<string>('/root/test1') // 文件路径
 
   const loading = ref<boolean>(false) // 加载状态
@@ -48,7 +49,7 @@ const useFile = () => {
 
   // ------------------- C I R C L E ------------------- //
   onMounted(() => {
-    getFileList()
+    getFileList(file_path.value)
     intiFilePathListener()
   })
 
@@ -59,8 +60,8 @@ const useFile = () => {
    *
    */
   const handleClickBreadcrumb = async (item: BreadcrumbItem) => {
-    file_path.value = item.path
-    await getFileList()
+    const res = await getFileList(item.path)
+    res && (file_path.value = item.path)
   }
 
   /**
@@ -81,12 +82,16 @@ const useFile = () => {
    *  @description 获得文件列表
    *
    */
-  const getFileList = async () => {
+  const getFileList = async (path: string) => {
     try {
       loading.value = true
-      file_stat_list.value = (await window.api.getFileList(server_url.value, file_path.value)).sort(
-        (a, b) => dirComparer(a, b)
+      file_stat_list.value = (await window.api.getFileList(server_url.value, path)).sort((a, b) =>
+        dirComparer(a, b)
       )
+      console.log(file_stat_list.value)
+      return true
+    } catch (err) {
+      return false
     } finally {
       loading.value = false
     }
@@ -107,7 +112,8 @@ const useFile = () => {
 
     // 如果已经打开编辑器 直接返回
     if (isOpenOldEditor) {
-      oldEditorId && window.api.editorOpenFile(oldEditorId, choose_edit_file_path.value, file.size)
+      oldEditorId &&
+        window.api.editorOpenFile(oldEditorId, choose_edit_file_path.value, file.size, file.type)
       return
     }
 
@@ -128,14 +134,20 @@ const useFile = () => {
    *  @description 双击文件
    *
    */
-  const handleDbclickFile = (row: FileStat) => {
-    if (!row.dir) {
-      if (!checkIsReadable(row.name, row.size)) return
+  const handleDbclickFile = async (row: FileStat) => {
+    if (row.type === 'file') {
+      if (!checkIsReadable(row.name, row.type, row.size)) return
       openFileEditor(row)
-    } else {
-      file_path.value = solveNextPath(file_path.value, row.name)
-      getFileList()
+    } else if (row.type === 'dir') {
+      openDir(row)
     }
+  }
+
+  const openDir = async (row: FileStat) => {
+    const nextPath = solveNextPath(file_path.value, row.name)
+    const res = await getFileList(nextPath)
+    res && (file_path.value = nextPath)
+    console.log('open Dir:', res)
   }
 
   const checkEditorHasOpened = (path: string) => {

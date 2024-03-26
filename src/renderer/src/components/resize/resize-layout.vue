@@ -23,6 +23,8 @@ import { onMounted, ref } from 'vue'
 
 // -------------------- P R O P S -------------------- //
 
+defineProps<{ height: string }>()
+
 const emits = defineEmits(['resize'])
 
 // ----------------- C O N S T A N T ----------------- //
@@ -92,18 +94,17 @@ const clamp = (x: number, min: number, max: number) => {
 <style lang="scss" scoped>
 .slot-container {
   transform: translate(0);
-  height: 100%;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    width: 10px;
-    background-color: red;
-  }
+  height: v-bind(height);
+  overflow-y: hidden;
 }
 
 .resize-layout {
-  height: 100%;
+  height: v-bind(height);
   display: grid;
   grid-template-columns: max-content 1fr;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .left-layout {
     height: 100%;
     width: 200px;

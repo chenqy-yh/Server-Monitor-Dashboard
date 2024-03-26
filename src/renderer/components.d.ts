@@ -22,12 +22,16 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
+    ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElSelect: typeof import('element-plus/es')['ElSelect']
+    ElSlider: typeof import('element-plus/es')['ElSlider']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
@@ -37,6 +41,7 @@ declare module 'vue' {
     Loading1: typeof import('./src/components/loading/loading-1.vue')['default']
     Loading2: typeof import('./src/components/loading/loading-2.vue')['default']
     Loading3: typeof import('./src/components/loading/loading-3.vue')['default']
+    LoadingIcon: typeof import('./src/components/loading/loading-icon.vue')['default']
     Menu: typeof import('./src/components/menu/menu.vue')['default']
     MenuItem: typeof import('./src/components/menu/menu-item.vue')['default']
     Pagination1: typeof import('./src/components/pagination/pagination-1.vue')['default']
@@ -46,5 +51,8 @@ declare module 'vue' {
     SocialCard: typeof import('./src/components/card/social-card.vue')['default']
     Tabbed: typeof import('./src/components/tabbed/tabbed.vue')['default']
     Versions: typeof import('./src/components/Versions.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

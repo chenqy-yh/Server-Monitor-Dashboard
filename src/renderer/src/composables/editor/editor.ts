@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-24 16:37:20
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 00:41:30
+ * @LastEditTime: 2024-03-26 23:48:51
  * @FilePath: \server-monitor\src\renderer\src\composables\editor\editor.ts
  * @Description: True or False
  */
@@ -9,8 +9,7 @@ import { EditorOptions } from '@renderer/components/editor'
 import { RowItem } from '@renderer/components/explorer'
 import { checkIsReadable, dirComparer } from '@renderer/utils/file'
 import * as monaco from 'monaco-editor'
-import { nextTick, onBeforeMount } from 'vue'
-import { onMounted, ref } from 'vue'
+import { nextTick, onBeforeMount, onMounted, ref } from 'vue'
 
 const setupEditor = () => {
   // ----------------- C O N S T A N T ----------------- //
@@ -70,8 +69,8 @@ const setupEditor = () => {
    */
   const addOpenFileListener = () => {
     window.api.onResponse('editor-open-file:renderer', (...args: unknown[]) => {
-      const [filePath, fileSize] = args
-      openFile(filePath as string, fileSize as number)
+      const [filePath, fileSize, fileType] = args
+      openFile(filePath as string, fileSize as number, fileType as string)
     })
   }
 
@@ -101,12 +100,7 @@ const setupEditor = () => {
    * @return {*}
    */
   const saveFileContent = async () => {
-    const res = await window.api.saveFileContent(serverUrl.value, filePath.value, editContent.value)
-    if (res === 'success save') {
-      console.log('保存成功')
-    } else {
-      console.log('保存失败')
-    }
+    await window.api.saveFileContent(serverUrl.value, filePath.value, editContent.value)
   }
 
   /**
@@ -114,10 +108,9 @@ const setupEditor = () => {
    * @param {string} path
    * @return {*}
    */
-  const openFile = async (path: string, size: number) => {
-    if (!checkIsReadable(path, size)) return
+  const openFile = async (path: string, size: number, type: string) => {
+    if (!checkIsReadable(path, type, size)) return
     filePath.value = path
-    console.log('filep:',filePath.value)
     await getFileContent()
     initLanguage()
   }
@@ -146,6 +139,7 @@ const setupEditor = () => {
           children: [],
           open: false,
           vis: false,
+          type: item.type,
           size: item.size
         } as RowItem
       })
@@ -163,6 +157,7 @@ const setupEditor = () => {
       dir: true,
       vis: false,
       open: true,
+      type: 'dir',
       size: 0,
       children: (await window.api.getFileList(serverUrl.value, dirPath.value))
         .sort((a, b) => dirComparer(a, b))
@@ -173,13 +168,18 @@ const setupEditor = () => {
             children: [],
             vis: false,
             open: false,
+            type: item.type,
             size: item.size
           } as RowItem
         })
     }
-    console.log(fileTree.value)
   }
 
+  /**
+   * @description:  从路径中获取名称
+   * @param {string} path
+   * @return {*}
+   */
   const getNameFromPath = (path) => {
     return path === '/' ? '/' : path.slice(path.lastIndexOf('/') + 1)
   }
@@ -250,3 +250,4 @@ type UseEditor = ReturnType<typeof setupEditor>
 
 export { setupEditor }
 export type { UseEditor }
+

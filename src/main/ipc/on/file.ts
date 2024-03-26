@@ -10,6 +10,7 @@ ipcMain.on('editor-open-file:main', (_: IpcMainEvent, ...args: unknown[]) => {
   // 0 为editor window id
   // 1 为文件路径
   // 2 为文件大小
+  // 3 为文件类型
   const win = getWindowById(parseInt(args[0] as string))
-  win?.webContents.send('editor-open-file:renderer', args[1], args[2])
+  win?.webContents.send('editor-open-file:renderer', ...args.slice(1))
 })

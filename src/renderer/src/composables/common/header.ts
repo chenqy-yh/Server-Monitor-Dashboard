@@ -1,12 +1,12 @@
 /*
  * @Date: 2024-03-24 22:33:02
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 16:49:55
+ * @LastEditTime: 2024-03-26 23:55:22
  * @FilePath: \server-monitor\src\renderer\src\composables\common\header.ts
  * @Description: True or False
  */
 import { Drag } from '@renderer/composables/common/drag'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const useHeader = (winSize: [number, number]) => {
   //----------------- C O N S T A N T ----------------- //
@@ -31,8 +31,6 @@ const useHeader = (winSize: [number, number]) => {
   }
 
   const fullScreen = async (width: number, height: number) => {
-    const res = await window.api.getWinBounds()
-    console.log(res)
     isFullScreen.value = !isFullScreen.value
     drag.setOptions({
       width,

@@ -6,16 +6,23 @@
         active: isActive,
         lastChild: lastChild
       }"
-      @click.prevent="() => setActivePath(selfPath)"
+      @click.prevent="() => setActivePath(selfPath, row.size, row.type)"
     >
       <div class="row-content">
-        <i
-          :class="{
-            'ri-arrow-right-s-line ri-lg': !row.open,
-            'ri-arrow-down-s-line ri-lg': row.open,
-            'opcaity-0': !row.dir
-          }"
-        ></i>
+        <div class="row-icon">
+          <Transition name="fade">
+            <LoadingIcon v-if="loading" />
+            <i
+              v-else
+              :class="{
+                'ri-arrow-right-s-line ri-lg': !row.open,
+                'ri-arrow-down-s-line ri-lg': row.open,
+                'opcaity-0': !row.dir
+              }"
+            ></i>
+          </Transition>
+        </div>
+
         <img class="file-type-icon" :src="imgHelper.getImg(fileType)" />
         <span>{{ row.name }}</span>
       </div>
@@ -24,6 +31,7 @@
       <explorer-row
         v-for="(item, i) in row.children"
         :key="i"
+        :loading="loading"
         :row="item"
         :path="selfPath"
         :level="level + 1"
@@ -39,8 +47,10 @@
 </template>
 
 <script setup lang="ts">
+import LoadingIcon from '@renderer/components/loading/loading-icon.vue'
+
 import { imgHelper } from '@renderer/utils/img'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { RowItem } from '.'
 import { useEditor } from '@renderer/composables/editor'
 
@@ -60,10 +70,9 @@ const emits = defineEmits(['update:row', 'open-file'])
 
 // ----------------- C O N S T A N T ----------------- //
 
-const { filePath } = useEditor(props.winId)
+const { filePath, openFile: _openFile } = useEditor(props.winId)
 
-// 是否展开
-// const open = ref(false)
+const loading = ref(false)
 
 // 遮罩宽度
 const _maskWidth = computed(() => props.maskWidth - 2 + 'px')
@@ -82,7 +91,6 @@ const fileType = computed(() => {
   return props.row.dir ? 'directory' : 'file'
 })
 
-
 // ----------------- F U N C T I O N ----------------- //
 
 /**
@@ -97,17 +105,16 @@ const updateRow = (row: RowItem, index: number) => {
   emits('update:row', newRow)
 }
 
-
 /**
  * @description: 设置当前激活的路径
  * @param {*} path
  * @return {*}
  */
-const setActivePath = async (path: string) => {
+const setActivePath = async (path: string, size: number, type: string) => {
   if (props.row.dir) {
     openDir(path)
   } else {
-    openFile(path)
+    openFile(path, size, type)
   }
   const newRow = { ...props.row }
   newRow.open = !newRow.open
@@ -118,8 +125,9 @@ const setActivePath = async (path: string) => {
  * @description: 点击文件
  * @return {*}
  */
-const openFile = (path: string) => {
+const openFile = (path: string, size: number, type: string) => {
   filePath.value = path
+  _openFile(path, size, type)
 }
 
 /**
@@ -128,13 +136,23 @@ const openFile = (path: string) => {
  * @return {*}
  */
 const openDir = async (path: string) => {
+  loading.value = true
   filePath.value = path
   if (!props.row.vis) {
-    const res = await props.handleClickDir(path)
+    const res = await props.handleClickDir(path).catch((err) => {
+      console.error(err)
+      return [-1]
+    })
     const newRow = { ...props.row, children: res }
-    newRow.vis = true
-    emits('update:row', newRow)
+    if (res[0] === -1) {
+      newRow.open = false
+      newRow.vis = false
+    } else {
+      newRow.vis = true
+      emits('update:row', newRow)
+    }
   }
+  loading.value = false
 }
 </script>
 
@@ -176,6 +194,13 @@ const openDir = async (path: string) => {
       border: 1px solid #0078d4;
     }
   }
+  .row-icon {
+    width: 1rem;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .row-content {
     display: flex;
     align-items: center;
@@ -192,6 +217,10 @@ const openDir = async (path: string) => {
     }
     span {
       font-size: 14px;
+      // 只显示一行 多余的显示...
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-23 00:16:02
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 00:39:04
+ * @LastEditTime: 2024-03-27 00:13:34
  * @FilePath: \server-monitor\src\renderer\src\views\editor\editor.vue
  * @Description: True or False
 -->
@@ -31,6 +31,7 @@
         :options="options"
         :path="dirPath"
         :win-id="win_id"
+        :height="body_height + 'vh'"
         :handle-dir-click="handleClickDir"
         @open-file="openFile"
       ></Editor>
@@ -45,7 +46,7 @@ import BrandIcon from '@renderer/components/icon/brand.vue'
 import { useHeader } from '@renderer/composables/common/header'
 import { setupEditor, registerEditorStore } from '@renderer/composables/editor'
 import { i18n } from '@renderer/plugins/i18n'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -68,6 +69,12 @@ const {
 const { installDrag, appMin, exit, fullScreen } = useHeader([1024, 768])
 
 const headerRef = ref<HTMLElement>()
+
+const body_height = ref(94)
+
+const header_height = computed(() => {
+  return 100 - body_height.value + 'vh'
+})
 
 // ------------------- C I R C L E ------------------- //
 
@@ -129,23 +136,25 @@ const updateActivePath = (path: string) => {
   --color: #181818;
   --border-color: #333;
   --font-color: #ccc;
+  border: 1px solid var(--border-color);
   background-color: var(--color);
   height: 100vh;
-  width: 100%;
   font-size: 14px;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   border-radius: var(--space-sm);
   overflow: hidden;
+  transition: all 0.3s ease-in-out;
   .header-bar {
     background-color: var(--color);
     padding: var(--space-sm);
     font-size: var(--font-size-content);
-    border: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     color: var(--font-color);
     display: flex;
     justify-content: space-between;
+    height: v-bind(header_height);
     cursor: move;
     .brand {
       display: flex;
@@ -162,9 +171,6 @@ const updateActivePath = (path: string) => {
       display: flex;
       justify-content: flex-end;
     }
-  }
-  .editor-box {
-    flex-grow: 1;
   }
 }
 </style>

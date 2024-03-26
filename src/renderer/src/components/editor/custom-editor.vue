@@ -1,12 +1,12 @@
 <!--
  * @Date: 2024-03-19 14:44:45
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 00:37:52
+ * @LastEditTime: 2024-03-27 00:10:28
  * @FilePath: \server-monitor\src\renderer\src\components\editor\custom-editor.vue
  * @Description: True or False
 -->
 <template>
-  <ResizeLayout @resize="onResize">
+  <ResizeLayout :height="height" @resize="onResize">
     <template #left>
       <Explorer
         ref="explorerRef"
@@ -16,6 +16,7 @@
         :handle-click-dir="handleDirClick"
         @open-file="openFile"
       ></Explorer>
+      <div class="test"></div>
     </template>
     <template #right>
       <Editor
@@ -30,7 +31,6 @@
 
 <script lang="ts" setup>
 import ResizeLayout from '@renderer/components/resize/resize-layout.vue'
-import Explorer from '../explorer/explorer.vue'
 import Editor from './editor.vue'
 
 import { onMounted, onUnmounted, ref, toRaw, watch } from 'vue'
@@ -43,6 +43,7 @@ const props = defineProps<{
   path: string
   options: EditorOptions
   winId: number
+  height: string
   handleDirClick: (path: string) => Promise<RowItem[]>
 }>()
 
@@ -80,7 +81,6 @@ const openFile = (path: string) => {
   emits('open-file', path)
 }
 
-
 const onInput = (value) => {
   emits('update:value', value)
   emits('input', value)
@@ -104,10 +104,4 @@ const removeResizeListener = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-.main-content {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  overflow-x: hidden;
-}
-</style>
+<style lang="scss" scoped></style>
