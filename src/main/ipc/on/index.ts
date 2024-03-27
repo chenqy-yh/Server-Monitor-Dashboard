@@ -103,16 +103,16 @@ ipcMain.on('win-resize', (event: IpcMainEvent, width: number, height: number) =>
   win.center()
 })
 
-// 右键菜单
-ipcMain.on('context-menu', (event: IpcMainEvent, menu_key: MenuContextKey) => {
-  const hasKey = MenuContextMap.has(menu_key)
-  const menu_template: (MenuItemConstructorOptions | MenuItem)[] =
-    (hasKey ? MenuContextMap.get(menu_key) : MenuContextMap.get('default')) ?? []
-  const win = BrowserWindow.fromWebContents(event.sender)
-  if (!win) return
-  const contextMenu = Menu.buildFromTemplate(menu_template)
-  contextMenu.popup({ window: win })
-})
+// // 右键菜单
+// ipcMain.on('context-menu', (event: IpcMainEvent, menu_key: MenuContextKey) => {
+//   const hasKey = MenuContextMap.has(menu_key)
+//   const menu_template: (MenuItemConstructorOptions | MenuItem)[] =
+//     (hasKey ? MenuContextMap.get(menu_key) : MenuContextMap.get('default')) ?? []
+//   const win = BrowserWindow.fromWebContents(event.sender)
+//   if (!win) return
+//   const contextMenu = Menu.buildFromTemplate(menu_template)
+//   contextMenu.popup({ window: win })
+// })
 
 // 更新腾讯云凭证
 ipcMain.on('update-credential', (_: IpcMainEvent, secretId: string, secretKey: string) => {

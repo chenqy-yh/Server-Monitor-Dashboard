@@ -1,9 +1,8 @@
 import { useConfigStore } from '@renderer/store'
+import { checkIsReadable, dirComparer, solveNextPath } from '@renderer/utils/file'
 import { editorWinOptions } from '@renderer/utils/windows'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted, ref } from 'vue'
-import { solveNextPath, dirComparer } from '@renderer/utils/file'
-import { checkIsReadable } from '@renderer/utils/file'
+import { onMounted, ref } from 'vue'
 
 type BreadcrumbItem = {
   path: string
@@ -20,26 +19,6 @@ const useFile = () => {
   const file_path = ref<string>('/root/test1') // 文件路径
 
   const loading = ref<boolean>(false) // 加载状态
-
-  // 面包屑列表
-  const breadcrumb_list = computed(() => {
-    let res = [{ name: '/', path: '/' }]
-    if (file_path.value != '/') {
-      res = file_path.value
-        .slice(1)
-        .split('/')
-        .reduce((acc, cur, i) => {
-          return [
-            ...acc,
-            {
-              path: acc[i].path + (i ? '/' : '') + cur,
-              name: cur
-            }
-          ]
-        }, res)
-    }
-    return res
-  })
 
   const select_file_list = ref<string[]>([]) // 选择的文件列表
 
@@ -60,8 +39,7 @@ const useFile = () => {
    *
    */
   const handleClickBreadcrumb = async (item: BreadcrumbItem) => {
-    const res = await getFileList(item.path)
-    res && (file_path.value = item.path)
+    ;(await getFileList(item.path)) && (file_path.value = item.path)
   }
 
   /**
@@ -88,7 +66,6 @@ const useFile = () => {
       file_stat_list.value = (await window.api.getFileList(server_url.value, path)).sort((a, b) =>
         dirComparer(a, b)
       )
-      console.log(file_stat_list.value)
       return true
     } catch (err) {
       return false
@@ -147,7 +124,6 @@ const useFile = () => {
     const nextPath = solveNextPath(file_path.value, row.name)
     const res = await getFileList(nextPath)
     res && (file_path.value = nextPath)
-    console.log('open Dir:', res)
   }
 
   const checkEditorHasOpened = (path: string) => {
@@ -163,7 +139,6 @@ const useFile = () => {
     file_stat_list,
     file_path,
     loading,
-    breadcrumb_list,
     select_file_list,
     choose_edit_file_path,
     handleClickBreadcrumb,

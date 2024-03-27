@@ -1,12 +1,12 @@
 <!--
  * @Date: 2023-12-22 00:35:03
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 22:07:14
+ * @LastEditTime: 2024-03-27 22:31:23
  * @FilePath: \server-monitor\src\renderer\src\views\home\home.vue
  * @Description: True or False
 -->
 <template>
-  <div class="home-content">
+  <div id="thome" class="home-content">
     <el-container class="container">
       <el-aside width="170px">
         <LeftMenu></LeftMenu>
@@ -32,21 +32,18 @@
 import LeftMenu from '@renderer/components/menu/left-menu.vue'
 import Header from './components/header.vue'
 
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useConfigStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue'
 
 // -------------------- P R O P S -------------------- //
 const { opacity_setting } = storeToRefs(useConfigStore())
 
 // ----------------- C O N S T A N T ----------------- //
-const router = useRouter()
 
 // ------------------- C I R C L E ------------------- //
 onMounted(async () => {
   window.addEventListener('keydown', keyDown, true)
-  installContextMenu()
 })
 
 // ----------------- F U N C T I O N ----------------- //
@@ -54,14 +51,6 @@ const keyDown = (e: KeyboardEvent) => {
   if (e.key === 'F11') {
     e.preventDefault()
   }
-}
-
-const installContextMenu = () => {
-  window.addEventListener('contextmenu', (e) => {
-    e.preventDefault()
-    const path = router.currentRoute.value.path
-    window.api.showContextMenu(path)
-  })
 }
 </script>
 

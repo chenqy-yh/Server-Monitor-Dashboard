@@ -1,13 +1,13 @@
 <!--
  * @Date: 2023-12-22 15:54:21
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 12:33:13
+ * @LastEditTime: 2024-03-27 16:23:39
  * @FilePath: \server-monitor\src\renderer\src\components\menu\left-menu.vue
  * @Description: True or False
 -->
 <template>
   <Menu>
-    <menu-item>
+    <menu-item style="height: var(--header-height)">
       <template #icon>
         <BrandIcon />
       </template>

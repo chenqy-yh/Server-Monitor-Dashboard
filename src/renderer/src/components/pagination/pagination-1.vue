@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination" v-if="!loading">
+  <div class="pagination">
     <button class="arrow first" @click="goFirst">
       <i class="ri-skip-left-line ri-2x"></i>
     </button>
@@ -51,16 +51,24 @@ const emits = defineEmits(['update:modelValue'])
 
 // ----------------- C O N S T A N T ----------------- //
 
-const loading = ref<boolean>(false)
-
 const active_btn = ref<number>(0)
 const start_num = ref<number>(0)
 
 // ------------------- C I R C L E ------------------- //
+
 onMounted(() => init())
 
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val === props.minNum) {
+      init()
+    }
+  }
+)
+
 // ----------------- F U N C T I O N ----------------- //
-const init = () => {
+function init() {
   if (props.maxNum - props.modelValue + 1 < props.btnNum) {
     active_btn.value = props.maxNum - props.modelValue
     start_num.value = props.maxNum - props.btnNum + 1
