@@ -69,7 +69,7 @@
   --border-color: color-mix(in lch, var(--color) 90%, black);
   --border-color-hover: color-mix(in lch, var(--color) 50%, black);
   --bg-bt-color: color-mix(in lch, var(--bg-color) 95%, black);
-  --bg-color-hover: var(--bg-color);
+  --bg-color-hover: color-mix(in lch, var(--color) 95%, black);
   /* menu */
   --menu-item-hover-bg: color-mix(in lch, var(--menu-item-bg) 98%, black);
   --menu-item-icon-color: color-mix(in srgb, var(--font-color) 90%, #fff);

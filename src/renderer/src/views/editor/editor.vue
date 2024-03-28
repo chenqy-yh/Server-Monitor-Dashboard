@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-23 00:16:02
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-27 00:13:34
+ * @LastEditTime: 2024-03-29 00:28:30
  * @FilePath: \server-monitor\src\renderer\src\views\editor\editor.vue
  * @Description: True or False
 -->
@@ -124,10 +124,6 @@ const _appMin = () => {
  */
 const _exit = () => {
   exit()
-}
-
-const updateActivePath = (path: string) => {
-  filePath.value = path
 }
 </script>
 

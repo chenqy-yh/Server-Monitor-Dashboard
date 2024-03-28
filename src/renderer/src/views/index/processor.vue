@@ -33,6 +33,7 @@
 import { useServerInfoStore, useConfigStore } from '@renderer/store'
 import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
+import { text } from 'stream/consumers'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -81,6 +82,8 @@ const option = {
     axisLabel: {
       color: theme_setting.value === 'dark' ? '#fefefe' : '#181818'
     },
+    // 单位 %
+    name: '%',
     splitLine: {
       show: true,
       lineStyle: {

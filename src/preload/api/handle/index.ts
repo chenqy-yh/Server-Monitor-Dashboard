@@ -1,11 +1,12 @@
 /*
  * @Date: 2023-12-26 22:24:54
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 22:05:39
+ * @LastEditTime: 2024-03-28 22:43:34
  * @FilePath: \server-monitor\src\preload\api\handle\index.ts
  * @Description: True or False
  */
 import { ipcRenderer } from 'electron'
+import { copyFile } from 'fs'
 
 const ipcInvoke = <T = unknown>(channel: HandleChannel, ...args: unknown[]) => {
   return ipcRenderer.invoke(channel, ...args) as T
@@ -58,7 +59,9 @@ const FileWallMethodMap: MethodMap<HandleChannel> = {
   getFileContent: { channel: 'file:content', params: ['url', 'path'] },
   saveFileContent: { channel: 'file:save', params: ['url', 'path', 'content'] },
   findEditorWindow: { channel: 'file:editor:find', params: ['win_id'] },
-  getWinId: { channel: 'get-win-id', params: [] }
+  getWinId: { channel: 'get-win-id', params: [] },
+  delFile: { channel: 'file:del', params: ['url', 'path'] },
+  copyFile: { channel: 'file:copy', params: ['url', 'path', 'targetPath'] }
 }
 
 const methodMap: MethodMap<HandleChannel> = {

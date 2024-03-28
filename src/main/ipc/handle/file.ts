@@ -1,12 +1,18 @@
 /*
  * @Date: 2024-03-18 20:43:56
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-27 14:01:09
+ * @LastEditTime: 2024-03-28 22:39:34
  * @FilePath: \server-monitor\src\main\ipc\handle\file.ts
  * @Description: True or False
  */
 import { BrowserWindow, ipcMain } from 'electron'
-import { getFileContent, getFileList, saveFileContent } from '../../utils/api/file'
+import {
+  getFileContent,
+  getFileList,
+  saveFileContent,
+  copyFile,
+  delFile
+} from '../../utils/api/file'
 import { addIpcHandle } from './utils'
 import { handleEditorWindowFind } from '../../utils/file'
 
@@ -45,4 +51,14 @@ addIpcHandle('file:editor:find', async (_e, ...args: unknown[]) => {
 addIpcHandle('get-win-id', async (_e, ...args) => {
   const win = BrowserWindow.fromWebContents(_e.sender)
   return win?.id
+})
+
+addIpcHandle('file:del', async (_e, ...args) => {
+  const [url, path] = args
+  return await delFile(url, path)
+})
+
+addIpcHandle('file:copy', async (_e, ...args) => {
+  const [url, path, targetPath] = args
+  return await copyFile(url, path, targetPath)
 })

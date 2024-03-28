@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-22 22:19:19
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 20:54:07
+ * @LastEditTime: 2024-03-28 22:38:08
  * @FilePath: \server-monitor\src\main\typings\ipc.d.ts
  * @Description: True or False
  */
@@ -29,6 +29,8 @@ type FileWallHandleChannel =
   | 'file:content'
   | 'file:save'
   | 'file:editor:find'
+  | 'file:del'
+  | 'file:copy'
 type CommonHandleChannel = 'open-window' | 'get-win-id'
 
 type HandleChannel =

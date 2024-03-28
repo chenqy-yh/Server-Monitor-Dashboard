@@ -2,7 +2,7 @@ import { useConfigStore } from '@renderer/store'
 import { checkIsReadable, dirComparer, solveNextPath } from '@renderer/utils/file'
 import { editorWinOptions } from '@renderer/utils/windows'
 import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 type BreadcrumbItem = {
   path: string
@@ -11,7 +11,9 @@ type BreadcrumbItem = {
 
 const useFile = () => {
   // -------------------- S T O R E -------------------- //
-  const { server_url } = storeToRefs(useConfigStore()) // 服务器地址
+  const { server_url, win_size_setting } = storeToRefs(useConfigStore()) // 服务器地址
+
+  // ----------------- C O N S T A N T ----------------- //
 
   const file_stat_list = ref<FileStat[]>() // 文件列表
 
@@ -20,11 +22,50 @@ const useFile = () => {
 
   const loading = ref<boolean>(false) // 加载状态
 
-  const select_file_list = ref<string[]>([]) // 选择的文件列表
-
   const choose_edit_file_path = ref<string>('') // 选择编辑的文件路径
 
   const open_dir_path_list: Map<string, number> = new Map() // 打开的文件路径列表
+
+  // 分页大小
+  const sizeMpa = {
+    small: 8,
+    medium: 10,
+    large: 12
+  }
+
+  const size = computed(() => {
+    return sizeMpa[win_size_setting.value || 'medium']
+  })
+
+  const cur_page = ref(1)
+
+  const total = computed(() => Math.ceil((file_stat_list.value?.length ?? 0) / size.value))
+
+  const paginationList = computed(() => {
+    const start = (cur_page.value - 1) * size.value
+    const end = cur_page.value * size.value
+    return file_stat_list.value?.slice(start, end)
+  })
+
+  // 面包屑列表
+  const breadcrumb_list = computed(() => {
+    let res = [{ name: '/', path: '/' }]
+    if (file_path.value != '/') {
+      res = file_path.value
+        .slice(1)
+        .split('/')
+        .reduce((acc, cur, i) => {
+          return [
+            ...acc,
+            {
+              path: acc[i].path + (i ? '/' : '') + cur,
+              name: cur
+            }
+          ]
+        }, res)
+    }
+    return res
+  })
 
   // ------------------- C I R C L E ------------------- //
   onMounted(() => {
@@ -139,10 +180,16 @@ const useFile = () => {
     file_stat_list,
     file_path,
     loading,
-    select_file_list,
     choose_edit_file_path,
+    open_dir_path_list,
+    size,
+    cur_page,
+    total,
+    breadcrumb_list,
+    paginationList,
     handleClickBreadcrumb,
-    handleDbclickFile
+    handleDbclickFile,
+    getFileList
   }
 }
 

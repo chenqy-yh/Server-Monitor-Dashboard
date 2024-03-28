@@ -155,6 +155,18 @@
     "warning": {
       "del-tab": "Are you sure you want to close the tab?",
       "have-unsaved": "There are unsaved changes!"
+    },
+    "context-menu": {
+      "open": "Open",
+      "download": "Download",
+      "copy": "Copy",
+      "paste": "Paste",
+      "selectAll": "Select All",
+      "clear": "Clear",
+      "close": "Close",
+      "closeOthers": "Close Others",
+      "closeAll": "Close All",
+      "del": "Delete"
     }
   },
   "cn": {
@@ -313,6 +325,18 @@
     "warning": {
       "del-tab": "确定要关闭标签页吗？",
       "have-unsaved": "有未保存的更改！"
+    },
+    "context-menu": {
+      "download": "下载",
+      "copy": "复制",
+      "paste": "粘贴",
+      "selectAll": "全选",
+      "clear": "清空",
+      "close": "关闭",
+      "closeOthers": "关闭其他",
+      "closeAll": "关闭所有",
+      "open": "打开",
+      "del": "删除"
     }
   }
 }
