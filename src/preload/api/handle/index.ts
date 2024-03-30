@@ -1,12 +1,12 @@
 /*
  * @Date: 2023-12-26 22:24:54
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-28 22:43:34
+ * @LastEditTime: 2024-03-31 00:10:50
  * @FilePath: \server-monitor\src\preload\api\handle\index.ts
  * @Description: True or False
  */
 import { ipcRenderer } from 'electron'
-import { copyFile } from 'fs'
+import { copyFile, mkdir } from 'fs'
 
 const ipcInvoke = <T = unknown>(channel: HandleChannel, ...args: unknown[]) => {
   return ipcRenderer.invoke(channel, ...args) as T
@@ -54,14 +54,20 @@ const FirewallMethodMap: MethodMap<HandleChannel> = {
  * @return {*}
  */
 const FileWallMethodMap: MethodMap<HandleChannel> = {
-  getFileList: { channel: 'file:list', params: ['url', 'path'] },
+  getFileList: { channel: 'file:list', params: ['url', 'path', 'filter'] },
   getFilePath: { channel: 'file:path', params: [] },
   getFileContent: { channel: 'file:content', params: ['url', 'path'] },
   saveFileContent: { channel: 'file:save', params: ['url', 'path', 'content'] },
   findEditorWindow: { channel: 'file:editor:find', params: ['win_id'] },
   getWinId: { channel: 'get-win-id', params: [] },
   delFile: { channel: 'file:del', params: ['url', 'path'] },
-  copyFile: { channel: 'file:copy', params: ['url', 'path', 'targetPath'] }
+  copyFile: { channel: 'file:copy', params: ['url', 'src', 'dest'] },
+  moveFile: { channel: 'file:move', params: ['url', 'src', 'dest'] },
+  mkdir: { channel: 'file:mkdir', params: ['url', 'path'] },
+  mkfile: { channel: 'file:mkfile', params: ['url', 'path'] },
+  uploadFile: { channel: 'file:upload', params: ['url', 'path', 'formData'] },
+  test: { channel: 'file:test', params: [] },
+  mergeChunk: { channel: 'file:merge', params: ['url', 'path', 'formData'] }
 }
 
 const methodMap: MethodMap<HandleChannel> = {

@@ -61,7 +61,7 @@ export const useFirewallStore = defineStore('firewall', () => {
     firewall_rule_list.value = []
     firewall_rule_list_copy.value = []
     active_sort_mode.value = false
-    sort_obj.value?.destroy()
+    sort_obj.value = undefined
     save_loading.value = false
   }
 
@@ -69,9 +69,9 @@ export const useFirewallStore = defineStore('firewall', () => {
    *  激活排序模式
    *
    */
-  function activeSortMode() {
+  function activeSortMode(el: HTMLElement) {
     active_sort_mode.value = !active_sort_mode.value
-    if (!sort_obj.value) initSortable()
+    if (!sort_obj.value) initSortable(el)
   }
 
   /**
@@ -121,10 +121,9 @@ export const useFirewallStore = defineStore('firewall', () => {
    *  初始化排序
    *
    */
-  const initSortable = () => {
-    const el = document.querySelector('.dragTable tbody')
+  const initSortable = (el: HTMLElement) => {
     if (el) {
-      sort_obj.value = Sortable.create(el as HTMLElement, {
+      sort_obj.value = Sortable.create(el, {
         animation: 150,
         delay: 0,
         handle: '.el-table__row',

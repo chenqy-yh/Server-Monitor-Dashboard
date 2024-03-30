@@ -35,6 +35,7 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElOption: typeof import('element-plus/es')['ElOption']
+    ElPopover: typeof import('element-plus/es')['ElPopover']
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElSelect: typeof import('element-plus/es')['ElSelect']
@@ -42,6 +43,8 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     Explorer: typeof import('./src/components/explorer/explorer.vue')['default']
     ExplorerRow: typeof import('./src/components/explorer/explorer-row.vue')['default']
     LeftMenu: typeof import('./src/components/menu/left-menu.vue')['default']
@@ -58,6 +61,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SocialCard: typeof import('./src/components/card/social-card.vue')['default']
     Tabbed: typeof import('./src/components/tabbed/tabbed.vue')['default']
+    UploadButton: typeof import('./src/components/upload/upload-button.vue')['default']
     Versions: typeof import('./src/components/Versions.vue')['default']
   }
   export interface ComponentCustomProperties {

@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-29 00:05:44
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-29 00:10:39
+ * @LastEditTime: 2024-03-29 14:27:30
  * @FilePath: \server-monitor\src\renderer\src\components\context-menu\index.ts
  * @Description: True or False
  */
@@ -11,7 +11,6 @@ import ContextMenuComponent from '@renderer/components/context-menu/context-menu
 let container: HTMLElement | null = null
 
 const hiddenAllContextMenu = (menus: ContextMenuItem[]) => {
-  console.log('hiddenAllContextMenu', menus)
   menus.forEach((menu) => {
     if (menu.children) {
       hiddenAllContextMenu(menu.children)
@@ -25,7 +24,6 @@ const useContextMenu = (
   binding: { menus: ContextMenuItem[]; allowPropagation: boolean },
   event: MouseEvent
 ) => {
-  console.log('handleCreateContextMenu', binding)
   event.preventDefault() // 阻止默认右键菜单
   const allowPropagation = binding.allowPropagation ?? false
   !allowPropagation && event.stopPropagation() // 阻止冒泡

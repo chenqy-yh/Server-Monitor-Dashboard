@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-28 13:27:58
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-28 23:58:21
+ * @LastEditTime: 2024-03-29 14:28:09
  * @FilePath: \server-monitor\src\renderer\src\directive\context-menu\index.ts
  * @Description: True or False
  */
@@ -13,7 +13,6 @@ const ContextHandlerKey = 'contextmenu-handler'
 let container: HTMLElement | null = null
 
 const hiddenAllContextMenu = (menus: ContextMenuItem[]) => {
-  console.log('hiddenAllContextMenu', menus)
   menus.forEach((menu) => {
     if (menu.children) {
       hiddenAllContextMenu(menu.children)
@@ -27,7 +26,6 @@ const handleCreateContextMenu = (
   binding: DirectiveBinding<any>,
   event: MouseEvent
 ) => {
-  console.log('handleCreateContextMenu', binding)
   event.preventDefault() // 阻止默认右键菜单
   const allowPropagation = binding.value.allowPropagation ?? false
   !allowPropagation && event.stopPropagation() // 阻止冒泡

@@ -16,7 +16,7 @@
         <el-button
           class="sort-btn"
           :class="{ active: active_sort_mode }"
-          @click="firewall_store.activeSortMode"
+          @click="toggleActiveSort"
           >{{ i18n.global.t('firewall.btn.sort') }}</el-button
         >
         <Transition name="fade" mode="out-in">
@@ -30,6 +30,7 @@
       </div>
       <div v-if="table_data_list.length > 0" class="table-data">
         <el-table
+          ref="firewall_table_ref"
           v-loading="table_loading"
           :data="table_data_list.slice((cur_page - 1) * page_size, cur_page * page_size)"
           class="dragTable"
@@ -146,6 +147,8 @@ const page_size_map = {
   middle: 8,
   large: 10
 }
+
+const firewall_table_ref = ref()
 
 const cur_page = ref(1) // 当前页码
 const del_rules = ref<FirewallRuleInfo[]>([]) // 待删除规则集合
@@ -303,6 +306,11 @@ const delRule = (row: FirewallRuleInfo, index: number) => {
 const onAddRulesConfirm = () => {
   show_addrules_dialog.value = false
   table_data_list.value = infoToTableItem(firewall_rule_list.value)
+}
+
+const toggleActiveSort = () => {
+  const tar_el = firewall_table_ref.value.$el.querySelector('tbody')
+  firewall_store.activeSortMode(tar_el)
 }
 </script>
 

@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-21 23:40:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-28 22:44:35
+ * @LastEditTime: 2024-03-31 00:10:59
  * @FilePath: \server-monitor\src\preload\index.d.ts
  * @Description: True or False
  */
@@ -62,14 +62,20 @@ type FirewallHandleApi = {
  *
  */
 type FileHandleApi = {
-  getFileList: (url: string, path: string) => Promise<FileStat[]>
+  getFileList: (url: string, path: string, filter?: string) => Promise<FileStat[]>
   getFilePath: () => Promise<string>
   getFileContent: (url: string, path: string) => Promise<string>
   saveFileContent: (url: string, path: string, content: string) => Promise<string>
   findEditorWindow: (win_id: number) => Promise<boolean>
   getWinId: () => Promise<number>
   delFile: (url: string, path: string) => Promise<string>
-  copyFile: (url: string, path: string, targetPath: string) => Promise<string>
+  copyFile: (url: string, src: string, dest: string) => Promise<string>
+  moveFile: (url: string, src: string, dest: string) => Promise<string>
+  mkdir: (url: string, path: string) => Promise<string>
+  mkfile: (url: string, path: string) => Promise<string>
+  uploadFile: (url: string, path: string, formData: any) => Promise<string>
+  test: () => Promise<string>
+  mergeChunk: (url: string, path: string, formData: any) => Promise<string>
 }
 
 /**

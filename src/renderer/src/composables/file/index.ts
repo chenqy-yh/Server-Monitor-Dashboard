@@ -2,7 +2,7 @@ import { useConfigStore } from '@renderer/store'
 import { checkIsReadable, dirComparer, solveNextPath } from '@renderer/utils/file'
 import { editorWinOptions } from '@renderer/utils/windows'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 type BreadcrumbItem = {
   path: string
@@ -11,7 +11,7 @@ type BreadcrumbItem = {
 
 const useFile = () => {
   // -------------------- S T O R E -------------------- //
-  const { server_url, win_size_setting } = storeToRefs(useConfigStore()) // 服务器地址
+  const { server_url } = storeToRefs(useConfigStore()) // 服务器地址
 
   // ----------------- C O N S T A N T ----------------- //
 
@@ -26,46 +26,7 @@ const useFile = () => {
 
   const open_dir_path_list: Map<string, number> = new Map() // 打开的文件路径列表
 
-  // 分页大小
-  const sizeMpa = {
-    small: 8,
-    medium: 10,
-    large: 12
-  }
-
-  const size = computed(() => {
-    return sizeMpa[win_size_setting.value || 'medium']
-  })
-
-  const cur_page = ref(1)
-
-  const total = computed(() => Math.ceil((file_stat_list.value?.length ?? 0) / size.value))
-
-  const paginationList = computed(() => {
-    const start = (cur_page.value - 1) * size.value
-    const end = cur_page.value * size.value
-    return file_stat_list.value?.slice(start, end)
-  })
-
-  // 面包屑列表
-  const breadcrumb_list = computed(() => {
-    let res = [{ name: '/', path: '/' }]
-    if (file_path.value != '/') {
-      res = file_path.value
-        .slice(1)
-        .split('/')
-        .reduce((acc, cur, i) => {
-          return [
-            ...acc,
-            {
-              path: acc[i].path + (i ? '/' : '') + cur,
-              name: cur
-            }
-          ]
-        }, res)
-    }
-    return res
-  })
+  const file_filter = ref<string>('') // 文件过滤
 
   // ------------------- C I R C L E ------------------- //
   onMounted(() => {
@@ -80,7 +41,11 @@ const useFile = () => {
    *
    */
   const handleClickBreadcrumb = async (item: BreadcrumbItem) => {
-    ;(await getFileList(item.path)) && (file_path.value = item.path)
+    console.log('handleClickBreadcrumb:', item)
+    const res = await getFileList(item.path)
+    if (res) {
+      file_path.value = item.path
+    }
   }
 
   /**
@@ -101,11 +66,11 @@ const useFile = () => {
    *  @description 获得文件列表
    *
    */
-  const getFileList = async (path: string) => {
+  const getFileList = async (path: string, filter = '') => {
     try {
       loading.value = true
-      file_stat_list.value = (await window.api.getFileList(server_url.value, path)).sort((a, b) =>
-        dirComparer(a, b)
+      file_stat_list.value = (await window.api.getFileList(server_url.value, path, filter)).sort(
+        (a, b) => dirComparer(a, b)
       )
       return true
     } catch (err) {
@@ -177,16 +142,12 @@ const useFile = () => {
   }
 
   return {
+    file_filter,
     file_stat_list,
     file_path,
     loading,
     choose_edit_file_path,
     open_dir_path_list,
-    size,
-    cur_page,
-    total,
-    breadcrumb_list,
-    paginationList,
     handleClickBreadcrumb,
     handleDbclickFile,
     getFileList

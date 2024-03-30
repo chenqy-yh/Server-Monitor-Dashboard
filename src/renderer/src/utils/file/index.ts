@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-23 23:54:08
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 23:42:40
+ * @LastEditTime: 2024-03-30 23:44:59
  * @FilePath: \server-monitor\src\renderer\src\utils\file\index.ts
  * @Description: True or False
  */
@@ -82,4 +82,12 @@ const checkIsFile = (type: string) => {
   return type === 'file'
 }
 
-export { solveNextPath, dirComparer, checkIsReadable }
+const BlobToBuffer = (blob: Blob) => {
+  return new Promise<ArrayBuffer>((resolve) => {
+    blob.arrayBuffer().then((buf) => {
+      resolve(buf)
+    })
+  })
+}
+
+export { solveNextPath, dirComparer, checkIsReadable, BlobToBuffer }

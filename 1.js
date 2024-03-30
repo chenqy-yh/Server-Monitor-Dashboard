@@ -1,9 +1,14 @@
-const map = new Map()
+/*
+ * @Date: 2024-03-27 22:25:27
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-30 23:40:56
+ * @FilePath: \server-monitor\1.js
+ * @Description: True or False
+ */
+const toBuffer = require('blob-to-buffer')
 
-const o = { a: 1, b: () => {} }
+const blob = new Blob([`import { foo } from './2.js'; foo();`], { type: 'application/javascript' })
 
-map.set('fs', o)
-
-const ff = map.get('fs')
-
-console.log(ff === o)
+toBuffer(blob, (err, buf) => {
+  console.log(buf.toString())
+})

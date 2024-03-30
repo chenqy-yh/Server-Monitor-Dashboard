@@ -1,9 +1,7 @@
 //breadcrumb
-.el-breadcrumb{
+.el-breadcrumb {
   display: flex;
-  
 }
-
 
 // text-area
 .el-textarea__inner {
@@ -42,6 +40,7 @@
   --el-dialog-padding-primary: none !important;
   background-color: var(--bg-color) !important;
   .el-dialog__header {
+    padding: 0 !important;
     .el-dialog__title {
       color: var(--font-color) !important;
     }
