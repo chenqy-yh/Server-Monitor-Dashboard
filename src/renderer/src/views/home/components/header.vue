@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-09 20:21:29
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 15:58:56
+ * @LastEditTime: 2024-03-31 22:15:29
  * @FilePath: \server-monitor\src\renderer\src\views\home\components\header.vue
  * @Description: True or False
 -->
@@ -56,14 +56,14 @@ import { useHeader } from '@renderer/composables/common/header'
 import { i18n } from '@renderer/plugins/i18n'
 import { useConfigStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 // -------------------- S T O R E -------------------- //
 const configStore = useConfigStore()
-const { direct_exit_setting, win_size_setting } = storeToRefs(configStore)
+const { direct_exit_setting } = storeToRefs(configStore)
 
 // ----------------- C O N S T A N T ----------------- //
-const { installDrag, appMin, fullScreen, exit, onResize } = useHeader(configStore.getWinSizeVal())
+const { installDrag, appMin, fullScreen, exit } = useHeader(configStore.getWinSizeVal())
 
 const header_ref = ref<HTMLElement>()
 
@@ -73,10 +73,6 @@ const dialogVisible = ref(false)
 onMounted(() => {
   if (!header_ref.value) return
   installDrag(header_ref.value)
-})
-
-watch(win_size_setting, () => {
-  onResize(...configStore.getWinSizeVal())
 })
 
 // ----------------- F U N C T I O N ----------------- //

@@ -195,6 +195,7 @@ watch([down_cur, down_total, up_cur, up_total], () => {
   overflow: hidden;
   border: 1px solid transparent;
   transition: var(--transition);
+  user-select: none;
   &:hover {
     border-color: var(--border-color);
   }

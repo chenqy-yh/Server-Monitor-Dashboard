@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-24 22:33:02
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 23:55:22
+ * @LastEditTime: 2024-03-31 22:14:44
  * @FilePath: \server-monitor\src\renderer\src\composables\common\header.ts
  * @Description: True or False
  */
@@ -22,21 +22,13 @@ const useHeader = (winSize: [number, number]) => {
 
   const installDrag = (el: HTMLElement) => {
     if (!el) return
-    drag.setOptions({
-      width: winSize[0],
-      height: winSize[1],
-      isFullScreen: isFullScreen.value
+    drag.install(el, (dx, dy) => {
+      window.api.winMove(dx, dy, winSize[0], winSize[1], isFullScreen.value)
     })
-    drag.install(el)
   }
 
   const fullScreen = async (width: number, height: number) => {
     isFullScreen.value = !isFullScreen.value
-    drag.setOptions({
-      width,
-      height,
-      isFullScreen: isFullScreen.value
-    })
     window.api.appFullScreen(isFullScreen.value, width, height)
   }
 
@@ -44,17 +36,12 @@ const useHeader = (winSize: [number, number]) => {
     window.api.winClose()
   }
 
-  const onResize = (width: number, height: number) => {
-    drag.setOptions({ width, height })
-  }
-
   return {
     isFullScreen,
     installDrag,
     appMin,
     fullScreen,
-    exit,
-    onResize
+    exit
   }
 }
 

@@ -56,11 +56,17 @@
   --editor-border-color: color-mix(in lch, var(--editor-color) 80%, #fff);
   /* dashboard */
   --dashboard-size: 1.2rem;
+
+  /* message-box */
+  --message-btn-size: 3rem;
+  --message-box-bg-color: var(--bg-bt-color);
+  --message-box-bg-hover-color: color-mix(in lch, var(--message-box-bg-color) 98%, var(--reverse-color));
 }
 
 
 :root[theme="light"] {
   --color: #fefefe;
+  --reverse-color: #1a1a1a;
   /* font */
   --font-color: #1a1a1a;
   --font-color-2: #888;
@@ -89,10 +95,14 @@
   --pagination-bg-color: #fefefe;
   --pagination-border-color: var(--border-color);
   --pagination-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+
+
 }
 
 :root[theme="dark"] {
   --color: #1a1a1a;
+  --reverse-color: #fefefe;
   /* font */
   --font-color: #ccc;
   --font-color-2: #aaa;

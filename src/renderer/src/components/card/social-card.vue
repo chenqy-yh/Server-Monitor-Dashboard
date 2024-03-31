@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-18 00:02:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 16:00:00
+ * @LastEditTime: 2024-03-31 22:39:00
  * @FilePath: \server-monitor\src\renderer\src\components\card\social-card.vue
  * @Description: True or False
 -->
@@ -54,6 +54,7 @@ onMounted(() => {
   transition: var(--transition);
   border: 1px solid transparent;
   position: relative;
+  user-select: none;
   &:hover {
     border-color: var(--border-color);
   }

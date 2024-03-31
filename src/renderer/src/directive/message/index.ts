@@ -1,4 +1,4 @@
-import MessageBox from '@renderer/components/message/message.vue'
+import MessageBox from '@renderer/components/message/message-box.vue'
 import { Directive, createVNode, render } from 'vue'
 
 let container: HTMLElement | null = null

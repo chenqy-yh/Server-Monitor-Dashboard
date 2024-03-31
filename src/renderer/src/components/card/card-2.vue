@@ -120,6 +120,7 @@ const linkTo = () => {
   transition: var(--transition);
   border: 1px solid transparent;
   cursor: pointer;
+  user-select: none;
   &:hover {
     border-color: var(--border-color);
   }
