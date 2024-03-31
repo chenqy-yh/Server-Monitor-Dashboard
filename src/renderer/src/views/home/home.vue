@@ -1,12 +1,12 @@
 <!--
  * @Date: 2023-12-22 00:35:03
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-27 22:31:23
+ * @LastEditTime: 2024-03-31 22:06:32
  * @FilePath: \server-monitor\src\renderer\src\views\home\home.vue
  * @Description: True or False
 -->
 <template>
-  <div id="thome" class="home-content">
+  <div v-message-box class="home-content">
     <el-container class="container">
       <el-aside width="170px">
         <LeftMenu></LeftMenu>

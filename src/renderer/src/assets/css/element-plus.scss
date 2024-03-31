@@ -35,6 +35,14 @@
   --el-table-row-hover-bg-color: var(--bg-bt-color) !important;
 }
 
+.el-table--fit {
+  border-left: none !important;
+  border-top: none !important;
+}
+.el-table__inner-wrapper {
+  border: none !important;
+}
+
 // dialog
 .el-dialog {
   --el-dialog-padding-primary: none !important;

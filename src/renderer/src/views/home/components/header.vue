@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-09 20:21:29
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-27 16:21:57
+ * @LastEditTime: 2024-03-31 15:58:56
  * @FilePath: \server-monitor\src\renderer\src\views\home\components\header.vue
  * @Description: True or False
 -->
@@ -9,7 +9,9 @@
 <template>
   <div ref="header_ref">
     <el-header class="header">
-      <div class="content"></div>
+      <div class="content">
+        <MsgBar />
+      </div>
       <div class="btn-group">
         <el-button text circle @click="_appMin">
           <i class="ri-subtract-line ri-2x"></i>
@@ -48,6 +50,8 @@
 </template>
 
 <script setup lang="ts">
+import MsgBar from './msg-bar/msg-bar.vue'
+
 import { useHeader } from '@renderer/composables/common/header'
 import { i18n } from '@renderer/plugins/i18n'
 import { useConfigStore } from '@renderer/store'
@@ -128,10 +132,13 @@ const _exit = () => {
   height: var(--header-height);
   background-color: var(--bg-color);
   transition: var(--transition);
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+  justify-items: center;
   // border: 1px solid red;
   .btn-group {
+    justify-self: flex-end;
     display: flex;
     align-items: center;
   }

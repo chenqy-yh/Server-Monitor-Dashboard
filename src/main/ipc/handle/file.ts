@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-18 20:43:56
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 00:23:58
+ * @LastEditTime: 2024-03-31 12:41:35
  * @FilePath: \server-monitor\src\main\ipc\handle\file.ts
  * @Description: True or False
  */
@@ -16,8 +16,8 @@ import {
   mkdir,
   mkfile,
   uploadFile,
-  test,
-  mergeChunk
+  mergeChunk,
+  queryFinishedChunk
 } from '../../utils/api/file'
 import { addIpcHandle } from './utils'
 import { handleEditorWindowFind } from '../../utils/file'
@@ -84,15 +84,6 @@ addIpcHandle('file:mkfile', async (_e, ...args) => {
   return await mkfile(url, path)
 })
 
-// const formData = {
-//   buf: buf,
-//   hash: new ArrayBuffer(),
-//   filename: file.name,
-//   index: index,
-//   chunk_hash: file_hash + '-' + index,
-//   total: file_chunk_list.length
-// }
-
 addIpcHandle('file:upload', async (_e, ...args) => {
   const [url, path, formData] = args
   const blob = bufToBlob((formData as any).buf)
@@ -105,16 +96,14 @@ addIpcHandle('file:upload', async (_e, ...args) => {
   return await uploadFile(url, path, data)
 })
 
-// hash: file_hash,
-//       filename: file.name,
-//       total: chunkSize
 addIpcHandle('file:merge', async (_e, ...args) => {
   const [url, path, formData] = args
   return await mergeChunk(url, path, formData)
 })
 
-addIpcHandle('file:test', async (_e, ...args) => {
-  return await test()
+addIpcHandle('file:query-finished-chunk', async (_e, ...args) => {
+  const [url, path, hash, total] = args
+  return await queryFinishedChunk(url, path, hash, total)
 })
 
 const bufToBlob = (buf: ArrayBuffer) => {

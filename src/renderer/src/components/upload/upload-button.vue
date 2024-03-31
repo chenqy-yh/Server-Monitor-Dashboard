@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-29 23:06:59
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 00:16:52
+ * @LastEditTime: 2024-03-31 15:42:09
  * @FilePath: \server-monitor\src\renderer\src\components\upload\upload-button.vue
  * @Description: True or False
 -->
@@ -11,19 +11,31 @@
       ref="uploadFileRef"
       type="file"
       class="upload-file"
+      :disabled="uploading"
       :multiple="true"
       @change="getUploadFileList"
     />
-    <i class="ri-upload-2-line ri-lg"></i>
+    <Transition name="fade" mode="out-in">
+      <i v-if="!uploading" class="ri-upload-2-line ri-lg"></i>
+      <loading3 v-else />
+    </Transition>
   </el-button>
 </template>
 
 <script setup lang="ts">
+import loading3 from '@renderer/components/loading/loading-icon.vue'
+
 import { ref } from 'vue'
 import { useUpload } from './index'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{ serverUrl: string; uploadPath: string }>()
+
+const emits = defineEmits(['finished'])
+
+// ----------------- C O N S T A N T ----------------- //
+
+const uploading = ref(false)
 
 // -------------------- S T O R E -------------------- //
 
@@ -38,12 +50,14 @@ const click = () => {
   uploadFileRef.value.click()
 }
 
-const getUploadFileList = (e: Event) => {
+const getUploadFileList = async (e: Event) => {
+  uploading.value = true
   const rawFileList = (e.target as HTMLInputElement).files
-  console.log(rawFileList)
   // TODO 暂时只处理单文件上传
   if (!rawFileList || !rawFileList.length) return
-  handleUploadFile(rawFileList[0])
+  await handleUploadFile(rawFileList[0])
+  emits('finished')
+  uploading.value = false
 }
 </script>
 

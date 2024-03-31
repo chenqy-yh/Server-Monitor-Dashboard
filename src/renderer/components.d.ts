@@ -55,6 +55,7 @@ declare module 'vue' {
     Menu: typeof import('./src/components/menu/menu.vue')['default']
     MenuContext: typeof import('./src/components/context-menu2/MenuContext.vue')['default']
     MenuItem: typeof import('./src/components/menu/menu-item.vue')['default']
+    Message: typeof import('./src/components/message/message.vue')['default']
     Pagination1: typeof import('./src/components/pagination/pagination-1.vue')['default']
     ResizeLayout: typeof import('./src/components/resize/resize-layout.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

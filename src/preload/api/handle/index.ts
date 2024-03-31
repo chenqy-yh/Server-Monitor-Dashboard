@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-26 22:24:54
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 00:10:50
+ * @LastEditTime: 2024-03-31 12:41:16
  * @FilePath: \server-monitor\src\preload\api\handle\index.ts
  * @Description: True or False
  */
@@ -67,7 +67,11 @@ const FileWallMethodMap: MethodMap<HandleChannel> = {
   mkfile: { channel: 'file:mkfile', params: ['url', 'path'] },
   uploadFile: { channel: 'file:upload', params: ['url', 'path', 'formData'] },
   test: { channel: 'file:test', params: [] },
-  mergeChunk: { channel: 'file:merge', params: ['url', 'path', 'formData'] }
+  mergeChunk: { channel: 'file:merge', params: ['url', 'path', 'formData'] },
+  queryFinishedChunk: {
+    channel: 'file:query-finished-chunk',
+    params: ['url', 'path', 'hash', 'total']
+  }
 }
 
 const methodMap: MethodMap<HandleChannel> = {

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-18 18:35:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-29 23:02:28
+ * @LastEditTime: 2024-03-31 15:26:53
  * @FilePath: \server-monitor\src\renderer\src\views\file\file.vue
  * @Description: True or False
 -->
@@ -45,19 +45,12 @@
             ></i>
           </el-button>
         </el-tooltip>
-        <el-upload
-          v-model:file-list="uploadFileList"
-          multiple
-          :auto-upload="false"
-          :limit="3"
-          :before-upload="handleUploadFile"
-        >
-          <el-tooltip effect="dark" content="Upload" placement="top">
-            <el-button text circle>
-              <i class="ri-upload-2-line ri-lg"></i>
-            </el-button>
-          </el-tooltip>
-        </el-upload>
+        <UploadButton
+          :server-url="server_url"
+          :upload-path="file_path"
+          :upload-file-list="uploadFileList"
+          @finished="handleRrefresh"
+        ></UploadButton>
       </div>
     </div>
     <div class="file-list-content">
@@ -86,6 +79,7 @@
 import ArrowRightIcon from '@renderer/components/icon/arrow-right.vue'
 import Pagination from '@renderer/components/pagination/pagination-1.vue'
 import FileList from './components/file-list.vue'
+import UploadButton from '@renderer/components/upload/upload-button.vue'
 
 import { setupFile } from '@renderer/composables/file'
 import { useConfigStore } from '@renderer/store'
@@ -95,7 +89,7 @@ import { UploadRawFile } from 'element-plus'
 import { ArrayBuffer } from 'spark-md5'
 
 // -------------------- S T O R E -------------------- //
-const { win_size_setting } = storeToRefs(useConfigStore())
+const { win_size_setting, server_url } = storeToRefs(useConfigStore())
 
 // ----------------- C O N S T A N T ----------------- //
 

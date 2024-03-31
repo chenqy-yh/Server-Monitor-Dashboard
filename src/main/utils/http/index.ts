@@ -1,3 +1,10 @@
+/*
+ * @Date: 2024-03-06 00:14:25
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-03-31 15:28:40
+ * @FilePath: \server-monitor\src\main\utils\http\index.ts
+ * @Description: True or False
+ */
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
 
 class HttpService {
@@ -5,7 +12,7 @@ class HttpService {
 
   constructor() {
     this.axiosInstance = axios.create({
-      timeout: 5000 // 请求超时时间，单位毫秒
+      timeout: 10000 // 请求超时时间，单位毫秒
     })
   }
 

@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-22 22:19:19
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-30 22:05:25
+ * @LastEditTime: 2024-03-31 12:35:22
  * @FilePath: \server-monitor\src\main\typings\ipc.d.ts
  * @Description: True or False
  */
@@ -37,6 +37,7 @@ type FileWallHandleChannel =
   | 'file:upload'
   | 'file:test'
   | 'file:merge'
+  | 'file:query-finished-chunk'
 type CommonHandleChannel = 'open-window' | 'get-win-id'
 
 type HandleChannel =

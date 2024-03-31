@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-21 23:40:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 00:10:59
+ * @LastEditTime: 2024-03-31 12:38:42
  * @FilePath: \server-monitor\src\preload\index.d.ts
  * @Description: True or False
  */
@@ -74,8 +74,8 @@ type FileHandleApi = {
   mkdir: (url: string, path: string) => Promise<string>
   mkfile: (url: string, path: string) => Promise<string>
   uploadFile: (url: string, path: string, formData: any) => Promise<string>
-  test: () => Promise<string>
   mergeChunk: (url: string, path: string, formData: any) => Promise<string>
+  queryFinishedChunk: (url: string, path: string, hash: string, total: number) => Promise<number[]>
 }
 
 /**

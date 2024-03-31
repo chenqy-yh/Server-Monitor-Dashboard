@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-18 20:32:56
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 00:19:57
+ * @LastEditTime: 2024-03-31 12:34:36
  * @FilePath: \server-monitor\src\main\utils\api\file\index.ts
  * @Description: True or False
  */
@@ -134,28 +134,22 @@ const mergeChunk = (url, path, formData) => {
   })
 }
 
-const test = () => {
-  // from path get file obj
-  const fileData = new Blob(['this is a simple test'], {
-    type: 'text/plain'
+/**
+ * @description:  查询已上传的chunk
+ * @param {*} url
+ * @param {*} path
+ * @param {*} hash
+ * @param {*} total
+ * @return {*}
+ */
+const queryFinishedChunk = (url, path, hash, total) => {
+  return httpService.get(url + '/file/chunkcheck', {
+    params: {
+      path,
+      hash,
+      total
+    }
   })
-
-  const chunk_list: Blob[] = []
-  const chunk_size = 1024 * 1024
-  for (let i = 0; i < fileData.size; i += chunk_size) {
-    chunk_list.push(fileData.slice(i, i + chunk_size))
-  }
-
-  const name = 'test.txt'
-  const path = 'test'
-  const data = new FormData()
-  data.set('name', name)
-  data.set('path', path)
-  chunk_list.forEach((chunk) => {
-    data.append('files', chunk)
-  })
-
-  return httpService.post('http://101.42.154.98:54321/api/file/test', data)
 }
 
 export {
@@ -168,6 +162,6 @@ export {
   mkdir,
   mkfile,
   uploadFile,
-  test,
-  mergeChunk
+  mergeChunk,
+  queryFinishedChunk
 }
