@@ -1,6 +1,5 @@
 import { useConfigStore } from '@renderer/store'
 import { checkIsReadable, dirComparer, solveNextPath } from '@renderer/utils/file'
-import { editorWinOptions } from '@renderer/utils/windows'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import { createEditorWindow } from '@renderer/views/editor'

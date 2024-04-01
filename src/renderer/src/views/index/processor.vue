@@ -33,7 +33,6 @@
 import { useServerInfoStore, useConfigStore } from '@renderer/store'
 import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
-import { text } from 'stream/consumers'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 

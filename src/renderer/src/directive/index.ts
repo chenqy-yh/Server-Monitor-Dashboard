@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-26 11:06:45
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 14:54:38
+ * @LastEditTime: 2024-04-01 14:57:05
  * @FilePath: \server-monitor\src\renderer\src\directive\index.ts
  * @Description: True or False
  */
