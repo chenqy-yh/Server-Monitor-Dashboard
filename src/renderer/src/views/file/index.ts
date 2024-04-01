@@ -3,6 +3,7 @@ import { checkIsReadable, dirComparer, solveNextPath } from '@renderer/utils/fil
 import { editorWinOptions } from '@renderer/utils/windows'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
+import { createEditorWindow } from '@renderer/views/editor'
 
 type BreadcrumbItem = {
   path: string
@@ -106,7 +107,7 @@ const useFile = () => {
     }
 
     // 选择文件后打开编辑器
-    const win_id = await window.api.openWindow(editorWinOptions, 'editor')
+    const win_id = await createEditorWindow()
     if (win_id !== -1) {
       // 记录打开的编辑器dir路径
       open_dir_path_list.set(file_path.value, win_id)

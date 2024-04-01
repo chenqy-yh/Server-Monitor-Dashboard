@@ -5,7 +5,7 @@
  * @FilePath: \server-monitor\src\renderer\src\composables\common\header.ts
  * @Description: True or False
  */
-import { Drag } from '@renderer/composables/common/drag'
+import { Drag } from '@renderer/composables/drag/drag'
 import { ref } from 'vue'
 
 const useHeader = (winSize: [number, number]) => {

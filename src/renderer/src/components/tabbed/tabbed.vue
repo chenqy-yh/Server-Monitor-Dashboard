@@ -1,6 +1,6 @@
 <template>
   <div class="tabbed-container">
-    <TransitionGroup name="fade" tag="div" class="tab-list">
+    <div class="tab-list">
       <div
         v-for="(id, i) in tabList"
         :key="id"
@@ -14,7 +14,7 @@
       <div v-if="tabList.length < maxTabNum" class="tab-item add-tab-btn" @click="executeAddTab">
         <i class="ri-add-large-line"></i>
       </div>
-    </TransitionGroup>
+    </div>
     <div class="tabbed-item">
       <slot></slot>
     </div>

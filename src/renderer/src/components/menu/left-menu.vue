@@ -1,4 +1,11 @@
 <!--
+ * @Date: 2024-03-31 22:09:39
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-01 14:38:58
+ * @FilePath: \server-monitor\src\renderer\src\components\menu\left-menu.vue
+ * @Description: True or False
+-->
+<!--
  * @Date: 2023-12-22 15:54:21
  * @LastEditors: Chenqy
  * @LastEditTime: 2024-03-27 16:23:39
@@ -38,7 +45,7 @@ import MenuItem from './menu-item.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
 import { ref, onMounted } from 'vue'
-import useMenu from '@renderer/composables/menu'
+import useMenu from './index'
 import { router } from '@renderer/router'
 
 const menu = ref<IMenu>()

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-12-22 00:35:03
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 22:06:32
+ * @LastEditTime: 2024-04-01 14:36:57
  * @FilePath: \server-monitor\src\renderer\src\views\home\home.vue
  * @Description: True or False
 -->
@@ -13,7 +13,6 @@
       </el-aside>
       <el-container class="right-container">
         <Header></Header>
-        <!-- <el-header class="header"> </el-header> -->
         <el-main class="content">
           <div class="view">
             <router-view v-slot="{ Component }">
@@ -30,7 +29,7 @@
 
 <script setup lang="ts">
 import LeftMenu from '@renderer/components/menu/left-menu.vue'
-import Header from './components/header.vue'
+import Header from './components/header/header.vue'
 
 import { useConfigStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'

@@ -1,17 +1,15 @@
 <!--
  * @Date: 2024-03-09 20:21:29
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 22:15:29
- * @FilePath: \server-monitor\src\renderer\src\views\home\components\header.vue
+ * @LastEditTime: 2024-04-01 14:41:26
+ * @FilePath: \server-monitor\src\renderer\src\views\home\components\header\header.vue
  * @Description: True or False
 -->
 
 <template>
   <div ref="header_ref">
     <el-header class="header">
-      <div class="content">
-        <MsgBar />
-      </div>
+      <div class="content"></div>
       <div class="btn-group">
         <el-button text circle @click="_appMin">
           <i class="ri-subtract-line ri-2x"></i>
@@ -50,9 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import MsgBar from './msg-bar/msg-bar.vue'
-
-import { useHeader } from '@renderer/composables/common/header'
+import { useHeader } from '@renderer/composables/header/header'
 import { i18n } from '@renderer/plugins/i18n'
 import { useConfigStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'

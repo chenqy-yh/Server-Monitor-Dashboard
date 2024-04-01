@@ -52,7 +52,7 @@ import LoadingIcon from '@renderer/components/loading/loading-icon.vue'
 import { imgHelper } from '@renderer/utils/img'
 import { computed, ref } from 'vue'
 import { RowItem } from '.'
-import { useEditor } from '@renderer/composables/editor'
+import { useEditor } from '../../index'
 
 const props = defineProps<{
   row: RowItem

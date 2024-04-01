@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-19 14:44:45
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-27 00:10:28
- * @FilePath: \server-monitor\src\renderer\src\components\editor\custom-editor.vue
+ * @LastEditTime: 2024-04-01 14:34:26
+ * @FilePath: \server-monitor\src\renderer\src\views\editor\components\editor\custom-editor.vue
  * @Description: True or False
 -->
 <template>
@@ -32,10 +32,11 @@
 <script lang="ts" setup>
 import ResizeLayout from '@renderer/components/resize/resize-layout.vue'
 import Editor from './editor.vue'
+import Explorer from '../explorer/explorer.vue'
 
 import { onMounted, onUnmounted, ref, toRaw, watch } from 'vue'
 import { EditorOptions } from '.'
-import { RowItem } from '../explorer'
+import { RowItem } from '../explorer/index'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{

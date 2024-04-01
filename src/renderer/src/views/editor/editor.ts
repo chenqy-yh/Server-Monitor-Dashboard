@@ -1,12 +1,12 @@
 /*
  * @Date: 2024-03-24 16:37:20
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 23:48:51
- * @FilePath: \server-monitor\src\renderer\src\composables\editor\editor.ts
+ * @LastEditTime: 2024-04-01 14:36:00
+ * @FilePath: \server-monitor\src\renderer\src\views\editor\editor.ts
  * @Description: True or False
  */
-import { EditorOptions } from '@renderer/components/editor'
-import { RowItem } from '@renderer/components/explorer'
+import { EditorOptions } from './components/editor'
+import { RowItem } from './components/explorer/index'
 import { checkIsReadable, dirComparer } from '@renderer/utils/file'
 import * as monaco from 'monaco-editor'
 import { nextTick, onBeforeMount, onMounted, ref } from 'vue'
@@ -250,4 +250,3 @@ type UseEditor = ReturnType<typeof setupEditor>
 
 export { setupEditor }
 export type { UseEditor }
-

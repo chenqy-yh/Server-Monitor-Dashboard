@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-18 18:35:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 22:14:56
+ * @LastEditTime: 2024-04-01 14:22:25
  * @FilePath: \server-monitor\src\renderer\src\views\file\file.vue
  * @Description: True or False
 -->
@@ -45,12 +45,14 @@
             ></i>
           </el-button>
         </el-tooltip>
-        <UploadButton
-          :server-url="server_url"
-          :upload-path="file_path"
-          :upload-file-list="uploadFileList"
-          @finished="handleRrefresh"
-        ></UploadButton>
+        <el-tooltip effect="dark" content="Upload File" placement="top">
+          <UploadButton
+            :server-url="server_url"
+            :upload-path="file_path"
+            :upload-file-list="uploadFileList"
+            @finished="handleRrefresh"
+          ></UploadButton>
+        </el-tooltip>
       </div>
     </div>
     <div class="file-list-content">
@@ -81,7 +83,8 @@ import Pagination from '@renderer/components/pagination/pagination-1.vue'
 import FileList from './components/file-list.vue'
 import UploadButton from '@renderer/components/upload/upload-button.vue'
 
-import { setupFile } from '@renderer/composables/file'
+// import { setupFile } from '@renderer/composables/file'
+import { setupFile } from './index'
 import { useConfigStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'

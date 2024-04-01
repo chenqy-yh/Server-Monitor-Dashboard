@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-23 00:16:02
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 22:15:06
+ * @LastEditTime: 2024-04-01 14:37:44
  * @FilePath: \server-monitor\src\renderer\src\views\editor\editor.vue
  * @Description: True or False
 -->
@@ -40,11 +40,11 @@
 </template>
 
 <script setup lang="ts">
-import Editor from '@renderer/components/editor/custom-editor.vue'
+import Editor from './components/editor/custom-editor.vue'
 import BrandIcon from '@renderer/components/icon/brand.vue'
 
-import { useHeader } from '@renderer/composables/common/header'
-import { setupEditor, registerEditorStore } from '@renderer/composables/editor'
+import { useHeader } from '@renderer/composables/header/header'
+import { setupEditor, registerEditorStore } from './index'
 import { i18n } from '@renderer/plugins/i18n'
 import { computed, onMounted, ref, watch } from 'vue'
 

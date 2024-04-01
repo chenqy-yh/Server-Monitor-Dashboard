@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     ArrowRight: typeof import('./src/components/icon/arrow-right.vue')['default']
     Brand: typeof import('./src/components/icon/brand.vue')['default']
+    Bubble: typeof import('./src/components/message/bubble.vue')['default']
     Card: typeof import('./src/components/card/card.vue')['default']
     Card2: typeof import('./src/components/card/card-2.vue')['default']
     Checkbox1: typeof import('./src/components/checkbox/checkbox-1.vue')['default']
@@ -19,6 +20,7 @@ declare module 'vue' {
     Editor: typeof import('./src/components/editor/editor.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElBadge: typeof import('element-plus/es')['ElBadge']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']

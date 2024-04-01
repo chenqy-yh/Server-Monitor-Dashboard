@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-19 20:42:50
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 23:53:57
- * @FilePath: \server-monitor\src\renderer\src\components\explorer\explorer.vue
+ * @LastEditTime: 2024-04-01 14:33:01
+ * @FilePath: \server-monitor\src\renderer\src\views\editor\components\explorer\explorer.vue
  * @Description: True or False
 -->
 <template>
@@ -36,7 +36,7 @@ import ExplorerRow from './explorer-row.vue'
 
 import { ref } from 'vue'
 import { RowItem } from './index'
-import { useEditor } from '@renderer/composables/editor'
+import { useEditor } from '../../index'
 
 // -------------------- P R O P S -------------------- //
 
