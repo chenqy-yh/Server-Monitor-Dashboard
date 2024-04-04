@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-01 23:46:53
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 00:05:12
+ * @LastEditTime: 2024-04-04 22:55:57
  * @FilePath: \server-monitor\src\renderer\src\views\setting\components\openai-setting.vue
  * @Description: True or False
 -->
@@ -53,7 +53,7 @@ import Card from '@renderer/components/card/card.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
 import { onMounted, reactive, watch } from 'vue'
-import { useOpenaiStore, ModelConfigItem, ModelType } from '@renderer/store/openai'
+import { useOpenaiStore, ModelConfigItem, ModelType } from '@renderer/store'
 
 // -------------------- S T O R E -------------------- //
 const openaiStore = useOpenaiStore()

@@ -81,7 +81,6 @@ const rate_list = computed(() => {
 })
 
 const linkTo = () => {
-  console.log('props.to', props.to)
   props.to &&
     router.push({
       name: props.to

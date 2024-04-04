@@ -14,7 +14,6 @@ const createWsService = async (url) => {
  *
  * */
 const closeWsService = async (url, port) => {
-  console.log('closeWsService', url, port)
   const data = await httpService.get<string>(url + '/ws/close', {
     params: {
       port: port

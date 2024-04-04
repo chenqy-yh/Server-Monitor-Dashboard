@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-09 10:44:50
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 23:59:08
+ * @LastEditTime: 2024-04-04 23:27:58
  * @FilePath: \server-monitor\src\renderer\src\views\setting\components\common-setting.vue
  * @Description: True or False
 -->
@@ -35,13 +35,15 @@
 <script setup lang="ts">
 import Card from '@renderer/components/card/card.vue'
 
-import { useConfigStore } from '@renderer/store'
+import { useCommonSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { reactive } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
 // -------------------- S T O R E -------------------- //
-const configStore = useConfigStore()
-const { host } = storeToRefs(configStore)
+
+const commonSettingStore = useCommonSettingStore()
+
+const { host } = storeToRefs(commonSettingStore)
 
 // ----------------- C O N S T A N T ----------------- //
 const form_data = reactive({
@@ -50,7 +52,7 @@ const form_data = reactive({
 
 // ----------------- F U N C T I O N ----------------- //
 const save = () => {
-  configStore.update_host_setting(form_data.host)
+  commonSettingStore.update_host_setting(form_data.host)
 }
 </script>
 

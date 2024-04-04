@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 20:13:27
+ * @LastEditTime: 2024-04-04 23:09:20
  * @FilePath: \server-monitor\src\renderer\src\views\firewall\firewall-item.vue
  * @Description: True or False
 -->
@@ -122,7 +122,12 @@ import EditFirewallRulesDialog from '@renderer/views/firewall/components/edit-ru
 import Checkbox from '@renderer/components/checkbox/checkbox-1.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
-import { useConfigStore, useFirewallStore, useServerInfoStore } from '@renderer/store'
+import {
+  useCommonSettingStore,
+  usePersonalSettingStore,
+  useFirewallStore,
+  useServerInfoStore
+} from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { PropType, computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import _ from 'lodash'
@@ -141,7 +146,9 @@ const props = defineProps({
 })
 
 // -------------------- S T O R E -------------------- //
-const { win_size_setting, server_url } = storeToRefs(useConfigStore())
+const { server_url } = storeToRefs(useCommonSettingStore())
+
+const { win_size_setting } = storeToRefs(usePersonalSettingStore())
 
 const { show_error } = storeToRefs(useServerInfoStore())
 

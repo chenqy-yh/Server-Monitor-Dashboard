@@ -55,7 +55,7 @@
 import Checkbox from '@renderer/components/checkbox/checkbox-1.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
-import { useConfigStore, useFirewallStore } from '@renderer/store'
+import { usePersonalSettingStore, useFirewallStore } from '@renderer/store'
 import _ from 'lodash'
 import { storeToRefs } from 'pinia'
 import { PropType, computed, onMounted, onUnmounted, ref, watch } from 'vue'
@@ -74,7 +74,7 @@ const props = defineProps({
 })
 
 // -------------------- S T O R E -------------------- //
-const { win_size_setting } = storeToRefs(useConfigStore())
+const { win_size_setting } = storeToRefs(usePersonalSettingStore())
 
 const firewall_store = useFirewallStore()
 
@@ -123,8 +123,6 @@ const select_page_all = computed({
         }
       }
     })
-
-    console.log(del_rules.value)
   }
 })
 
@@ -182,7 +180,6 @@ const ondelCheckChange = (check, firewallRuleInfo) => {
       1
     )
   }
-  console.log(del_rules.value)
 }
 
 /**

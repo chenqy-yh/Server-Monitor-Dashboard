@@ -32,13 +32,13 @@
 import LeftMenu from '@renderer/components/menu/left-menu.vue'
 import Header from './components/header/header.vue'
 
-import { useConfigStore } from '@renderer/store'
+import { usePersonalSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
 
 // -------------------- P R O P S -------------------- //
 
-const { opacity_setting } = storeToRefs(useConfigStore())
+const { opacity_setting } = storeToRefs(usePersonalSettingStore())
 
 // ------------------- C I R C L E ------------------- //
 onMounted(async () => {

@@ -82,7 +82,6 @@ const selfPath = computed(() => props.path + '/' + props.row.name)
 
 // 当前节点是否激活
 const isActive = computed(() => {
-  // console.log(filePath.value, selfPath.value)
   return filePath.value === selfPath.value
 })
 

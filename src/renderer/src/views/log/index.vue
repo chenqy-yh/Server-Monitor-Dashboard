@@ -32,18 +32,22 @@ import NginxLog from './components/nginx-log.vue'
 
 import { computed, ref } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
-import { useServerInfoStore, useConfigStore } from '@renderer/store'
+import { useServerInfoStore, useCommonSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 
 // -------------------- S T O R E -------------------- //
+
 const { show_error } = storeToRefs(useServerInfoStore())
-const { server_url } = storeToRefs(useConfigStore())
+
+const { server_url } = storeToRefs(useCommonSettingStore())
 
 const choose_log = ref<string>('mysql')
+
 const log_component_list = {
   mysql: MysqlLog,
   nginx: NginxLog
 }
+
 const log_component = computed(() => {
   return log_component_list[choose_log.value]
 })

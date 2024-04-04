@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-29 23:30:20
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 15:12:37
+ * @LastEditTime: 2024-04-04 23:36:40
  * @FilePath: \server-monitor\src\renderer\src\components\upload\index.ts
  * @Description: True or False
  */
@@ -85,7 +85,6 @@ const useUpload = (serverUrl: string, uploadPath: string) => {
       }
       formDataList.push(formData)
     }
-    console.log('formDataList', formDataList)
     // 任务池
     const task_pool: Promise<string>[] = []
     let index = 0 // 当前上传的chunk索引

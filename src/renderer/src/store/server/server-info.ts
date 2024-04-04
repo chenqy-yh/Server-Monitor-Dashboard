@@ -1,15 +1,15 @@
-import { useConfigStore } from '@renderer/store'
+import { useCommonSettingStore } from '@renderer/store'
 import { formatDateString } from '@renderer/utils/time'
 import { defineStore, storeToRefs } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
 
 export const useServerInfoStore = defineStore('server-info', () => {
   // -------------------- S T O R E -------------------- //
-  const { server_url } = storeToRefs(useConfigStore())
+  const { server_url } = storeToRefs(useCommonSettingStore())
 
   // ----------------- C O N S T A N T ----------------- //
 
-  const interval = ref(5) // 每次记录网络信息的时间间隔（单位：秒）
+  const interval = ref(5) // 每次记录网络信息的时间间隔（单位：D秒）
   const maxL = 15 // Echarts横坐标最大长度
 
   const server_info = ref<ServerData>() // 服务器信息
@@ -58,7 +58,6 @@ export const useServerInfoStore = defineStore('server-info', () => {
 
   const getServerInfo = async () => {
     server_info.value = await window.api.getServerInfo(server_url.value)
-    // console.log(server_info.value)
     network_step(server_info.value.network)
     cput_step(server_info.value.cpu)
   }

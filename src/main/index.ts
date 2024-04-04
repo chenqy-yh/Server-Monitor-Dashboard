@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-21 23:40:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 12:01:18
+ * @LastEditTime: 2024-04-04 23:34:30
  * @FilePath: \server-monitor\src\main\index.ts
  * @Description: True or False
  */
@@ -70,9 +70,6 @@ app.whenReady().then(async () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
   // shell.openExternal('http://localhost:5173/test')
-
-  // const res = await jianGuo.getDictionaryItems('/ffff')
-  // console.log(res)
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

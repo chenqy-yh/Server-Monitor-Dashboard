@@ -1,4 +1,4 @@
-import { useConfigStore } from '@renderer/store'
+import { useCommonSettingStore } from '@renderer/store'
 import { checkIsReadable, dirComparer, solveNextPath } from '@renderer/utils/file'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
@@ -12,7 +12,7 @@ type BreadcrumbItem = {
 const useFile = () => {
   // -------------------- S T O R E -------------------- //
 
-  const { server_url } = storeToRefs(useConfigStore()) // 服务器地址
+  const { server_url } = storeToRefs(useCommonSettingStore()) // 服务器地址
 
   // ----------------- C O N S T A N T ----------------- //
 
@@ -42,7 +42,6 @@ const useFile = () => {
    * @return {*}
    */
   const handleClickBreadcrumb = async (item: BreadcrumbItem) => {
-    console.log('handleClickBreadcrumb:', item)
     const res = await getFileList(item.path)
     if (res) {
       file_path.value = item.path

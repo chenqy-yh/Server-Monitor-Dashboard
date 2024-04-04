@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import { i18n } from '@renderer/plugins/i18n'
-import { useConfigStore, useFirewallStore } from '@renderer/store'
+import { useFirewallSettingStore, useFirewallStore } from '@renderer/store'
 import _ from 'lodash'
 import { storeToRefs } from 'pinia'
 import { computed, nextTick, onMounted, ref } from 'vue'
@@ -67,14 +67,17 @@ const props = defineProps<{
 const emits = defineEmits(['cancel', 'confirm'])
 
 // -------------------- S T O R E -------------------- //
-const configStore = useConfigStore()
-const { ins_id } = storeToRefs(configStore)
+
+const { ins_id } = storeToRefs(useFirewallSettingStore())
+
 const firewallStore = useFirewallStore()
+
 const { firewall_rule_list } = storeToRefs(firewallStore)
+
 const submit_rules_error = ref<boolean>(false)
 
 // ----------------- C O N S T A N T ----------------- //
-const header_ref = ref<HTMLElement>()
+const header_ref = ref<HTMLElement>() // 头部ref
 
 const dialogShow = computed({
   get() {
@@ -83,9 +86,9 @@ const dialogShow = computed({
   set(val) {
     return val
   }
-})
+}) // dialog show
 
-const edit_firewall_rule = ref<FirewallRuleInfo>({} as any)
+const edit_firewall_rule = ref<FirewallRuleInfo>({} as any) // 编辑的防火墙规则
 
 // ------------------- C I R C L E ------------------- //
 
@@ -95,17 +98,29 @@ onMounted(() => {
 
 // ----------------- F U N C T I O N ----------------- //
 
+/**
+ * @description:  初始化编辑防火墙规则
+ * @return {*}
+ */
 const initEditFirewallRule = () => {
   nextTick(() => {
     props.firewallrule && (edit_firewall_rule.value = props.firewallrule)
   })
 }
 
+/**
+ * @description:  取消
+ * @return {*}
+ */
 const cancel = () => {
   beforeClose()
   emits('cancel')
 }
 
+/**
+ * @description:  修改防火墙规则描述
+ * @return {*}
+ */
 const modifyFirewallDesc = () => {
   if (!props.ruleIndex) {
     submit_rules_error.value = true
@@ -121,6 +136,10 @@ const modifyFirewallDesc = () => {
   return window.api.modifyFirewallRuleDescription(JSON.stringify(params))
 }
 
+/**
+ * @description:  修改防火墙规则列表
+ * @return {*}
+ */
 const modifyFirewallList = () => {
   if (props.ruleIndex === undefined || edit_firewall_rule.value === undefined) {
     submit_rules_error.value = true
@@ -141,6 +160,10 @@ const modifyFirewallList = () => {
   return window.api.modifyFirewallRules(JSON.stringify(params))
 }
 
+/**
+ * @description:  确认
+ * @return {*}
+ */
 const confirm = async () => {
   const eq_all = _.isEqual(edit_firewall_rule.value, props.firewallrule)
   if (eq_all) {
@@ -164,6 +187,10 @@ const confirm = async () => {
   }
 }
 
+/**
+ * @description:  关闭前
+ * @return {*}
+ */
 const beforeClose = () => {
   submit_rules_error.value = false
 }

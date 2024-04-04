@@ -108,7 +108,6 @@ const useMessageBox = () => {
 
   const submitMsg = async () => {
     if (!user_msg.value) {
-      console.log('Please input message', user_msg.value)
       return
     }
     user(user_msg.value)

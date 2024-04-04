@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-18 18:35:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 19:14:00
- * @FilePath: \server-monitor\src\renderer\src\views\file\file.vue
+ * @LastEditTime: 2024-04-04 23:08:27
+ * @FilePath: \server-monitor\src\renderer\src\views\file\index.vue
  * @Description: True or False
 -->
 <template>
@@ -83,13 +83,14 @@ import Pagination from '@renderer/components/pagination/pagination-1.vue'
 import UploadButton from '@renderer/components/upload/upload-button.vue'
 import FileList from './components/file-list.vue'
 
-import { useConfigStore } from '@renderer/store'
+import { useCommonSettingStore, usePersonalSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import { setupFile } from './index'
 
 // -------------------- S T O R E -------------------- //
-const { win_size_setting, server_url } = storeToRefs(useConfigStore())
+const { server_url } = storeToRefs(useCommonSettingStore())
+const { win_size_setting } = storeToRefs(usePersonalSettingStore())
 
 // ----------------- C O N S T A N T ----------------- //
 

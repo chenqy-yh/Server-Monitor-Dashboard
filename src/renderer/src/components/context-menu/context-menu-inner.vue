@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-28 13:45:09
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 14:56:30
+ * @LastEditTime: 2024-04-04 23:36:04
  * @FilePath: \server-monitor\src\renderer\src\components\context-menu\context-menu-inner.vue
  * @Description: True or False
 -->
@@ -40,7 +40,6 @@
           :show="item.showSubMenu"
           :style="subStyle"
           :menus="item.children"
-          :handle-click-menu-item="handleClickMenuItem"
         ></ContextMenuInner>
       </div>
     </template>
@@ -65,10 +64,6 @@ export default defineComponent({
     },
     menus: {
       type: Array as PropType<ContextMenuItem[]>,
-      required: true
-    },
-    handleClickMenuItem: {
-      type: Function,
       required: true
     }
   },

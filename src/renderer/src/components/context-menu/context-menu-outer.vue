@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-28 14:18:21
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 14:56:13
+ * @LastEditTime: 2024-04-04 23:36:17
  * @FilePath: \server-monitor\src\renderer\src\components\context-menu\context-menu-outer.vue
  * @Description: True or False
 -->
@@ -11,7 +11,6 @@
       :show="true"
       :menus="menus"
       :style="style"
-      :handle-click-menu-item="handleClickMenuItem"
       @hide-main-menu="removeContextMenu"
     ></ContextMenuInner>
   </div>
@@ -53,13 +52,8 @@ export default defineComponent({
       left: pos.x
     }
 
-    const handleClickMenuItem = (item: ContextMenuItem) => {
-      console.log(item)
-    }
-
     return {
-      style,
-      handleClickMenuItem
+      style
     }
   }
 })

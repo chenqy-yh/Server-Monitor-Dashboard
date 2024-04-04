@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { i18n } from '@renderer/plugins/i18n'
-import { useServerInfoStore, useConfigStore } from '@renderer/store'
+import { useServerInfoStore, usePersonalSettingStore } from '@renderer/store'
 import { sizeFormat } from '@renderer/utils/os'
 import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
@@ -45,7 +45,7 @@ import { onMounted, ref, watch } from 'vue'
 type EChartsOption = echarts.EChartsOption
 
 // -------------------- S T O R E -------------------- //
-const { theme_setting } = storeToRefs(useConfigStore())
+const { theme_setting } = storeToRefs(usePersonalSettingStore())
 const { down_list, up_list, down_total, up_total, down_cur, up_cur } = storeToRefs(
   useServerInfoStore()
 )

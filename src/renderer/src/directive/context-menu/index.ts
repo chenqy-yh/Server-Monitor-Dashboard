@@ -1,17 +1,22 @@
 /*
  * @Date: 2024-03-28 13:27:58
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 20:48:41
+ * @LastEditTime: 2024-04-04 22:49:22
  * @FilePath: \server-monitor\src\renderer\src\directive\context-menu\index.ts
  * @Description: True or False
  */
 import { Directive, DirectiveBinding, createVNode, nextTick, render } from 'vue'
 import ContextMenuComponent from '@renderer/components/context-menu/context-menu-outer.vue'
 
-const ContextHandlerKey = 'contextmenu-handler'
+const ContextHandlerKey = 'contextmenu-handler' // 保存右键菜单事件的key
 
-let container: HTMLElement | null = null
+let container: HTMLElement | null = null // 右键菜单容器
 
+/**
+ * @description:  隐藏所有右键菜单
+ * @param {ContextMenuItem} menus
+ * @return {*}
+ */
 const hiddenAllContextMenu = (menus: ContextMenuItem[]) => {
   menus.forEach((menu) => {
     if (menu.children) {
@@ -21,6 +26,13 @@ const hiddenAllContextMenu = (menus: ContextMenuItem[]) => {
   })
 }
 
+/**
+ * @description:  创建右键菜单
+ * @param {HTMLElement} el
+ * @param {DirectiveBinding<any>} binding
+ * @param {MouseEvent} event
+ * @return {*}
+ */
 const handleCreateContextMenu = (
   el: HTMLElement,
   binding: DirectiveBinding<any>,
@@ -60,14 +72,16 @@ const handleCreateContextMenu = (
   window.addEventListener('click', removeContextMenu)
 }
 
+/**
+ * @description: 右键菜单指令
+ * @return {*}
+ */
 const ContextMenuDirective: Directive = {
-  beforeMount(el) {
+  mounted(el, binding) {
     // 检查是否已经存在菜单
     if (el[ContextHandlerKey]) {
       el.removeEventListener('contextmenu', el[ContextHandlerKey])
     }
-  },
-  mounted(el, binding) {
     el[ContextHandlerKey] = (event: MouseEvent) => handleCreateContextMenu(el, binding, event)
     el.addEventListener('contextmenu', el[ContextHandlerKey], true)
   },

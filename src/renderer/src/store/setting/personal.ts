@@ -1,60 +1,32 @@
-/*
- * @Date: 2024-03-26 11:06:45
- * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-02 00:06:41
- * @FilePath: \server-monitor\src\renderer\src\store\config\index.ts
- * @Description: True or False
- */
-import { i18n } from '@renderer/plugins/i18n'
-import { getItem, setItem } from '@renderer/utils/store'
 import { defineStore } from 'pinia'
-import { computed, onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
+import { getItem, setItem } from '@renderer/utils/store'
+import { i18n } from '@renderer/plugins/i18n'
 
-export const useConfigStore = defineStore('config', () => {
-  // common
-  const server_port = ref(import.meta.env.RE_Remoteserver_Port) // 服务器端口
-  const prefix = ref(import.meta.env.RE_Remoteserver_Prefix) // 服务器前缀
-
-  const host = ref() // 远程服务器地址
-
-  const server_url = computed(() => {
-    return `http://${host.value}:${server_port.value}${prefix.value}`
-  }) // 远程服务器url
-
-  //personal
+const usePersonalSettingStore = defineStore('personalSetting', () => {
+  // ----------------- C O N S T A N T ----------------- //
   const lang_setting = ref<Lang>() // 语言设置
+
   const theme_setting = ref<Theme>() // 主题设置
+
   const win_size_setting = ref<WinSize>() // 窗口大小设置
+
   const direct_exit_setting = ref<boolean>() // 直接退出设置
+
   const opacity_setting = ref<number>() // 透明度设置
 
-  // tencent
-  const ins_id = ref<string>(import.meta.env.RE_InstanceID) // 实例ID
-
-  // Other
-  // 窗口大小映射
   const sizeMap: Record<WinSize, [number, number]> = {
     small: [1024, 700],
     middle: [1280, 768],
     large: [1440, 800]
-  }
+  } // 窗口大小映射
 
   // ------------------- C I R C L E ------------------- //
   onBeforeMount(() => {
-    init_common_settings()
     init_personal_settings()
   })
 
   // ----------------- F U N C T I O N ----------------- //
-
-  /**
-   *  @description 初始化公共设置
-   *
-   */
-  const init_common_settings = () => {
-    host.value = getItem('host') || '0.0.0.0'
-  }
-
   /**
    *  @description 初始化个人设置
    *
@@ -112,15 +84,6 @@ export const useConfigStore = defineStore('config', () => {
   }
 
   /**
-   *  @description 更新主机设置
-   *
-   */
-  const update_host_setting = (val: string) => {
-    host.value = val
-    setItem('host', val)
-  }
-
-  /**
    *  @description 更新主题设置
    *
    */
@@ -166,21 +129,19 @@ export const useConfigStore = defineStore('config', () => {
   }
 
   return {
-    ins_id,
-    host,
-    server_url,
+    sizeMap,
     lang_setting,
     theme_setting,
     win_size_setting,
     direct_exit_setting,
     opacity_setting,
-    sizeMap,
-    update_host_setting,
+    update_opacity_setting,
     update_theme_setting,
     update_lang_setting,
     update_win_size_setting,
     update_direct_exit_setting,
-    update_opacity_setting,
     getWinSizeVal
   }
 })
+
+export { usePersonalSettingStore }

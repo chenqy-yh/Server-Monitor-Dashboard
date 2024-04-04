@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-12 23:33:35
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-02 00:11:36
+ * @LastEditTime: 2024-04-04 23:09:40
  * @FilePath: \server-monitor\src\renderer\src\views\firewall\components\add-rules.vue
  * @Description: True or False
 -->
@@ -83,7 +83,7 @@
 
 <script setup lang="ts">
 import { i18n } from '@renderer/plugins/i18n'
-import { useConfigStore, useFirewallStore } from '@renderer/store'
+import { useFirewallStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 
@@ -93,8 +93,6 @@ const props = defineProps<{ show: boolean; insId: string }>()
 const emits = defineEmits(['cancel', 'confirm'])
 
 // -------------------- S T O R E -------------------- //
-const configStore = useConfigStore()
-// const { ins_id } = storeToRefs(configStore)
 const { firewall_rule_list } = storeToRefs(useFirewallStore())
 
 // ----------------- C O N S T A N T ----------------- //

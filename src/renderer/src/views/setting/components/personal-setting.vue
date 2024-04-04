@@ -91,25 +91,27 @@
 
 <script setup lang="ts">
 import Card from '@renderer/components/card/card.vue'
-import { useConfigStore } from '@renderer/store'
+import { usePersonalSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { i18n } from '@renderer/plugins/i18n'
-import { computed, reactive } from 'vue'
+import { computed } from 'vue'
 // -------------------- S T O R E -------------------- //
-const configStore = useConfigStore()
+
+const personalSettingStore = usePersonalSettingStore()
+
+const { sizeMap } = personalSettingStore
+
 const { theme_setting, lang_setting, win_size_setting, direct_exit_setting, opacity_setting } =
-  storeToRefs(configStore)
+  storeToRefs(personalSettingStore)
 // ----------------- C O N S T A N T ----------------- //
 
-const lang_list: Lang[] = ['en', 'cn']
+const lang_list: Lang[] = ['en', 'cn'] // 语言列表
 
-const win_size_list: WinSize[] = ['small', 'middle', 'large']
-
-const { sizeMap } = useConfigStore()
+const win_size_list: WinSize[] = ['small', 'middle', 'large'] // 窗口大小列表
 
 const transformSize = computed(() => (size: string) => {
   return i18n.global.t('setting.personal.' + size) + ' ' + sizeMap[size].join(' x ')
-})
+}) // 窗口大小转换
 
 // ----------------- F U N C T I O N ----------------- //
 /**
@@ -117,7 +119,7 @@ const transformSize = computed(() => (size: string) => {
  *
  */
 const updateThemeSetting = (val) => {
-  configStore.update_theme_setting(val)
+  personalSettingStore.update_theme_setting(val)
 }
 
 /**
@@ -125,7 +127,7 @@ const updateThemeSetting = (val) => {
  *
  */
 const updateLangSetting = (val) => {
-  configStore.update_lang_setting(val)
+  personalSettingStore.update_lang_setting(val)
 }
 
 /**
@@ -133,14 +135,14 @@ const updateLangSetting = (val) => {
  *
  */
 const updateWinSizeSetting = (val) => {
-  configStore.update_win_size_setting(val)
+  personalSettingStore.update_win_size_setting(val)
 }
 /**
  *  @description: 更新直接退出设置
  *
  */
 const updateDirectExitSetting = (val) => {
-  configStore.update_direct_exit_setting(val)
+  personalSettingStore.update_direct_exit_setting(val)
 }
 
 /**
@@ -148,7 +150,7 @@ const updateDirectExitSetting = (val) => {
  *
  */
 const updateOpacity = (val) => {
-  configStore.update_opacity_setting(val)
+  personalSettingStore.update_opacity_setting(val)
 }
 </script>
 

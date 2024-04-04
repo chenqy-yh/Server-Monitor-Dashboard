@@ -61,7 +61,6 @@ onMounted(() => init())
 watch(
   () => props.modelValue,
   (val) => {
-    console.log('pagination modelvalue change:', val)
     if (val === props.minNum) {
       init()
     }

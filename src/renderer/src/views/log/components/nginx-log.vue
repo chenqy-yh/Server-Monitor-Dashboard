@@ -86,7 +86,7 @@
 <script setup lang="ts">
 import Pagination from '@renderer/components/pagination/pagination-1.vue'
 
-import { useConfigStore } from '@renderer/store'
+import { useCommonSettingStore, usePersonalSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
@@ -105,14 +105,23 @@ interface NginxLogInfo {
 }
 
 // -------------------- S T O R E -------------------- //
-const { server_url, win_size_setting } = storeToRefs(useConfigStore())
+
+const { server_url } = storeToRefs(useCommonSettingStore())
+
+const { win_size_setting } = storeToRefs(usePersonalSettingStore())
 
 // ----------------- C O N S T A N T ----------------- //
 
-const total = ref<number>(0)
-const log_list = ref<NginxLogInfo[]>([])
-const cur_page = ref<number>(1)
-const loading_finish = ref<boolean>(false)
+const LOG_REGEX =
+  /^(\S+) (\S+) (\S+) \[([\w:/]+\s[+\\-]\d{4})\] "(\S+)\s?(\S+)?\s?(\S+)?" (\d{3}) (\d+) "([^"]+)" "([^"]+)"$/
+
+const total = ref<number>(0) // 总数
+
+const log_list = ref<NginxLogInfo[]>([]) // 日志列表
+
+const cur_page = ref<number>(1) //  当前页
+
+const loading_finish = ref<boolean>(false) // 加载完成
 
 const page_size = computed(() => {
   switch (win_size_setting.value) {
@@ -125,7 +134,7 @@ const page_size = computed(() => {
     default:
       return 12
   }
-})
+}) // 每页显示条数
 
 // ------------------- C I R C L E ------------------- //
 
@@ -139,31 +148,42 @@ watch(
 
 // ----------------- F U N C T I O N ----------------- //
 
+/**
+ * @description:  解析nginx日志
+ * @param {*} item
+ * @return {*}
+ */
+const parseNignxLogItem = (item: string): NginxLogInfo | undefined => {
+  const matches = item.match(LOG_REGEX)
+  if (!matches) {
+    return
+  }
+  const [, ip, remoteUser, , time, method, url, protocol, status, bytes, referer, userAgent] =
+    matches
+  return {
+    ip,
+    remoteUser,
+    time,
+    method,
+    url,
+    protocol,
+    status,
+    bytes,
+    referer,
+    userAgent
+  }
+}
+
+/**
+ * @description:  获取日志信息
+ * @param {*} page
+ * @return {*}
+ */
 async function getLogInfo(page: number) {
   const res = await window.api.getServerLog(server_url.value, 'nginx', page, page_size.value)
   const { data, total: _total } = res
   total.value = _total
-  log_list.value = data.map((item) => {
-    const regex =
-      /^(\S+) (\S+) (\S+) \[([\w:/]+\s[+\\-]\d{4})\] "(\S+)\s?(\S+)?\s?(\S+)?" (\d{3}) (\d+) "([^"]+)" "([^"]+)"$/
-    const matches = item.match(regex)
-    if (!matches) {
-      // skip
-      return {} as NginxLogInfo
-    }
-    return {
-      ip: matches[1],
-      remoteUser: matches[2],
-      time: matches[4],
-      method: matches[5],
-      url: matches[6],
-      protocol: matches[7],
-      status: matches[8],
-      bytes: matches[9],
-      referer: matches[10],
-      userAgent: matches[11]
-    } as NginxLogInfo
-  })
+  log_list.value = data.map(parseNignxLogItem).filter(Boolean) as NginxLogInfo[]
   loading_finish.value = true
 }
 </script>

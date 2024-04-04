@@ -30,19 +30,21 @@
 </template>
 
 <script setup lang="ts">
-import { useServerInfoStore, useConfigStore } from '@renderer/store'
+import { useServerInfoStore, usePersonalSettingStore } from '@renderer/store'
 import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 // -------------------- S T O R E -------------------- //
-const { theme_setting } = storeToRefs(useConfigStore())
+const { theme_setting } = storeToRefs(usePersonalSettingStore())
+
 const { server_info, cpu_usage_list } = storeToRefs(useServerInfoStore())
 
 // ----------------- C O N S T A N T ----------------- //
-const router = useRouter()
-const chart = ref<HTMLElement>()
+const router = useRouter() // 路由
+
+const chart = ref<HTMLElement>() // 图表dom
 
 const info = computed(() => {
   if (!server_info.value) return {}
@@ -53,7 +55,7 @@ const info = computed(() => {
     physical: server_info.value.cpu.physical,
     speed: server_info.value.cpu.speed
   }
-})
+}) // 信息
 const chartInstance = ref<echarts.ECharts>()
 const option = {
   title: {
@@ -109,15 +111,27 @@ watch(server_info, () => {
 
 // ----------------- F U N C T I O N ----------------- //
 
+/**
+ * @description:  渲染图表
+ * @return {*}
+ */
 const renderChart = () => {
   chartInstance.value?.setOption(option)
 }
 
+/**
+ * @description:  初始化图表
+ * @return {*}
+ */
 const init = () => {
   chartInstance.value = echarts.init(chart.value)
   chartInstance.value.setOption(option)
 }
 
+/**
+ * @description:  返回
+ * @return {*}
+ */
 const back = () => {
   router.back()
 }

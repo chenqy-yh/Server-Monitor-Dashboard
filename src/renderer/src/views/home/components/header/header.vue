@@ -50,17 +50,17 @@
 <script setup lang="ts">
 import { useHeader } from '@renderer/composables/header/header'
 import { i18n } from '@renderer/plugins/i18n'
-import { useConfigStore } from '@renderer/store'
+import { usePersonalSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 
 // -------------------- S T O R E -------------------- //
 
-const configStore = useConfigStore()
+const personalSettingStore = usePersonalSettingStore()
 
-const { direct_exit_setting } = storeToRefs(configStore)
+const { direct_exit_setting } = storeToRefs(personalSettingStore)
 
-const { installDrag, appMin, fullScreen, exit } = useHeader(configStore.getWinSizeVal())
+const { installDrag, appMin, fullScreen, exit } = useHeader(personalSettingStore.getWinSizeVal())
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -88,7 +88,7 @@ const _appMin = () => {
  * @return {*}
  */
 const _fullScreen = () => {
-  fullScreen(...configStore.getWinSizeVal())
+  fullScreen(...personalSettingStore.getWinSizeVal())
 }
 
 /**

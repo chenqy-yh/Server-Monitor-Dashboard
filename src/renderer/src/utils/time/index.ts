@@ -30,9 +30,3 @@ function formatDateString(dateString, formatType = 'yyyy-MM-dd hh:mm:ss') {
 }
 
 export { formatDateString }
-
-// const dateString = 'Fri, 22 Dec 2023 15:56:11 GMT'
-// const formatType = 'yyyy-MM-dd hh:mm:ss'
-
-// const formattedString = formatDateString(dateString, formatType)
-// console.log(formattedString)

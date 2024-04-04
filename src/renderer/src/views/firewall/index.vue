@@ -1,3 +1,10 @@
+<!--
+ * @Date: 2024-04-04 14:37:57
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-04 22:44:29
+ * @FilePath: \server-monitor\src\renderer\src\views\firewall\index.vue
+ * @Description: True or False
+-->
 <template>
   <div class="main-content">
     <div class="firewall-select">
@@ -38,13 +45,19 @@ type Option = {
 // -------------------- S T O R E -------------------- //
 
 const firewallStore = useFirewallStore()
-const { firewall_config_list, choose_firewall_config } = storeToRefs(firewallStore)
+
+const {
+  // 防火墙配置列表
+  firewall_config_list,
+  // 选择的防火墙配置
+  choose_firewall_config
+} = storeToRefs(firewallStore)
 
 // ----------------- C O N S T A N T ----------------- //
 
 const select_options = ref<Option[]>([]) // 下拉框选项
 
-provide('ins_id', choose_firewall_config)
+provide('ins_id', choose_firewall_config) // 提供实例ID
 
 // ------------------- C I R C L E ------------------- //
 onMounted(async () => {
@@ -54,6 +67,10 @@ onMounted(async () => {
 
 // ----------------- F U N C T I O N ----------------- //
 
+/**
+ * @description:  构建下拉框选项
+ * @return {*}
+ */
 const buildSelectOptions = () => {
   select_options.value = firewall_config_list.value.map((config, i) => {
     return {

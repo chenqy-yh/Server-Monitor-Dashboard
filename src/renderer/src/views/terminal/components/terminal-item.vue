@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { useConfigStore } from '@renderer/store'
+import { useCommonSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import { Terminal } from 'xterm'
@@ -35,7 +35,7 @@ import { FitAddon } from 'xterm-addon-fit'
 import 'xterm/css/xterm.css'
 
 // -------------------- S T O R E -------------------- //
-const { server_url } = storeToRefs(useConfigStore())
+const { server_url } = storeToRefs(useCommonSettingStore())
 
 // ----------------- C O N S T A N T ----------------- //
 const term_ref = ref<HTMLElement>() // 终端容器
@@ -59,7 +59,6 @@ onMounted(async () => {
  *
  */
 const close_connect = () => {
-  console.log('close port:', ws_port.value)
   if (socket.value) socket.value.close()
   if (attach_addon.value) attach_addon.value.dispose()
   if (terminal.value) terminal.value.clear()
@@ -77,7 +76,6 @@ const createTerminial = async () => {
     rows: 20
   })
   ws_port.value = await window.api.createWsService(server_url.value)
-  console.log('ws_port', ws_port)
   socket.value = new WebSocket(`ws://${import.meta.env.RE_Host}:${ws_port.value}`)
   socket.value.onopen = () => {
     is_online.value = true

@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 22:39:51
+ * @LastEditTime: 2024-04-04 23:34:17
  * @FilePath: \server-monitor\src\renderer\src\router\index.ts
  * @Description: True or False
  */
@@ -42,7 +42,6 @@ const buildRouteChildren = (par: IRouterConfig, list: IRouterConfig[]) => {
   const children = list
     .filter((route) => route.parent === par.name)
     .sort((a, b) => a.meta.menuIndex - b.meta.menuIndex)
-  children.length && console.log(children)
   if (children.length) {
     return children.map((child) => {
       const childRoute = buildRouteFromConfig(child)

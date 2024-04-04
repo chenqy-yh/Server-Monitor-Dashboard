@@ -1,3 +1,10 @@
+<!--
+ * @Date: 2024-04-04 14:37:57
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-04 23:36:53
+ * @FilePath: \server-monitor\src\renderer\src\views\dashboard\index.vue
+ * @Description: True or False
+-->
 <template>
   <div class="server-content">
     <div class="card-container">
@@ -96,14 +103,6 @@ const card_list = computed(() => {
     }
   ] as CardItem[]
 })
-
-// ------------------- C I R C L E ------------------- //
-watch(
-  () => loading.value,
-  () => {
-    console.log('loading', loading.value)
-  }
-)
 </script>
 
 <style lang="scss" scoped>
