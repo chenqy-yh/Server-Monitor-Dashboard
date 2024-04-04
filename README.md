@@ -6,7 +6,6 @@
 
 <h2>简介</h2>
 
----
 
 简易的 ''腾讯云轻量服务器" 监控面板
 
@@ -14,7 +13,6 @@
 
 <h2>技术栈</h2>
 
----
 
 vite + vue3 + electron + pinia + echarts + monaco-editor +vue-i18n ...
 
@@ -22,7 +20,6 @@ vite + vue3 + electron + pinia + echarts + monaco-editor +vue-i18n ...
 
 <h2>项目运行</h2>
 
----
   1.克隆后端接口服务并开启服务
 
 ~~~bash
@@ -59,7 +56,6 @@ pnpm build:win
 
 <h2>项目预览</h2>
 
----
 
 1. Dashboard
 
