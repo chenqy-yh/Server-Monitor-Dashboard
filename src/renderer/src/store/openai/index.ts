@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-03 23:28:00
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 00:25:12
+ * @LastEditTime: 2024-04-04 15:00:03
  * @FilePath: \server-monitor\src\renderer\src\store\openai\index.ts
  * @Description: True or False
  */
@@ -49,6 +49,7 @@ const useOpenaiStore = defineStore('openai', () => {
 
   const initChooseModel = () => {
     chooseModel.value = getItem(CHOOSE_MODEL_STORE_KEY) || 'gpt-3.5-turbo'
+    openai.apiKey = modelConfigMap.value[chooseModel.value]?.apikey || ''
   }
 
   const initModelConfig = () => {

@@ -69,16 +69,16 @@ const router = createRouter({
           },
           component: () => import('../views/setting/setting.vue')
         },
-        {
-          name: 'test',
-          path: 'test',
-          meta: {
-            icon: 'ri-flask-line',
-            menuItem: true,
-            title: 'menu.test'
-          },
-          component: () => import('../views/test/test.vue')
-        },
+        // {
+        //   name: 'test',
+        //   path: 'test',
+        //   meta: {
+        //     icon: 'ri-flask-line',
+        //     menuItem: true,
+        //     title: 'menu.test'
+        //   },
+        //   component: () => import('../views/test/test.vue')
+        // },
         {
           name: 'processor',
           path: 'processor',

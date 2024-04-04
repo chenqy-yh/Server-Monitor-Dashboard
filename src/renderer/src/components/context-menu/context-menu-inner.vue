@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-28 13:45:09
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-29 00:15:11
+ * @LastEditTime: 2024-04-04 14:56:30
  * @FilePath: \server-monitor\src\renderer\src\components\context-menu\context-menu-inner.vue
  * @Description: True or False
 -->
@@ -221,6 +221,7 @@ export default defineComponent({
   border-radius: var(--radius-md);
   padding: var(--space-ssm);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 999999;
   .context-menu-item {
     padding-inline: var(--space-sm);
     padding-block: var(--space-sm);
