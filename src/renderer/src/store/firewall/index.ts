@@ -54,13 +54,14 @@ export const useFirewallStore = defineStore('firewall', () => {
 
   const choose_firewall_config = ref<string>() // 选择的防火墙配置
 
-  // ------------------- C I R C L E ------------------- //
-  // onMounted(async () => {
-  //   await requestFirewallRules()
-  // })
+  const error_code = ref(0) // 错误码 1 实例配置错误
 
   // ----------------- F U N C T I O N ----------------- //
 
+  /**
+   * @description:  清空 store
+   * @return {*}
+   */
   const clearStore = () => {
     firewall_rule_list.value = []
     firewall_rule_list_copy.value = []
@@ -70,8 +71,9 @@ export const useFirewallStore = defineStore('firewall', () => {
   }
 
   /**
-   *  激活排序模式
-   *
+   * @description:  激活排序模式
+   * @param {HTMLElement} el
+   * @return {*}
    */
   function activeSortMode(el: HTMLElement) {
     active_sort_mode.value = !active_sort_mode.value
@@ -79,8 +81,9 @@ export const useFirewallStore = defineStore('firewall', () => {
   }
 
   /**
-   *  FirewallRuleInfo 转 FirewallRule
-   *
+   * @description:  FirewallRuleInfo 转 FirewallRule
+   * @param {FirewallRuleInfo} info
+   * @return {*}
    */
   const infoToRule = (info: FirewallRuleInfo) => {
     return {
@@ -93,8 +96,8 @@ export const useFirewallStore = defineStore('firewall', () => {
   }
 
   /**
-   *  保存防火墙规则
-   *
+   * @description:  保存防火墙规则
+   * @return {*}
    */
   const saveList = async () => {
     try {
@@ -112,8 +115,8 @@ export const useFirewallStore = defineStore('firewall', () => {
   }
 
   /**
-   *  取消排序
-   *
+   * @description:  取消排序
+   * @return {*}
    */
   const cancelSort = () => {
     active_sort_mode.value = false
@@ -122,8 +125,8 @@ export const useFirewallStore = defineStore('firewall', () => {
   }
 
   /**
-   *  初始化排序
-   *
+   * @description:  初始化排序
+   * @return {*}
    */
   const initSortable = (el: HTMLElement) => {
     if (el) {
@@ -140,26 +143,34 @@ export const useFirewallStore = defineStore('firewall', () => {
   }
 
   /**
-   *  请求防火墙规则列表
-   *
+   * @description:  请求防火墙规则
+   * @param {FirewallConfig} params
+   * @return {*}
    */
   async function requestFirewallRules(params: FirewallConfig) {
+    console.log('requestFirewallRules', params)
     clearStore()
-    const res = await window.api.descFirewallRules(JSON.stringify(params))
-    firewall_rule_list.value = res.FirewallRuleSet
-    firewall_rule_list_copy.value = firewall_rule_list.value.map((item) => infoToRule(item))
-    return firewall_rule_list.value
+    try {
+      const res = await window.api.descFirewallRules(JSON.stringify(params))
+      firewall_rule_list.value = res.FirewallRuleSet
+      firewall_rule_list_copy.value = firewall_rule_list.value.map((item) => infoToRule(item))
+      return firewall_rule_list.value
+    } catch (error) {
+      console.error('requestFirewallRules error', error)
+      error_code.value = 1
+    }
   }
 
   /**
-   *  @description 获取防火墙配置列表
-   *
+   * @description:  获取防火墙配置列表
+   * @return {*}
    */
   const getFirewallConfigKeyList = async () => {
     firewall_config_list.value = await window.api.getFirewallConfigList()
   }
 
   return {
+    error_code,
     col_list,
     firewall_rule_list,
     active_sort_mode,

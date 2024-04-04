@@ -144,6 +144,16 @@
         "onclickrelease": "Click to release",
         "delrules": "Delete",
         "sort": "Sort"
+      },
+      "warning": {
+        "no-config": {
+          "title": "No configuration",
+          "content": "No configuration related to Tencent Cloud Light Server instance is added, please go to the settings page to add"
+        },
+        "get-config-failed": {
+          "title": "Failed to get configuration",
+          "content": "Failed to get the configuration of Tencent Cloud Light Server instance, please go to the settings page to check"
+        }
       }
     },
     "placeholder": {
@@ -309,6 +319,16 @@
         "onclickrelease": "一键释放",
         "delrules": "删除",
         "sort": "排序"
+      },
+      "warning": {
+        "no-config": {
+          "title": "无实例配置",
+          "content": "未添加与腾讯云轻量应用服务器实例相关的配置，请前往设置页面添加"
+        },
+        "get-config-failed": {
+          "title": "获取配置失败",
+          "content": "获取腾讯云轻量应用服务器实例配置失败，请前往设置页面检查"
+        }
       }
     },
     "log": {

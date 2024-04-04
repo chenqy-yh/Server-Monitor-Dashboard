@@ -38,7 +38,7 @@ import 'xterm/css/xterm.css'
 const { server_url } = storeToRefs(useCommonSettingStore())
 
 // ----------------- C O N S T A N T ----------------- //
-const term_ref = ref<HTMLElement>() // 终端容器
+const term_ref = ref<HTMLElement>() // 终端dom
 const terminal = ref<Terminal>() // 终端实例
 const socket = ref<WebSocket>() // websocket 实例
 const attach_addon = ref<AttachAddon>() // attach 插件实例
