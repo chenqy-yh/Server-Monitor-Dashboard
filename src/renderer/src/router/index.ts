@@ -1,105 +1,87 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+/*
+ * @Date: 2024-04-04 14:37:57
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-04 22:39:51
+ * @FilePath: \server-monitor\src\renderer\src\router\index.ts
+ * @Description: True or False
+ */
+import { IRouterConfig } from '@renderer/typings/vue-router'
+import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router'
+
+/**
+ * @description:  查找根路由
+ * @param {IRouterConfig} routeConfigList
+ * @return {*}
+ */
+const findRootRoute = (routeConfigList: IRouterConfig[]) => {
+  return routeConfigList.filter((route) => !route.parent)
+}
+
+/**
+ * @description:  根据配置构造路由
+ * @param {IRouterConfig} routeConfig
+ * @return {*}
+ */
+const buildRouteFromConfig = (routeConfig: IRouterConfig) => {
+  return {
+    name: routeConfig.name,
+    path: routeConfig.path,
+    component: routeConfig.component,
+    meta: routeConfig.meta
+  }
+}
+
+/**
+ * @description:  构造子路由
+ * @param {IRouterConfig} par
+ * @param {IRouterConfig} list
+ * @return {*}
+ */
+const buildRouteChildren = (par: IRouterConfig, list: IRouterConfig[]) => {
+  // 构造子路由 并 按照 menuIndex 排序
+  const children = list
+    .filter((route) => route.parent === par.name)
+    .sort((a, b) => a.meta.menuIndex - b.meta.menuIndex)
+  children.length && console.log(children)
+  if (children.length) {
+    return children.map((child) => {
+      const childRoute = buildRouteFromConfig(child)
+      const childrenProp = { children: buildRouteChildren(child, list) }
+      const redirectProp = child.redirect ? { redirect: child.redirect } : {}
+      return Object.assign(childRoute, childrenProp, redirectProp)
+    })
+  }
+  return []
+}
+
+/**
+ * @description:  根据模块动态生成路由
+ * @param {*}
+ * @return {*}
+ */
+const createRoutesByModules = () => {
+  const pages: Record<string, IRouterConfig> = import.meta.glob('../views/**/page.ts', {
+    eager: true,
+    import: 'default'
+  })
+  const routes: RouteRecordRaw[] = []
+  const roots = findRootRoute(Object.values(pages))
+  roots.forEach((root) => {
+    const route = buildRouteFromConfig(root)
+    const childrenProp = { children: buildRouteChildren(root, Object.values(pages)) }
+    const redirectProp = root.redirect ? { redirect: root.redirect } : {}
+    const fullRoute = Object.assign(route, childrenProp, redirectProp)
+    routes.push(fullRoute)
+  })
+  return routes
+}
 
 const router = createRouter({
-  history: createWebHashHistory(), // 特别注意：electron 环境下请使用 createWebHashHistory
-  routes: [
-    {
-      name: 'home',
-      path: '/',
-      component: () => import('../views/home/home.vue'),
-      redirect: '/index',
-      children: [
-        {
-          name: 'Index',
-          path: 'index',
-          meta: {
-            icon: 'ri-home-6-fill',
-            menuItem: true,
-            title: 'menu.index'
-          },
-          component: () => import('../views/index/dashbard.vue')
-        },
-        {
-          name: 'terminal',
-          path: 'terminal',
-          meta: {
-            icon: 'ri-terminal-box-fill',
-            menuItem: true,
-            title: 'menu.terminal'
-          },
-          component: () => import('../views/terminal/terminal.vue')
-        },
-        {
-          name: 'file',
-          path: 'file',
-          meta: {
-            icon: 'ri-file-copy-fill',
-            menuItem: true,
-            title: 'menu.file'
-          },
-          component: () => import('../views/file/file.vue')
-        },
-        {
-          name: 'log',
-          path: 'log',
-          meta: {
-            icon: 'ri-file-list-3-fill',
-            menuItem: true,
-            title: 'menu.log'
-          },
-          component: () => import('../views/log/log.vue')
-        },
-        {
-          name: 'firewall',
-          path: 'firewall',
-          meta: {
-            icon: 'ri-shield-cross-fill',
-            menuItem: true,
-            title: 'menu.firewall'
-          },
-          component: () => import('../views/firewall/firewall.vue')
-        },
-        {
-          name: 'setting',
-          path: 'setting',
-          meta: {
-            icon: 'ri-settings-6-fill',
-            menuItem: true,
-            title: 'menu.setting'
-          },
-          component: () => import('../views/setting/setting.vue')
-        },
-        // {
-        //   name: 'test',
-        //   path: 'test',
-        //   meta: {
-        //     icon: 'ri-flask-line',
-        //     menuItem: true,
-        //     title: 'menu.test'
-        //   },
-        //   component: () => import('../views/test/test.vue')
-        // },
-        {
-          name: 'processor',
-          path: 'processor',
-          meta: {
-            icon: 'ri-flask-line',
-            title: 'menu.test'
-          },
-          component: () => import('../views/index/processor.vue')
-        }
-      ]
-    },
-    {
-      name: 'editor',
-      path: '/editor',
-      component: () => import('../views/editor/editor.vue')
-    }
-  ]
+  history: createWebHashHistory(), // 特别注意：electron 环境下请使用
+  routes: createRoutesByModules()
 })
 
 const setupRouter = () => {
-  // todo
   return router
 }
 

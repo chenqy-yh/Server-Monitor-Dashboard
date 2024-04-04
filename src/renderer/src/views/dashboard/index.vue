@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import InfoCard from '@renderer/components/card/card-2.vue'
 import SocialCard from '@renderer/components/card/social-card.vue'
-import NetworkChart from '@renderer/views/index/components/network-chart.vue'
+import NetworkChart from '@renderer/views/dashboard/components/network-chart.vue'
 
 import { useServerInfoStore } from '@renderer/store'
 import { sizeStrToByte, sortDisk } from '@renderer/utils/os'

@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-24 16:37:20
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 21:05:30
+ * @LastEditTime: 2024-04-04 20:16:39
  * @FilePath: \server-monitor\src\renderer\src\views\editor\editor.ts
  * @Description: True or False
  */
@@ -233,6 +233,10 @@ const setupEditor = () => {
     return languages.find((lang) => lang.extensions && lang.extensions.includes(ext))
   }
 
+  /**
+   *  @description 根据窗口ID注册
+   *
+   */
   const register = (registerFn: (win_id: number) => void) => {
     nextTick(() => {
       if (!win_id.value) throw Error('win_id is required')

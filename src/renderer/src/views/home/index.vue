@@ -37,9 +37,8 @@ import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
 
 // -------------------- P R O P S -------------------- //
-const { opacity_setting } = storeToRefs(useConfigStore())
 
-// ----------------- C O N S T A N T ----------------- //
+const { opacity_setting } = storeToRefs(useConfigStore())
 
 // ------------------- C I R C L E ------------------- //
 onMounted(async () => {
@@ -51,6 +50,12 @@ onMounted(() => {
 })
 
 // ----------------- F U N C T I O N ----------------- //
+
+/**
+ * @description:  禁止F11全屏
+ * @param {*} e
+ * @return {*}
+ */
 const BanF11 = (e: KeyboardEvent) => {
   if (e.key === 'F11') {
     e.preventDefault()

@@ -72,7 +72,7 @@ const emits = defineEmits(['update:row', 'open-file'])
 
 const { filePath, openFile: _openFile } = useEditor(props.winId)
 
-const loading = ref(false)
+const loading = ref(false) // 是否正在加载
 
 // 遮罩宽度
 const _maskWidth = computed(() => props.maskWidth - 2 + 'px')

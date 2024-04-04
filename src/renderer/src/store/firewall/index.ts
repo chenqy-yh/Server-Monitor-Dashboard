@@ -50,6 +50,10 @@ export const useFirewallStore = defineStore('firewall', () => {
   const sort_obj = ref<Sortable>() // 排序对象
   const save_loading = ref(false)
 
+  const firewall_config_list = ref<FirewallConfig[]>([]) // 防火墙配置列表
+
+  const choose_firewall_config = ref<string>() // 选择的防火墙配置
+
   // ------------------- C I R C L E ------------------- //
   // onMounted(async () => {
   //   await requestFirewallRules()
@@ -147,11 +151,22 @@ export const useFirewallStore = defineStore('firewall', () => {
     return firewall_rule_list.value
   }
 
+  /**
+   *  @description 获取防火墙配置列表
+   *
+   */
+  const getFirewallConfigKeyList = async () => {
+    firewall_config_list.value = await window.api.getFirewallConfigList()
+  }
+
   return {
     col_list,
     firewall_rule_list,
     active_sort_mode,
     save_loading,
+    firewall_config_list,
+    choose_firewall_config,
+    getFirewallConfigKeyList,
     activeSortMode,
     saveList,
     cancelSort,

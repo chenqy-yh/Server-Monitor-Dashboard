@@ -11,13 +11,13 @@ type BreadcrumbItem = {
 
 const useFile = () => {
   // -------------------- S T O R E -------------------- //
+
   const { server_url } = storeToRefs(useConfigStore()) // 服务器地址
 
   // ----------------- C O N S T A N T ----------------- //
 
   const file_stat_list = ref<FileStat[]>() // 文件列表
 
-  // const file_path = ref<string>('/root/test1/node_modules/.pnpm/node_modules') // 文件路径
   const file_path = ref<string>('/root/test1') // 文件路径
 
   const loading = ref<boolean>(false) // 加载状态
@@ -37,8 +37,9 @@ const useFile = () => {
   // ----------------- F U N C T I O N ----------------- //
 
   /**
-   *  @description 点击面包屑 访问文件
-   *
+   * @description:  点击面包屑
+   * @param {BreadcrumbItem} item
+   * @return {*}
    */
   const handleClickBreadcrumb = async (item: BreadcrumbItem) => {
     console.log('handleClickBreadcrumb:', item)
@@ -49,8 +50,8 @@ const useFile = () => {
   }
 
   /**
-   * @description 初始化文件路径监听
-   *
+   * @description: 初始化文件路径监听
+   * @return {*}
    */
   const intiFilePathListener = async () => {
     window.api.onResponse('get-file-path', () => {
@@ -63,8 +64,10 @@ const useFile = () => {
   }
 
   /**
-   *  @description 获得文件列表
-   *
+   * @description: 获取文件列表
+   * @param {string} path
+   * @param {string} filter
+   * @return {*}
    */
   const getFileList = async (path: string, filter = '') => {
     try {
@@ -81,8 +84,9 @@ const useFile = () => {
   }
 
   /**
-   *  @description 打开编辑器
-   *
+   * @description: 打开文件编辑器
+   * @param {FileStat} file
+   * @return {*}
    */
   const openFileEditor = async (file: FileStat) => {
     // 构建选择编辑的文件路径
@@ -114,8 +118,9 @@ const useFile = () => {
   }
 
   /**
-   *  @description 双击文件
-   *
+   * @description: 双击文件
+   * @param {FileStat} row
+   * @return {*}
    */
   const handleDbclickFile = async (row: FileStat) => {
     if (row.type === 'file') {
@@ -126,19 +131,56 @@ const useFile = () => {
     }
   }
 
+  /**
+   * @description:  打开文件夹
+   * @param {FileStat} row
+   * @return {*}
+   */
   const openDir = async (row: FileStat) => {
     const nextPath = solveNextPath(file_path.value, row.name)
     const res = await getFileList(nextPath)
     res && (file_path.value = nextPath)
   }
 
+  /**
+   * @description: 检查编辑器是否已经打开
+   * @param {string} path
+   * @return {*}
+   */
   const checkEditorHasOpened = (path: string) => {
     return !!open_dir_path_list.get(path)
   }
 
+  /**
+   * @description: 通过id打开编辑器
+   * @param {number} id
+   * @return {*}
+   */
   const openEditorById = async (id: number) => {
     const res = await window.api.findEditorWindow(id)
     return res
+  }
+
+  /**
+   * @description: 搜索
+   * @param {() => void} cb
+   * @return {*}
+   */
+  const search = async (cb: () => void) => {
+    await getFileList(file_path.value, file_filter.value)
+    // cur_page.value = 1
+    cb()
+  }
+
+  /**
+   * @description: 刷新
+   * @param {() => void} cb
+   * @return {*}
+   */
+  const handleRrefresh = async (cb: () => void) => {
+    await getFileList(file_path.value)
+    // cur_page.value = 1
+    cb()
   }
 
   return {
@@ -150,7 +192,9 @@ const useFile = () => {
     open_dir_path_list,
     handleClickBreadcrumb,
     handleDbclickFile,
-    getFileList
+    getFileList,
+    search,
+    handleRrefresh
   }
 }
 

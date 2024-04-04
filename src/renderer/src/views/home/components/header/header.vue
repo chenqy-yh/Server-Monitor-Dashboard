@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-09 20:21:29
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 14:41:26
+ * @LastEditTime: 2024-04-04 20:20:03
  * @FilePath: \server-monitor\src\renderer\src\views\home\components\header\header.vue
  * @Description: True or False
 -->
@@ -55,15 +55,18 @@ import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 
 // -------------------- S T O R E -------------------- //
+
 const configStore = useConfigStore()
+
 const { direct_exit_setting } = storeToRefs(configStore)
 
-// ----------------- C O N S T A N T ----------------- //
 const { installDrag, appMin, fullScreen, exit } = useHeader(configStore.getWinSizeVal())
 
-const header_ref = ref<HTMLElement>()
+// ----------------- C O N S T A N T ----------------- //
 
-const dialogVisible = ref(false)
+const header_ref = ref<HTMLElement>() // 头部元素
+
+const dialogVisible = ref(false) // 是否显示退出提示框
 
 // ------------------- C I R C L E ------------------- //
 onMounted(() => {
@@ -72,14 +75,26 @@ onMounted(() => {
 })
 
 // ----------------- F U N C T I O N ----------------- //
+/**
+ * @description:  最小化
+ * @return {*}
+ */
 const _appMin = () => {
   appMin()
 }
 
+/**
+ * @description:  全屏
+ * @return {*}
+ */
 const _fullScreen = () => {
   fullScreen(...configStore.getWinSizeVal())
 }
 
+/**
+ * @description:  关闭窗口
+ * @return {*}
+ */
 const onWindowClose = () => {
   if (direct_exit_setting.value) {
     _exit()
@@ -88,6 +103,10 @@ const onWindowClose = () => {
   dialogVisible.value = true
 }
 
+/**
+ * @description:  退出
+ * @return {*}
+ */
 const _exit = () => {
   dialogVisible.value = false
   exit()

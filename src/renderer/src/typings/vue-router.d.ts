@@ -7,5 +7,15 @@ declare module 'vue-router' {
     menuItem?: boolean
     active?: boolean
     keepAlive?: boolean
+    menuIndex?: number
   }
+}
+
+interface IRouterConfig {
+  name: string
+  path: string
+  component: any
+  meta?: RouteMeta
+  parent?: string
+  redirect?: string
 }

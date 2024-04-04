@@ -48,7 +48,7 @@ import { setupEditor, registerEditorStore } from './index'
 import { i18n } from '@renderer/plugins/i18n'
 import { computed, onMounted, ref, watch } from 'vue'
 
-// ----------------- C O N S T A N T ----------------- //
+// -------------------- S T O R E -------------------- //
 
 const editorStore = setupEditor()
 
@@ -66,10 +66,13 @@ const {
 
 const { installDrag, appMin, exit, fullScreen } = useHeader([1024, 768])
 
-const headerRef = ref<HTMLElement>()
+// ----------------- C O N S T A N T ----------------- //
 
-const body_height = ref(94)
+const headerRef = ref<HTMLElement>() // 头部引用
 
+const body_height = ref(94) // 编辑器内容高度
+
+// 头部高度
 const header_height = computed(() => {
   return 100 - body_height.value + 'vh'
 })
@@ -91,6 +94,11 @@ const winIdWatcherStop = watch(
 
 // ----------------- F U N C T I O N ----------------- //
 
+/**
+ * @description: 初始化编辑器store
+ * @param {*}
+ * @return {*}
+ */
 const initEditorStore = async () => {
   register((win_id) => {
     registerEditorStore(win_id, editorStore)

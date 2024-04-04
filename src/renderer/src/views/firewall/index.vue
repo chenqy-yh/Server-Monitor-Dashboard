@@ -24,35 +24,37 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, provide, ref } from 'vue'
 import FirewallItem from './firewall-item.vue'
+
+import { useFirewallStore } from '@renderer/store'
+import { storeToRefs } from 'pinia'
+import { onMounted, provide, ref } from 'vue'
 
 type Option = {
   label: string
   value: string
 }
-// ----------------- C O N S T A N T ----------------- //
 
-const firewall_config_list = ref<FirewallConfig[]>([]) // 防火墙配置列表
+// -------------------- S T O R E -------------------- //
+
+const firewallStore = useFirewallStore()
+const { firewall_config_list, choose_firewall_config } = storeToRefs(firewallStore)
+
+// ----------------- C O N S T A N T ----------------- //
 
 const select_options = ref<Option[]>([]) // 下拉框选项
 
-const choose_firewall_config = ref<string>() // 选择的防火墙配置
 provide('ins_id', choose_firewall_config)
 
 // ------------------- C I R C L E ------------------- //
 onMounted(async () => {
-  await getFirewallConfigKeyList()
+  await firewallStore.getFirewallConfigKeyList()
+  buildSelectOptions()
 })
 
 // ----------------- F U N C T I O N ----------------- //
 
-/**
- *  @description 获取防火墙配置列表
- *
- */
-const getFirewallConfigKeyList = async () => {
-  firewall_config_list.value = await window.api.getFirewallConfigList()
+const buildSelectOptions = () => {
   select_options.value = firewall_config_list.value.map((config, i) => {
     return {
       label: config.instanceId,
@@ -86,3 +88,4 @@ const getFirewallConfigKeyList = async () => {
   height: 100%;
 }
 </style>
+./firewall

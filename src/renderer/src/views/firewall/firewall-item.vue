@@ -1,3 +1,10 @@
+<!--
+ * @Date: 2024-04-04 14:37:57
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-04 20:13:27
+ * @FilePath: \server-monitor\src\renderer\src\views\firewall\firewall-item.vue
+ * @Description: True or False
+-->
 <template>
   <Transition name="fade" mode="out-in">
     <div v-if="!show_error" class="main-content">
@@ -144,24 +151,30 @@ const { active_sort_mode, col_list, firewall_rule_list, save_loading } = storeTo
 
 // ----------------- C O N S T A N T ----------------- //
 
-const choose_ins_id = inject<string>('ins_id')
-
 const page_size_map = {
   small: 5,
   middle: 8,
   large: 10
 }
 
-const firewall_table_ref = ref()
+const choose_ins_id = inject<string>('ins_id') // 选中的实例ID
+
+const firewall_table_ref = ref() // 表格引用
 
 const cur_page = ref(1) // 当前页码
+
 const del_rules = ref<FirewallRuleInfo[]>([]) // 待删除规则集合
 
 const show_addrules_dialog = ref(false) // 展开添加规则对话框
+
 const show_editrule_dialog = ref(false) // 展开编辑规则对话框
+
 const edit_firewall_rule = ref<FirewallRuleInfo>() // 编辑的防火墙规则
+
 const edit_firewall_rule_index = ref<number>() // 编辑的防火墙规则索引
+
 const table_loading = ref(false) // 加载状态
+
 const table_data_list = ref<TableDataItem[]>([]) // 表格数据
 
 const page_size = computed(() => {
@@ -170,31 +183,14 @@ const page_size = computed(() => {
 
 const total = computed(() => Math.ceil(firewall_rule_list.value.length / page_size.value)) // 总页数
 
+// 选中所有
 const select_page_all = computed({
   get() {
     const startIndex = (cur_page.value - 1) * page_size.value
     const endIndex = cur_page.value * page_size.value
     return table_data_list.value.slice(startIndex, endIndex).every((item) => item.checked)
   },
-  set(checked) {
-    const startIndex = (cur_page.value - 1) * page_size.value
-    const endIndex = cur_page.value * page_size.value
-    const pageItems = table_data_list.value.slice(startIndex, endIndex)
-
-    pageItems.forEach((item) => {
-      if (checked !== item.checked) {
-        item.checked = checked
-        const index = del_rules.value.findIndex((x) => _.isEqual(x, item.firewallRuleInfo))
-        if (checked) {
-          del_rules.value.push(item.firewallRuleInfo)
-        } else if (index !== -1) {
-          del_rules.value.splice(index, 1)
-        }
-      }
-    })
-
-    console.log(del_rules.value)
-  }
+  set: (checked) => updateDelRules(checked)
 })
 
 // ------------------- C I R C L E ------------------- //
@@ -207,6 +203,7 @@ onUnmounted(() => {
   firewall_store.clearStore()
 })
 
+// 监听防火墙配置变化 更新表格数据
 watch(
   () => props.firewallConfig,
   (newConfig) => {
@@ -215,6 +212,29 @@ watch(
 )
 
 // ----------------- F U N C T I O N ----------------- //
+
+/**
+ * @description:  更新删除规则
+ * @param {*} selectAll
+ * @return {*}
+ */
+const updateDelRules = (selectAll: boolean) => {
+  const startIndex = (cur_page.value - 1) * page_size.value
+  const endIndex = cur_page.value * page_size.value
+  const pageItems = table_data_list.value.slice(startIndex, endIndex)
+
+  pageItems.forEach((item) => {
+    if (selectAll !== item.checked) {
+      item.checked = selectAll
+      const index = del_rules.value.findIndex((x) => _.isEqual(x, item.firewallRuleInfo))
+      if (selectAll) {
+        del_rules.value.push(item.firewallRuleInfo)
+      } else if (index !== -1) {
+        del_rules.value.splice(index, 1)
+      }
+    }
+  })
+}
 
 /**
  *  @description 删除选中规则
@@ -268,7 +288,6 @@ const ondelCheckChange = (check, firewallRuleInfo) => {
       1
     )
   }
-  console.log(del_rules.value)
 }
 
 /**
@@ -277,7 +296,6 @@ const ondelCheckChange = (check, firewallRuleInfo) => {
  * */
 const addFirewallRules = () => {
   show_addrules_dialog.value = true
-  // window.api.createNewWindow('/addfirewallrules', 'addFirewallWin')
 }
 
 /**
@@ -285,7 +303,6 @@ const addFirewallRules = () => {
  *
  * */
 const openEditRuleDialog = (row: FirewallRuleInfo, index: number) => {
-  console.log('open edit:', row)
   edit_firewall_rule.value = row
   edit_firewall_rule_index.value = index
   show_editrule_dialog.value = true
