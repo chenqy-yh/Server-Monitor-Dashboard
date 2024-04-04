@@ -1,3 +1,10 @@
+<!--
+ * @Date: 2024-03-09 10:44:50
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-01 23:59:08
+ * @FilePath: \server-monitor\src\renderer\src\views\setting\components\common-setting.vue
+ * @Description: True or False
+-->
 <template>
   <Card>
     <template #header>
@@ -8,7 +15,7 @@
         label-position="top"
         label-width="auto"
         :model="form_data"
-        style="max-width: 600px"
+        style="width: max-content"
         @submit.prevent
       >
         <el-form-item>

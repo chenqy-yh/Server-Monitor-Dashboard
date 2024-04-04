@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-22 22:19:19
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 12:35:22
+ * @LastEditTime: 2024-04-02 23:33:31
  * @FilePath: \server-monitor\src\main\typings\ipc.d.ts
  * @Description: True or False
  */
@@ -41,8 +41,8 @@ type FileWallHandleChannel =
 type CommonHandleChannel = 'open-window' | 'get-win-id'
 
 type HandleChannel =
-  | ServerHandleChannel
   | FirewallHandleChannel
+  | ServerHandleChannel
   | FileWallHandleChannel
   | CommonHandleChannel
 

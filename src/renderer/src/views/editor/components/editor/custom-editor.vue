@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-19 14:44:45
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 14:34:26
+ * @LastEditTime: 2024-04-01 21:05:53
  * @FilePath: \server-monitor\src\renderer\src\views\editor\components\editor\custom-editor.vue
  * @Description: True or False
 -->
@@ -37,6 +37,7 @@ import Explorer from '../explorer/explorer.vue'
 import { onMounted, onUnmounted, ref, toRaw, watch } from 'vue'
 import { EditorOptions } from '.'
 import { RowItem } from '../explorer/index'
+import { useListenerRegister } from '@renderer/composables/listener'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{
@@ -49,6 +50,9 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits(['update:value', 'input', 'open-file', 'resize'])
+
+// -------------------- S T O R E -------------------- //
+const { addListener, clearListener } = useListenerRegister()
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -97,11 +101,15 @@ const handleResize = () => {
 }
 
 const addResizeListener = () => {
-  window.addEventListener('resize', handleResize)
+  addListener({
+    key: 'resize',
+    el: window,
+    listener: handleResize
+  })
 }
 
 const removeResizeListener = () => {
-  window.removeEventListener('resize', handleResize)
+  clearListener()
 }
 </script>
 

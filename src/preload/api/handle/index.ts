@@ -1,12 +1,11 @@
 /*
  * @Date: 2023-12-26 22:24:54
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 12:41:16
+ * @LastEditTime: 2024-04-02 23:33:40
  * @FilePath: \server-monitor\src\preload\api\handle\index.ts
  * @Description: True or False
  */
 import { ipcRenderer } from 'electron'
-import { copyFile, mkdir } from 'fs'
 
 const ipcInvoke = <T = unknown>(channel: HandleChannel, ...args: unknown[]) => {
   return ipcRenderer.invoke(channel, ...args) as T

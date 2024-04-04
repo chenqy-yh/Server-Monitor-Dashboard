@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import FirewallItem from './firewall-item.vue'
 
 type Option = {
@@ -38,6 +38,7 @@ const firewall_config_list = ref<FirewallConfig[]>([]) // 防火墙配置列表
 const select_options = ref<Option[]>([]) // 下拉框选项
 
 const choose_firewall_config = ref<string>() // 选择的防火墙配置
+provide('ins_id', choose_firewall_config)
 
 // ------------------- C I R C L E ------------------- //
 onMounted(async () => {

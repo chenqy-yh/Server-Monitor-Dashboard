@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-26 11:06:45
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 14:57:05
+ * @LastEditTime: 2024-04-02 22:09:15
  * @FilePath: \server-monitor\src\renderer\src\directive\index.ts
  * @Description: True or False
  */
@@ -14,8 +14,9 @@ import MessageDirective from './message'
 const setupDirectives = (app: App) => {
   app.directive('win-loading', LoadingDirective)
   app.directive('context-menu', ContextDirective)
-  app.directive('enter', enterDirective)
   app.directive('message-box', MessageDirective)
+
+  app.directive('enter', enterDirective)
 }
 
 export { setupDirectives }

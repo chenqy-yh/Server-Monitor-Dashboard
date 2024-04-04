@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-12 23:33:35
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-24 23:19:18
+ * @LastEditTime: 2024-04-02 00:11:36
  * @FilePath: \server-monitor\src\renderer\src\views\firewall\components\add-rules.vue
  * @Description: True or False
 -->
@@ -88,15 +88,13 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 
 // -------------------- P R O P S -------------------- //
-const props = defineProps({
-  show: Boolean
-})
+const props = defineProps<{ show: boolean; insId: string }>()
 
 const emits = defineEmits(['cancel', 'confirm'])
 
 // -------------------- S T O R E -------------------- //
 const configStore = useConfigStore()
-const { ins_id } = storeToRefs(configStore)
+// const { ins_id } = storeToRefs(configStore)
 const { firewall_rule_list } = storeToRefs(useFirewallStore())
 
 // ----------------- C O N S T A N T ----------------- //
@@ -136,7 +134,7 @@ const cancel = () => {
 
 const confirm = async () => {
   const params = {
-    InstanceId: ins_id.value,
+    InstanceId: props.insId,
     FirewallRules:
       add_rules.value.map((x) => {
         x.Port = x.Port?.toString()

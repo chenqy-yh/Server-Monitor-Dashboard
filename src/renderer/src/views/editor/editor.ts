@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-03-24 16:37:20
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 14:36:00
+ * @LastEditTime: 2024-04-01 21:05:30
  * @FilePath: \server-monitor\src\renderer\src\views\editor\editor.ts
  * @Description: True or False
  */
@@ -9,9 +9,14 @@ import { EditorOptions } from './components/editor'
 import { RowItem } from './components/explorer/index'
 import { checkIsReadable, dirComparer } from '@renderer/utils/file'
 import * as monaco from 'monaco-editor'
-import { nextTick, onBeforeMount, onMounted, ref } from 'vue'
+import { nextTick, onBeforeMount, onMounted, onUnmounted, ref } from 'vue'
+import { useListenerRegister } from '@renderer/composables/listener'
 
 const setupEditor = () => {
+  // -------------------- S T O R E -------------------- //
+
+  const { addListener, clearListener } = useListenerRegister()
+
   // ----------------- C O N S T A N T ----------------- //
 
   const win_id = ref<number>() // 窗口ID
@@ -52,6 +57,10 @@ const setupEditor = () => {
     addListenerList()
   })
 
+  onUnmounted(() => {
+    clearListener()
+  })
+
   // ----------------- F U N C T I O N ----------------- //
 
   /**
@@ -79,11 +88,14 @@ const setupEditor = () => {
    * @return {*}
    */
   const addSaveFileListener = () => {
-    // 监听ctrl+s
-    document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.key === 's') {
-        saveFileContent()
-      }
+    addListener({
+      key: 'keydown',
+      el: document,
+      listener: ((e: KeyboardEvent) => {
+        if (e.ctrlKey && e.key === 's') {
+          saveFileContent()
+        }
+      }) as any
     })
   }
 

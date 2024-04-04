@@ -7,7 +7,7 @@
     :close-on-click-modal="false"
   >
     <template #header>
-      <span class="dialog-header" ref="header_ref">{{ i18n.global.t('firewall.title.edit') }}</span>
+      <span ref="header_ref" class="dialog-header">{{ i18n.global.t('firewall.title.edit') }}</span>
     </template>
     <template #default>
       <div class="main-content">
@@ -55,20 +55,14 @@ import { i18n } from '@renderer/plugins/i18n'
 import { useConfigStore, useFirewallStore } from '@renderer/store'
 import _ from 'lodash'
 import { storeToRefs } from 'pinia'
-import { PropType, computed, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 
 // -------------------- P R O P S -------------------- //
-const props = defineProps({
-  show: Boolean,
-  firewallrule: {
-    type: Object as PropType<FirewallRuleInfo>,
-    require: true
-  },
-  ruleIndex: {
-    type: Number,
-    require: true
-  }
-})
+const props = defineProps<{
+  show: boolean
+  firewallrule: FirewallRuleInfo
+  ruleIndex: number
+}>()
 
 const emits = defineEmits(['cancel', 'confirm'])
 
@@ -91,9 +85,21 @@ const dialogShow = computed({
   }
 })
 
-const edit_firewall_rule = ref<FirewallRuleInfo>()
+const edit_firewall_rule = ref<FirewallRuleInfo>({} as any)
+
+// ------------------- C I R C L E ------------------- //
+
+onMounted(() => {
+  initEditFirewallRule()
+})
 
 // ----------------- F U N C T I O N ----------------- //
+
+const initEditFirewallRule = () => {
+  nextTick(() => {
+    props.firewallrule && (edit_firewall_rule.value = props.firewallrule)
+  })
+}
 
 const cancel = () => {
   beforeClose()

@@ -54,19 +54,19 @@ const form_data = reactive({
 // 表格配置
 const form_config = [
   {
-    label: 'setting.tencent.ins-id',
+    label: 'setting.firewall.item.ins-id',
     model: 'ins_id'
   },
   {
-    label: 'setting.tencent.region',
+    label: 'setting.firewall.item.region',
     model: 'region'
   },
   {
-    label: 'setting.tencent.api-secret-id',
+    label: 'setting.firewall.item.api-secret-id',
     model: 'secretId'
   },
   {
-    label: 'setting.tencent.api-secret-key',
+    label: 'setting.firewall.item.api-secret-key',
     model: 'secretKey'
   }
 ]

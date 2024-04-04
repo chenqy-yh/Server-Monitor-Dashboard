@@ -27,6 +27,8 @@ defineProps<{ height: string }>()
 
 const emits = defineEmits(['resize'])
 
+// -------------------- S T O R E -------------------- //
+
 // ----------------- C O N S T A N T ----------------- //
 const MIN_WIDTH = 200
 const MAX_WIDTH = ref(0)

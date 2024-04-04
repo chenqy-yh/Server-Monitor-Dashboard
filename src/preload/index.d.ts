@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-21 23:40:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 12:38:42
+ * @LastEditTime: 2024-04-02 23:33:58
  * @FilePath: \server-monitor\src\preload\index.d.ts
  * @Description: True or False
  */

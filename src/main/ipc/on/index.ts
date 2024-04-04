@@ -112,3 +112,10 @@ ipcMain.on('update-credential', (_: IpcMainEvent, secretId: string, secretKey: s
 ipcMain.on('update-region', (_: IpcMainEvent, region: string) => {
   updateClientRegion(region)
 })
+
+// 缩盘化
+ipcMain.on('app-hide', (event: IpcMainEvent) => {
+  const win = BrowserWindow.fromWebContents(event.sender)
+  if (!win) return
+  win.hide()
+})

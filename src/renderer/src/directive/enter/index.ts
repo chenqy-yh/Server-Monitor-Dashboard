@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-03-29 15:27:03
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-29 15:37:28
- * @FilePath: \server-monitor\src\renderer\src\directive\enter.ts
+ * @LastEditTime: 2024-04-02 22:24:00
+ * @FilePath: \server-monitor\src\renderer\src\directive\enter\index.ts
  * @Description: True or False
  */
 import { Directive } from 'vue'
@@ -10,7 +10,7 @@ import { Directive } from 'vue'
 const enterDirective: Directive = {
   mounted(el, binding) {
     const handler = binding.value
-    window.addEventListener('keydown', (e) => {
+    el.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         //判断处于激活状态的元素是否是当前元素或者当前元素的子元素
         if (document.activeElement === el || el.contains(document.activeElement)) handler()
@@ -19,7 +19,7 @@ const enterDirective: Directive = {
   },
   unmounted(el, binding) {
     const handler = binding.value
-    window.removeEventListener('keydown', handler)
+    el.removeEventListener('keydown', handler)
   }
 }
 

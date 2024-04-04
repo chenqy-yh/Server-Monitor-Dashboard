@@ -1,17 +1,29 @@
 <!--
  * @Date: 2024-04-01 12:01:09
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 12:30:58
+ * @LastEditTime: 2024-04-03 00:07:46
  * @FilePath: \server-monitor\src\renderer\src\components\message\bubble.vue
  * @Description: True or False
 -->
 <template>
   <div class="bubble">
-    <slot></slot>
+    <div class="content" v-html="mkd"></div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { markdown } from '@renderer/composables/markdown'
+import { computed } from 'vue'
+
+// -------------------- P R O P S -------------------- //
+const props = defineProps<{
+  content: string
+}>()
+
+const { render } = markdown
+
+const mkd = computed(() => markdown.render(props.content))
+</script>
 
 <style lang="scss" scoped>
 .bubble {
@@ -25,6 +37,9 @@
   transition: var(--transition);
   &:hover {
     border-color: color-mix(in srgb, var(--border-color) 80%, var(--reverse-color));
+  }
+  .content {
+    word-break: break-all;
   }
 }
 </style>

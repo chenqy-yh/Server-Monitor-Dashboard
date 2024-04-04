@@ -1,12 +1,12 @@
 <!--
  * @Date: 2023-12-22 00:35:03
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 14:36:57
+ * @LastEditTime: 2024-04-03 14:53:59
  * @FilePath: \server-monitor\src\renderer\src\views\home\home.vue
  * @Description: True or False
 -->
 <template>
-  <div v-message-box class="home-content">
+  <div class="home-content">
     <el-container class="container">
       <el-aside width="170px">
         <LeftMenu></LeftMenu>
@@ -24,6 +24,7 @@
         </el-main>
       </el-container>
     </el-container>
+    <MessageBox />
   </div>
 </template>
 
@@ -42,11 +43,15 @@ const { opacity_setting } = storeToRefs(useConfigStore())
 
 // ------------------- C I R C L E ------------------- //
 onMounted(async () => {
-  window.addEventListener('keydown', keyDown, true)
+  window.addEventListener('keydown', BanF11, true)
+})
+
+onMounted(() => {
+  window.addEventListener('keydown', BanF11, true)
 })
 
 // ----------------- F U N C T I O N ----------------- //
-const keyDown = (e: KeyboardEvent) => {
+const BanF11 = (e: KeyboardEvent) => {
   if (e.key === 'F11') {
     e.preventDefault()
   }

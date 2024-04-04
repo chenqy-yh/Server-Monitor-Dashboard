@@ -1,4 +1,12 @@
+/*
+ * @Date: 2024-04-01 14:56:25
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-01 20:45:26
+ * @FilePath: \server-monitor\src\renderer\src\composables\drag\drag.ts
+ * @Description: True or False
+ */
 import { ref } from 'vue'
+import { useListenerRegister } from '@renderer/composables/listener'
 
 class Drag {
   private move_flag = ref(false)
@@ -8,6 +16,7 @@ class Drag {
   private move_handler
   private up_handler
 
+  private listenerRegister = useListenerRegister()
   install(el: HTMLElement, onMove: (dx: number, dy: number) => void, onEnd?: () => void) {
     this.down_handler = (e) => {
       this.move_flag.value = true
@@ -30,15 +39,27 @@ class Drag {
       onEnd && onEnd()
     }
 
-    el.addEventListener('mousedown', this.down_handler)
-    document.addEventListener('mousemove', this.move_handler)
-    document.addEventListener('mouseup', this.up_handler)
+    this.listenerRegister.addListener(
+      {
+        key: 'mousemove',
+        el: document,
+        listener: this.move_handler
+      },
+      {
+        key: 'mouseup',
+        el: document,
+        listener: this.up_handler
+      },
+      {
+        key: 'mousedown',
+        el: el,
+        listener: this.down_handler
+      }
+    )
   }
 
-  uninstall(el: HTMLElement) {
-    el.removeEventListener('mousedown', this.down_handler)
-    document.removeEventListener('mousemove', this.move_handler)
-    document.removeEventListener('mouseup', this.up_handler)
+  uninstall() {
+    this.listenerRegister.clearListener()
   }
 }
 

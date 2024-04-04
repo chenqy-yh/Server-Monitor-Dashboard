@@ -85,15 +85,18 @@
       },
       "firewall": {
         "title": "Firewall Settings",
-        "label": "Firewall"
+        "label": "Firewall",
+        "item": {
+          "ins-id": "Instance ID",
+          "region": "Region",
+          "api-secret-id": "SecretId",
+          "api-secret-key": "SecretKey"
+        }
       },
-      "tencent": {
-        "label": "Tencent",
-        "title": "Tencent Settings",
-        "region": "Region",
-        "api-secret-id": "API ID",
-        "api-secret-key": "API Secret",
-        "ins-id": "Instance ID"
+      "openai": {
+        "title": "OpenAI Settings",
+        "label": "OpenAI",
+        "apikey": "API Key"
       }
     },
     "log": {
@@ -261,15 +264,18 @@
       },
       "firewall": {
         "title": "防火墙设置",
-        "label": "防火墙"
+        "label": "防火墙",
+        "item": {
+          "ins-id": "实例ID",
+          "region": "地域",
+          "api-secret-id": "密钥ID",
+          "api-secret-key": "密钥密码"
+        }
       },
-      "tencent": {
-        "label": "腾讯云",
-        "title": "腾讯云设置",
-        "region": "地域",
-        "api-secret-id": "API ID",
-        "api-secret-key": "API 密钥",
-        "ins-id": "实例ID"
+      "openai": {
+        "title": "OpenAI设置",
+        "label": "OpenAI",
+        "apikey": "API 密钥"
       }
     },
     "placeholder": {

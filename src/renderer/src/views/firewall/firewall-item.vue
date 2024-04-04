@@ -84,12 +84,14 @@
 
       <AddFirewallRulesDialog
         :show="show_addrules_dialog"
+        :ins-id="choose_ins_id ?? ''"
         @cancel="show_addrules_dialog = false"
         @confirm="onAddRulesConfirm"
       ></AddFirewallRulesDialog>
       <EditFirewallRulesDialog
-        :firewallrule="edit_firewall_rule"
-        :rule-index="edit_firewall_rule_index"
+        :ins-id="choose_ins_id"
+        :firewallrule="edit_firewall_rule!"
+        :rule-index="edit_firewall_rule_index ?? -1"
         :show="show_editrule_dialog"
         @cancel="show_editrule_dialog = false"
         @confirm="show_editrule_dialog = false"
@@ -115,7 +117,7 @@ import Checkbox from '@renderer/components/checkbox/checkbox-1.vue'
 import { i18n } from '@renderer/plugins/i18n'
 import { useConfigStore, useFirewallStore, useServerInfoStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
-import { PropType, computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { PropType, computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import _ from 'lodash'
 
 type TableDataItem = {
@@ -141,6 +143,8 @@ const firewall_store = useFirewallStore()
 const { active_sort_mode, col_list, firewall_rule_list, save_loading } = storeToRefs(firewall_store)
 
 // ----------------- C O N S T A N T ----------------- //
+
+const choose_ins_id = inject<string>('ins_id')
 
 const page_size_map = {
   small: 5,
@@ -281,6 +285,7 @@ const addFirewallRules = () => {
  *
  * */
 const openEditRuleDialog = (row: FirewallRuleInfo, index: number) => {
+  console.log('open edit:', row)
   edit_firewall_rule.value = row
   edit_firewall_rule_index.value = index
   show_editrule_dialog.value = true

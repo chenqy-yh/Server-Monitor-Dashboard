@@ -1,3 +1,10 @@
+/*
+ * @Date: 2024-03-26 11:06:45
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-02 00:06:41
+ * @FilePath: \server-monitor\src\renderer\src\store\config\index.ts
+ * @Description: True or False
+ */
 import { i18n } from '@renderer/plugins/i18n'
 import { getItem, setItem } from '@renderer/utils/store'
 import { defineStore } from 'pinia'
@@ -21,7 +28,7 @@ export const useConfigStore = defineStore('config', () => {
   const direct_exit_setting = ref<boolean>() // 直接退出设置
   const opacity_setting = ref<number>() // 透明度设置
 
-  // COS
+  // tencent
   const ins_id = ref<string>(import.meta.env.RE_InstanceID) // 实例ID
 
   // Other

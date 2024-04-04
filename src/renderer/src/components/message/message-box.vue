@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-31 19:39:33
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 14:19:57
+ * @LastEditTime: 2024-04-04 00:19:03
  * @FilePath: \server-monitor\src\renderer\src\components\message\message-box.vue
  * @Description: True or False
 -->
@@ -10,21 +10,37 @@
     <div v-show="open_chat_win" class="mask" @click="toggleChatWin"></div>
     <div class="content">
       <div class="chat-win">
-        <!-- <div class="header">
-          <el-button text circle @click="toggleChatWin">
-            <i class="ri-subtract-line ri-lg"></i>
-          </el-button>
-        </div> -->
-        <div class="message-list">
+        <div :ref="getMessageListRef" class="message-list">
           <div v-for="(msg_item, i) in message_list" :key="i" class="message-item">
-            <i :class="icon_map[msg_item.type]"></i>
-            <Bubble>
-              {{ msg_item.message }}
-            </Bubble>
+            <template v-if="msg_item.type !== 'user'">
+              <div class="left-msg">
+                <i :class="icon_map[msg_item.type]"></i>
+                <Bubble :content="msg_item.message" />
+              </div>
+            </template>
+            <template v-else>
+              <div class="right-msg">
+                <Bubble :content="msg_item.message" />
+                <i :class="icon_map[msg_item.type]"></i>
+              </div>
+            </template>
+          </div>
+          <div v-show="robot_msg" class="message-item">
+            <div class="left-msg robot-msg">
+              <i :class="icon_map.robot"></i>
+              <Bubble :content="robot_msg" />
+            </div>
           </div>
         </div>
+        <div class="input-field">
+          <el-input
+            v-model="user_msg"
+            v-enter="submitMsg"
+            placeholder="Message ChatGPT"
+            :suffix-icon="SubmitIcon"
+          ></el-input>
+        </div>
       </div>
-
       <div class="message-btn" @click="toggleChatWin">
         <i class="ri-question-answer-fill ri-lg"></i>
         <div v-if="unread_msg_cnt" class="tip">You have {{ unread_msg_cnt }} unread messages</div>
@@ -34,145 +50,37 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { messageStore } from '@renderer/composables/message'
+import SubmitIcon from '@renderer/components/icon/submit-icon.vue'
 import Bubble from './bubble.vue'
 
+import { useMessageBox } from './message-box'
+import { onMounted, onUnmounted } from 'vue'
+
 // -------------------- S T O R E -------------------- //
-const { addMessage, message_list } = messageStore
 
-// ----------------- C O N S T A N T ----------------- //
-
-const icon_map = {
-  info: 'ri-information-line ri-lg info',
-  success: 'ri-checkbox-circle-line ri-lg success',
-  warning: 'ri-error-warning-line ri-lg warning',
-  error: 'ri-error-warning-line ri-lg error'
-}
-
-const messageBoxRef = ref<HTMLElement>()
-
-const RESIZE_OFFSET = 80
-
-const ResizeOffsetStyle = computed(() => {
-  return `${RESIZE_OFFSET}px`
-})
-
-const open_chat_win = ref(false)
-const message_box_w = ref('max-content')
-const message_box_h = ref('max-content')
-
-const unread_msg_cnt = computed(() => {
-  return message_list.value.reduce((acc, cur) => {
-    return cur.is_read ? acc : acc + 1
-  }, 0)
-})
+const {
+  unread_msg_cnt,
+  robot_msg,
+  icon_map,
+  open_chat_win,
+  message_list,
+  user_msg,
+  ResizeOffsetStyle,
+  initListener,
+  clearListener,
+  getMessageListRef,
+  toggleChatWin,
+  submitMsg
+} = useMessageBox()
 
 // ------------------- C I R C L E ------------------- //
-
 onMounted(() => {
-  addMessage({
-    type: 'info',
-    message: 'This is a info message'
-  })
-  addMessage({
-    type: 'success',
-    message: 'This is a success message'
-  })
-  addMessage({
-    type: 'warning',
-    message: 'This is a warning message'
-  })
-
-  addMessage({
-    type: 'error',
-    message: 'This is a error message'
-  })
-  addMessage({
-    type: 'info',
-    message: 'This is a info message'
-  })
-  addMessage({
-    type: 'success',
-    message: 'This is a success message'
-  })
-  addMessage({
-    type: 'warning',
-    message: 'This is a warning message'
-  })
-
-  addMessage({
-    type: 'error',
-    message: 'This is a error message'
-  })
-  addMessage({
-    type: 'info',
-    message: 'This is a info message'
-  })
-  addMessage({
-    type: 'success',
-    message: 'This is a success message'
-  })
-  addMessage({
-    type: 'warning',
-    message: 'This is a warning message'
-  })
-
-  addMessage({
-    type: 'error',
-    message: 'This is a error message'
-  })
-  addMessage({
-    type: 'info',
-    message: 'This is a info message'
-  })
-  addMessage({
-    type: 'success',
-    message: 'This is a success message'
-  })
-  addMessage({
-    type: 'warning',
-    message: 'This is a warning message'
-  })
-
-  addMessage({
-    type: 'error',
-    message: 'This is a error message'
-  })
-  addMessage({
-    type: 'info',
-    message: 'This is a info message'
-  })
-  addMessage({
-    type: 'success',
-    message: 'This is a success message'
-  })
-  addMessage({
-    type: 'warning',
-    message: 'This is a warning message'
-  })
-
-  addMessage({
-    type: 'error',
-    message: 'This is a error message'
-  })
+  initListener()
 })
 
-// ----------------- F U N C T I O N ----------------- //
-
-const toggleChatWin = () => {
-  open_chat_win.value = !open_chat_win.value
-  if (open_chat_win.value) {
-    message_box_w.value = '18rem'
-    message_box_h.value = '24rem'
-    message_list.value.forEach((item) => {
-      item.is_read = true
-    })
-  } else {
-    message_box_w.value = 'max-content'
-    message_box_h.value = 'max-content'
-  }
-}
+onUnmounted(() => {
+  clearListener()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -220,23 +128,36 @@ const toggleChatWin = () => {
       transition-delay: 0;
       opacity: 0;
       height: 100%;
-      overflow: hidden;
-      padding: var(--space-sm);
-      // .header {
-      //   display: flex;
-      //   justify-content: flex-end;
-      //   align-items: center;
-      //   height: 1.5rem;
-      // }
+      display: grid;
+      grid-template-rows: 1fr max-content;
       .message-list {
-        height: 100%;
-        overflow-y: scroll;
-        .message-item {
-          display: flex;
-          align-items: center;
-          gap: var(--space-sm);
-          padding: var(--space-sm);
+        overflow-y: auto;
+        padding: var(--space-sm);
+        &::-webkit-scrollbar {
+          width: 0.2rem;
         }
+        .message-item {
+          padding-block: var(--space-sm);
+          width: 100%;
+          .left-msg {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: var(--space-sm);
+          }
+          .right-msg {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: var(--space-sm);
+          }
+        }
+      }
+      .input-field {
+        width: 100%;
+        padding: var(--space-sm);
       }
     }
   }
@@ -288,7 +209,7 @@ const toggleChatWin = () => {
       transition:
         padding 0s,
         max-width 0s,
-        opacity 0.5s;
+        opacity 1s;
       max-width: max-content;
       padding: var(--space-1x);
     }
@@ -310,4 +231,3 @@ const toggleChatWin = () => {
   }
 }
 </style>
-../../composables/common/message

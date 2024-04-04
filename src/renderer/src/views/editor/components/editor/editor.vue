@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-19 14:38:10
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 11:14:41
- * @FilePath: \server-monitor\src\renderer\src\components\editor\editor.vue
+ * @LastEditTime: 2024-04-01 16:58:41
+ * @FilePath: \server-monitor\src\renderer\src\views\editor\components\editor\editor.vue
  * @Description: True or False
 -->
 <template>

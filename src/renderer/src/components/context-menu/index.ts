@@ -1,12 +1,13 @@
 /*
  * @Date: 2024-03-29 00:05:44
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-29 14:27:30
+ * @LastEditTime: 2024-04-01 21:05:58
  * @FilePath: \server-monitor\src\renderer\src\components\context-menu\index.ts
  * @Description: True or False
  */
 import { createVNode, render } from 'vue'
 import ContextMenuComponent from '@renderer/components/context-menu/context-menu-outer.vue'
+import { useListenerRegister } from '@renderer/composables/listener'
 
 let container: HTMLElement | null = null
 
@@ -28,6 +29,7 @@ const useContextMenu = (
   const allowPropagation = binding.allowPropagation ?? false
   !allowPropagation && event.stopPropagation() // 阻止冒泡
   const menus = binding.menus
+  const { addListener, clearListener } = useListenerRegister()
 
   const removeContextMenu = () => {
     if (container) {
@@ -35,9 +37,7 @@ const useContextMenu = (
       container = null
     }
     hiddenAllContextMenu(menus)
-    document.body.removeEventListener('scroll', removeContextMenu)
-    window.removeEventListener('resize', removeContextMenu)
-    window.removeEventListener('click', removeContextMenu)
+    clearListener()
   }
   // 移除已有菜单
   removeContextMenu()
@@ -53,9 +53,23 @@ const useContextMenu = (
   render(vm, container)
   document.body.appendChild(container)
   // 页面变换时移除菜单
-  document.body.addEventListener('scroll', removeContextMenu)
-  window.addEventListener('resize', removeContextMenu)
-  window.addEventListener('click', removeContextMenu)
+  addListener(
+    {
+      key: 'scroll',
+      el: document.body,
+      listener: removeContextMenu
+    },
+    {
+      key: 'resize',
+      el: window,
+      listener: removeContextMenu
+    },
+    {
+      key: 'click',
+      el: window,
+      listener: removeContextMenu
+    }
+  )
 }
 
 export { useContextMenu }
