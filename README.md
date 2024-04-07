@@ -37,6 +37,12 @@ pnpm run start
 ```bash
 pnpm install
 
+# 配置env
+
+RE_Remoteserver_Port = 54321
+RE_Remoteserver_Prefix = /api
+
+
 # 开发模式
 
 pnpm dev
