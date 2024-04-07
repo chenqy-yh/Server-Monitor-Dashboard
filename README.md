@@ -55,7 +55,21 @@ pnpm build:win
 
 
 <h2>项目预览</h2>
+v2
+1.Dashboard
 
+   ![](https://server-monitor-readme-1300131488.cos.ap-beijing.myqcloud.com/readme%2Fv2%2Fdashboard.png)
+
+2.Instances
+
+   ![](https://server-monitor-readme-1300131488.cos.ap-beijing.myqcloud.com/readme%2Fv2%2Finstances.png)
+
+3. Login
+
+   ![](https://server-monitor-readme-1300131488.cos.ap-beijing.myqcloud.com/readme%2Fv2%2Flogin.png)
+
+
+v1
 
 1. Dashboard
 
