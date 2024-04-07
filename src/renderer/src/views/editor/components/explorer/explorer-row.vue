@@ -11,7 +11,7 @@
       <div class="row-content">
         <div class="row-icon">
           <Transition name="fade">
-            <LoadingIcon v-if="loading" />
+            <LoadingIcon v-if="loading" :r="6" />
             <i
               v-else
               :class="{

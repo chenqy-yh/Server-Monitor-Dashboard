@@ -52,14 +52,15 @@
 
 <script setup lang="ts">
 import { i18n } from '@renderer/plugins/i18n'
-import { useFirewallSettingStore, useFirewallStore } from '@renderer/store'
+import { useFirewallStore } from '@renderer/store'
 import _ from 'lodash'
 import { storeToRefs } from 'pinia'
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{
   show: boolean
+  firewallConfig: FirewallConfig
   firewallrule: FirewallRuleInfo
   ruleIndex: number
 }>()
@@ -67,8 +68,6 @@ const props = defineProps<{
 const emits = defineEmits(['cancel', 'confirm'])
 
 // -------------------- S T O R E -------------------- //
-
-const { ins_id } = storeToRefs(useFirewallSettingStore())
 
 const firewallStore = useFirewallStore()
 
@@ -92,21 +91,14 @@ const edit_firewall_rule = ref<FirewallRuleInfo>({} as any) // 编辑的防火�
 
 // ------------------- C I R C L E ------------------- //
 
-onMounted(() => {
-  initEditFirewallRule()
-})
+watch(
+  () => props.firewallrule,
+  (val) => {
+    edit_firewall_rule.value = _.cloneDeep(val)
+  }
+)
 
 // ----------------- F U N C T I O N ----------------- //
-
-/**
- * @description:  初始化编辑防火墙规则
- * @return {*}
- */
-const initEditFirewallRule = () => {
-  nextTick(() => {
-    props.firewallrule && (edit_firewall_rule.value = props.firewallrule)
-  })
-}
 
 /**
  * @description:  取消
@@ -130,10 +122,10 @@ const modifyFirewallDesc = () => {
     edit_firewall_rule.value?.FirewallRuleDescription
   const ignore = ['Ipv6CidrBlock', 'AppType']
   const params = {
-    InstanceId: ins_id.value,
+    firwallConfig: props.firewallConfig,
     FirewallRule: _.omit(edit_firewall_rule.value, ignore) as FirewallRule
   }
-  return window.api.modifyFirewallRuleDescription(JSON.stringify(params))
+  return window.api.modifyFirewallRuleDescription(params)
 }
 
 /**
@@ -154,7 +146,7 @@ const modifyFirewallList = () => {
     return firewallStore.infoToRule(item)
   })
   const params = {
-    InstanceId: ins_id.value,
+    firewallConfig: props.firewallConfig,
     FirewallRules: firewallRules
   }
   return window.api.modifyFirewallRules(JSON.stringify(params))
@@ -180,7 +172,7 @@ const confirm = async () => {
   try {
     await (eq_desc ? modifyFirewallList() : modifyFirewallDesc())
     beforeClose()
-    emits('confirm')
+    emits('confirm', edit_firewall_rule.value, props.ruleIndex)
   } catch (error) {
     console.log('error:', error)
     submit_rules_error.value = true

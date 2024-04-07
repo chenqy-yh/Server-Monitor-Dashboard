@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 23:09:20
+ * @LastEditTime: 2024-04-07 19:47:59
  * @FilePath: \server-monitor\src\renderer\src\views\firewall\firewall-item.vue
  * @Description: True or False
 -->
@@ -91,17 +91,17 @@
 
       <AddFirewallRulesDialog
         :show="show_addrules_dialog"
-        :ins-id="choose_ins_id ?? ''"
+        :firewall-config="firewallConfig!"
         @cancel="show_addrules_dialog = false"
         @confirm="onAddRulesConfirm"
       ></AddFirewallRulesDialog>
       <EditFirewallRulesDialog
-        :ins-id="choose_ins_id"
         :firewallrule="edit_firewall_rule!"
+        :firewall-config="firewallConfig!"
         :rule-index="edit_firewall_rule_index ?? -1"
         :show="show_editrule_dialog"
         @cancel="show_editrule_dialog = false"
-        @confirm="show_editrule_dialog = false"
+        @confirm="onEditRuleConfirm"
       >
       </EditFirewallRulesDialog>
     </div>
@@ -116,21 +116,16 @@
 </template>
 
 <script setup lang="ts">
+import Checkbox from '@renderer/components/checkbox/checkbox-1.vue'
 import Pagination from '@renderer/components/pagination/pagination-1.vue'
 import AddFirewallRulesDialog from '@renderer/views/firewall/components/add-rules.vue'
 import EditFirewallRulesDialog from '@renderer/views/firewall/components/edit-rules.vue'
-import Checkbox from '@renderer/components/checkbox/checkbox-1.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
-import {
-  useCommonSettingStore,
-  usePersonalSettingStore,
-  useFirewallStore,
-  useServerInfoStore
-} from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { PropType, computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useFirewallStore, usePersonalSettingStore, useServerInfoStore } from '@renderer/store'
 import _ from 'lodash'
+import { storeToRefs } from 'pinia'
+import { PropType, computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 type TableDataItem = {
   checked: boolean
@@ -146,11 +141,10 @@ const props = defineProps({
 })
 
 // -------------------- S T O R E -------------------- //
-const { server_url } = storeToRefs(useCommonSettingStore())
 
 const { win_size_setting } = storeToRefs(usePersonalSettingStore())
 
-const { show_error } = storeToRefs(useServerInfoStore())
+const { show_error, server_url } = storeToRefs(useServerInfoStore())
 
 const firewall_store = useFirewallStore()
 
@@ -159,12 +153,10 @@ const { active_sort_mode, col_list, firewall_rule_list, save_loading } = storeTo
 // ----------------- C O N S T A N T ----------------- //
 
 const page_size_map = {
-  small: 5,
-  middle: 8,
-  large: 10
-}
-
-const choose_ins_id = inject<string>('ins_id') // 选中的实例ID
+  small: 8,
+  middle: 10,
+  large: 12
+} // 每页显示条数映射
 
 const firewall_table_ref = ref() // 表格引用
 
@@ -250,10 +242,10 @@ const updateDelRules = (selectAll: boolean) => {
 const deleteChooseRules = async () => {
   table_loading.value = true
   const params = {
-    InstanceId: props.firewallConfig.instanceId,
+    firewallConfig: props.firewallConfig,
     FirewallRules: del_rules.value.map((x) => firewall_store.infoToRule(x))
   }
-  await window.api.delFirewallRules(JSON.stringify(params))
+  await window.api.delFirewallRules(params)
   del_rules.value = []
 
   getTableData(props.firewallConfig)
@@ -325,7 +317,7 @@ const delRule = (row: FirewallRuleInfo, index: number) => {
     FirewallRules: [firewall_store.infoToRule(row)]
   }
   firewall_rule_list.value.splice(index, 1)
-  window.api.delFirewallRules(JSON.stringify(params))
+  window.api.delFirewallRules(params)
 }
 
 /**
@@ -337,6 +329,16 @@ const onAddRulesConfirm = () => {
   table_data_list.value = infoToTableItem(firewall_rule_list.value)
 }
 
+const onEditRuleConfirm = (new_firwall_rule: FirewallRuleInfo, index: number) => {
+  firewall_rule_list.value[index] = new_firwall_rule
+  table_data_list.value = infoToTableItem(firewall_rule_list.value)
+  show_editrule_dialog.value = false
+}
+
+/**
+ * @description:  切换排序模式
+ * @return {*}
+ */
 const toggleActiveSort = () => {
   const tar_el = firewall_table_ref.value.$el.querySelector('tbody')
   firewall_store.activeSortMode(tar_el)

@@ -129,7 +129,6 @@ const select_page_all = computed({
 // ------------------- C I R C L E ------------------- //
 onMounted(() => {
   getTableData(props.firewallConfig)
-  // await firewall_store.requestFirewallRules(props.firewallConfig)
 })
 
 onUnmounted(() => {
@@ -202,7 +201,7 @@ const delRule = (row: FirewallRuleInfo, index: number) => {
     FirewallRules: [firewall_store.infoToRule(row)]
   }
   firewall_rule_list.value.splice(index, 1)
-  window.api.delFirewallRules(JSON.stringify(params))
+  window.api.delFirewallRules(params)
 }
 </script>
 

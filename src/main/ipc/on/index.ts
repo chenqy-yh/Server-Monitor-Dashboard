@@ -1,16 +1,6 @@
-import './file'
-import {
-  BrowserWindow,
-  IpcMainEvent,
-  Menu,
-  MenuItem,
-  MenuItemConstructorOptions,
-  ipcMain,
-  screen
-} from 'electron'
-import { MenuContextMap } from '../../model/menu/index'
+import { BrowserWindow, IpcMainEvent, ipcMain, screen } from 'electron'
 import { closeWsService } from '../../utils/api'
-import { updateClientCredential, updateClientRegion } from '../../utils/tencent/client'
+import './file'
 
 // 全屏
 ipcMain.on(
@@ -101,16 +91,6 @@ ipcMain.on('win-resize', (event: IpcMainEvent, width: number, height: number) =>
     height: height
   })
   win.center()
-})
-
-// 更新腾讯云凭证
-ipcMain.on('update-credential', (_: IpcMainEvent, secretId: string, secretKey: string) => {
-  updateClientCredential(secretId, secretKey)
-})
-
-// 更新腾讯云地域
-ipcMain.on('update-region', (_: IpcMainEvent, region: string) => {
-  updateClientRegion(region)
 })
 
 // 缩盘化

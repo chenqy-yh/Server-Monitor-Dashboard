@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-21 23:40:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-02 23:33:58
+ * @LastEditTime: 2024-04-07 19:23:28
  * @FilePath: \server-monitor\src\preload\index.d.ts
  * @Description: True or False
  */
@@ -12,7 +12,11 @@ import { BrowserViewConstructorOptions } from 'electron'
  *  @description ipc handle api
  *
  */
-type HandleApi = ServerHandleApi & FirewallHandleApi & FileHandleApi & CommonHandleApi
+type HandleApi = ServerHandleApi &
+  FirewallHandleApi &
+  FileHandleApi &
+  CommonHandleApi &
+  TLHInstanceHandleApi
 
 /**
  *  @description 通用 API
@@ -44,16 +48,12 @@ type ServerHandleApi = {
  *
  */
 type FirewallHandleApi = {
-  descInsList: (parms?: unknown) => Promise<{ InstanceSet: CosInstance[] }>
-  descFirewallRules: (params: string) => Promise<QueryFirewallrulesResponse>
+  descInsList: (parms?: unknown) => Promise<{ InstanceSet: TLHInstance[] }>
+  descFirewallRules: (params: unknown) => Promise<QueryFirewallrulesResponse>
   modifyFirewallRules: (params?: unknown) => Promise<CommonResponse> | Promise<string>
   addFirewallRules: (params?: unknown) => Promise<CommonResponse> | Promise<string>
   modifyFirewallRuleDescription: (params?: unknown) => Promise<CommonResponse> | Promise<string>
   deleteFirewallRules: (params?: unknown) => Promise<CommonResponse> | Promise<string>
-  getTencentInstanceInfo: (parms?: unknown) => Promise<>
-  getFirewallConfigList: () => Promise<FirewallConfig[]>
-  setFirewallConfig: (config_str: string) => Promise<unknown>
-  deleteFirewallConfig: (config_str: string) => Promise<unknown>
   delFirewallRules: (params?: unknown) => Promise<CommonResponse> | Promise<string>
 }
 
@@ -76,6 +76,18 @@ type FileHandleApi = {
   uploadFile: (url: string, path: string, formData: any) => Promise<string>
   mergeChunk: (url: string, path: string, formData: any) => Promise<string>
   queryFinishedChunk: (url: string, path: string, hash: string, total: number) => Promise<number[]>
+}
+
+type TLHInstanceHandleApi = {
+  getTLHInstanceList: (
+    apiId: string,
+    apiKey: string,
+    region: string
+  ) => Promise<{
+    TotalCount?: number
+    InstanceSet?: Array<TLHInstance>
+    RequestId?: string
+  }>
 }
 
 /**

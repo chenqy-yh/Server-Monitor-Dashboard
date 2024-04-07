@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-23 00:16:02
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 21:04:22
- * @FilePath: \server-monitor\src\renderer\src\views\editor\editor.vue
+ * @LastEditTime: 2024-04-06 00:19:41
+ * @FilePath: \server-monitor\src\renderer\src\views\editor\index.vue
  * @Description: True or False
 -->
 <template>
@@ -64,7 +64,7 @@ const {
   register
 } = editorStore
 
-const { installDrag, appMin, exit, fullScreen } = useHeader([1024, 768])
+const { installDrag, appMin, exit, fullScreen } = useHeader()
 
 // ----------------- C O N S T A N T ----------------- //
 

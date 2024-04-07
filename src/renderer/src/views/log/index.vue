@@ -1,3 +1,10 @@
+<!--
+ * @Date: 2024-04-04 23:41:13
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-07 15:54:38
+ * @FilePath: \server-monitor\src\renderer\src\views\log\index.vue
+ * @Description: True or False
+-->
 <template>
   <Transition name="fade" mode="out-in">
     <div v-if="!show_error" class="main-content">
@@ -32,14 +39,12 @@ import NginxLog from './components/nginx-log.vue'
 
 import { computed, ref } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
-import { useServerInfoStore, useCommonSettingStore } from '@renderer/store'
+import { useServerInfoStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 
 // -------------------- S T O R E -------------------- //
 
-const { show_error } = storeToRefs(useServerInfoStore())
-
-const { server_url } = storeToRefs(useCommonSettingStore())
+const { show_error, server_url } = storeToRefs(useServerInfoStore())
 
 const choose_log = ref<string>('mysql')
 

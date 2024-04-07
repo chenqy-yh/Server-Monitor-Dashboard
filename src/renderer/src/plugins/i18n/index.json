@@ -9,7 +9,8 @@
       "no": "No",
       "save": "Save",
       "warning": "Warning",
-      "del": "Delete"
+      "del": "Delete",
+      "back": "Back"
     },
     "brand": {
       "name": "Spirit"
@@ -21,7 +22,9 @@
       "log": "Log",
       "firewall": "Firewall",
       "test": "Test",
-      "file": "File"
+      "file": "File",
+      "login": "Login",
+      "instances": "Instances"
     },
     "dashboard": {
       "index": {
@@ -61,12 +64,6 @@
       "title": "Terminal"
     },
     "setting": {
-      "common": {
-        "label": "Common",
-        "title": "Common Settings",
-        "host": "Host",
-        "save": "Save"
-      },
       "personal": {
         "label": "Personal",
         "title": "Personal Settings",
@@ -186,6 +183,25 @@
       "del": "Delete",
       "mkdir": "New Folder",
       "mkfile": "New File"
+    },
+    "file": {
+      "placeholder": {
+        "search-file": "Search file"
+      },
+      "move-file": "Move file",
+      "upload-file": "Upload file"
+    },
+    "message-box": {
+      "placeholder": "Message ChatGPT..."
+    },
+    "instances": {
+      "state": {
+        "running": "Running"
+      },
+      "desc": {
+        "info": "CPU {cpu} core-Memory {mem}GB-System disk {disksize}GiB",
+        "extime": "Expiration time: {exTime}"
+      }
     }
   },
   "cn": {
@@ -198,7 +214,8 @@
       "no": "否",
       "save": "保存",
       "warning": "警告",
-      "del": "删除"
+      "del": "删除",
+      "back": "返回"
     },
     "brand": {
       "name": "Spirit"
@@ -210,7 +227,9 @@
       "log": "日志",
       "firewall": "防火墙",
       "test": "测试",
-      "file": "文件"
+      "file": "文件",
+      "login": "登陆",
+      "instances": "实例"
     },
     "dashboard": {
       "index": {
@@ -375,6 +394,25 @@
       "del": "删除",
       "mkdir": "新建文件夹",
       "mkfile": "新建文件"
+    },
+    "file": {
+      "placeholder": {
+        "search-file": "搜索文件"
+      },
+      "move-file": "移动文件",
+      "upload-file": "上传文件"
+    },
+    "message-box": {
+      "placeholder": "聊聊 ChatGPT..."
+    },
+    "instances": {
+      "desc": {
+        "info": "CPU {cpu}核-内存 {mem}GB-系统盘 {disksize}GiB",
+        "extime": "到期时间：{exTime}"
+      },
+      "state": {
+        "running": "运行中"
+      }
     }
   }
 }

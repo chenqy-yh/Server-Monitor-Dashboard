@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-18 18:35:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 23:08:27
+ * @LastEditTime: 2024-04-07 15:53:54
  * @FilePath: \server-monitor\src\renderer\src\views\file\index.vue
  * @Description: True or False
 -->
@@ -26,7 +26,7 @@
           v-model="file_filter"
           v-enter="() => search(gotoFirstPage)"
           style="width: 240px"
-          placeholder="Press Enter to Search Files"
+          :placeholder="i18n.global.t('file.placeholder.search-file')"
         ></el-input>
         <el-tooltip effect="dark" content="Search File" placement="top">
           <el-button text circle @click="() => search(gotoFirstPage)">
@@ -35,7 +35,7 @@
         </el-tooltip>
       </div>
       <div class="btn-groups">
-        <el-tooltip effect="dark" content="Move File" placement="top">
+        <el-tooltip effect="dark" :content="i18n.global.t('file.move-file')" placement="top">
           <el-button text circle @click="moveable = !moveable">
             <i
               class="ri-drag-move-2-fill ri-lg moveable"
@@ -45,7 +45,7 @@
             ></i>
           </el-button>
         </el-tooltip>
-        <el-tooltip effect="dark" content="Upload File" placement="top">
+        <el-tooltip effect="dark" :content="i18n.global.t('file.upload-file')" placement="top">
           <UploadButton
             :server-url="server_url"
             :upload-path="file_path"
@@ -83,13 +83,14 @@ import Pagination from '@renderer/components/pagination/pagination-1.vue'
 import UploadButton from '@renderer/components/upload/upload-button.vue'
 import FileList from './components/file-list.vue'
 
-import { useCommonSettingStore, usePersonalSettingStore } from '@renderer/store'
+import { useServerInfoStore, usePersonalSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import { setupFile } from './index'
+import { i18n } from '@renderer/plugins/i18n'
 
 // -------------------- S T O R E -------------------- //
-const { server_url } = storeToRefs(useCommonSettingStore())
+const { server_url } = storeToRefs(useServerInfoStore())
 const { win_size_setting } = storeToRefs(usePersonalSettingStore())
 
 // ----------------- C O N S T A N T ----------------- //

@@ -2,7 +2,7 @@ import { useContextMenu } from '@renderer/components/context-menu'
 import { setupFile } from '../index'
 import { messageStore } from '@renderer/composables/message'
 import { i18n } from '@renderer/plugins/i18n'
-import { useCommonSettingStore } from '@renderer/store'
+import { useServerInfoStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { reactive, ref } from 'vue'
 
@@ -12,7 +12,7 @@ type MkType = 'mkdir' | 'mkfile'
 
 const useFileList = ({ emits }) => {
   // -------------------- S T O R E -------------------- //
-  const { server_url } = storeToRefs(useCommonSettingStore())
+  const { server_url } = storeToRefs(useServerInfoStore())
 
   const { file_path } = setupFile()
 

@@ -1,4 +1,4 @@
-import { useCommonSettingStore } from '@renderer/store'
+import { useServerInfoStore } from '@renderer/store'
 import { checkIsReadable, dirComparer, solveNextPath } from '@renderer/utils/file'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
@@ -12,7 +12,7 @@ type BreadcrumbItem = {
 const useFile = () => {
   // -------------------- S T O R E -------------------- //
 
-  const { server_url } = storeToRefs(useCommonSettingStore()) // 服务器地址
+  const { server_url } = storeToRefs(useServerInfoStore()) // 服务器地址
 
   // ----------------- C O N S T A N T ----------------- //
 

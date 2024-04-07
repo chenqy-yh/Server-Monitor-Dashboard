@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 23:34:17
+ * @LastEditTime: 2024-04-07 17:52:31
  * @FilePath: \server-monitor\src\renderer\src\router\index.ts
  * @Description: True or False
  */
@@ -14,7 +14,7 @@ import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router'
  * @return {*}
  */
 const findRootRoute = (routeConfigList: IRouterConfig[]) => {
-  return routeConfigList.filter((route) => !route.parent)
+  return routeConfigList.filter((route) => !route.meta || !route.meta.parRoute)
 }
 
 /**
@@ -40,7 +40,7 @@ const buildRouteFromConfig = (routeConfig: IRouterConfig) => {
 const buildRouteChildren = (par: IRouterConfig, list: IRouterConfig[]) => {
   // 构造子路由 并 按照 menuIndex 排序
   const children = list
-    .filter((route) => route.parent === par.name)
+    .filter((route) => route.meta && route.meta.parRoute === par.name)
     .sort((a, b) => a.meta.menuIndex - b.meta.menuIndex)
   if (children.length) {
     return children.map((child) => {

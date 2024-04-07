@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import Pagination from '@renderer/components/pagination/pagination-1.vue'
 
-import { usePersonalSettingStore, useCommonSettingStore } from '@renderer/store'
+import { usePersonalSettingStore, useServerInfoStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
@@ -59,7 +59,7 @@ interface MysqlLogInfo {
 
 // -------------------- S T O R E -------------------- //
 
-const { server_url } = storeToRefs(useCommonSettingStore())
+const { server_url } = storeToRefs(useServerInfoStore())
 
 const { win_size_setting } = storeToRefs(usePersonalSettingStore())
 
@@ -74,7 +74,7 @@ const loading_finish = ref<boolean>(false)
 const page_size = computed(() => {
   switch (win_size_setting.value) {
     case 'small':
-      return 6
+      return 8
     case 'middle':
       return 10
     case 'large':

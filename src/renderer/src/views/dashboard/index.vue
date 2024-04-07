@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 23:36:53
+ * @LastEditTime: 2024-04-07 17:53:02
  * @FilePath: \server-monitor\src\renderer\src\views\dashboard\index.vue
  * @Description: True or False
 -->
@@ -40,7 +40,7 @@ import NetworkChart from '@renderer/views/dashboard/components/network-chart.vue
 import { useServerInfoStore } from '@renderer/store'
 import { sizeStrToByte, sortDisk } from '@renderer/utils/os'
 import { storeToRefs } from 'pinia'
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
 
 type CardItem = {
@@ -108,53 +108,55 @@ const card_list = computed(() => {
 <style lang="scss" scoped>
 .server-content {
   .card-container {
-    min-height: 100%;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     background-color: var(--bg-color);
-    overflow-y: auto;
-    display: flex;
-    justify-content: center;
-    padding-block: var(--space-1x);
+    width: max-content;
+    padding: var(--space-1x);
     .card-list {
       width: max-content;
       display: grid;
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: var(--space-1x);
+      // 媒体查询 窗口宽度大于1200px时显示
+      @media (min-width: 1280px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     .network {
-      display: none;
+      display: block;
+      grid-column: span 2;
+      width: 100%;
     }
   }
 }
 
-@media (min-width: 1024px) {
-  .server-content {
-    .card-container {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-1x);
-      .network {
-        display: block;
-        grid-column: span 2;
-        width: 100%;
-      }
-    }
-  }
-}
+// @media (min-width: 1024px) {
+//   .server-content {
+//     .card-list {
+//       grid-template-columns: repeat(2, 1fr);
+//       .network {
+//         display: block;
+//         grid-column: span 2;
+//         width: 100%;
+//       }
+//     }
+//   }
+// }
 
-@media (min-width: 1280px) {
-  .server-content {
-    align-items: center;
-    .card-container {
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-1x);
-      .network {
-        display: block;
-        grid-column: span 2;
-        width: 100%;
-      }
-    }
-  }
-}
+// @media (min-width: 1280px) {
+//   .server-content {
+//     align-items: center;
+//     .card-list {
+//       grid-template-columns: repeat(3, 1fr);
+//       gap: var(--space-1x);
+//       .network {
+//         display: block;
+//         grid-column: span 2;
+//         width: 100%;
+//       }
+//     }
+//   }
+// }
 </style>

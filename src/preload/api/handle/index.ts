@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-26 22:24:54
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-02 23:33:40
+ * @LastEditTime: 2024-04-07 19:53:17
  * @FilePath: \server-monitor\src\preload\api\handle\index.ts
  * @Description: True or False
  */
@@ -41,10 +41,6 @@ const FirewallMethodMap: MethodMap<HandleChannel> = {
   addFirewallRules: { channel: 'tc:firewall:add', params: ['params'] },
   modifyFirewallRuleDescription: { channel: 'tc:firewall:modify:desc', params: ['params'] },
   deleteFirewallRules: { channel: 'tc:firewall:delete', params: ['params'] },
-  getTencentInstanceInfo: { channel: 'tc:client:info:get', params: ['parms'] },
-  getFirewallConfigList: { channel: 'tc:firewall:config:list', params: [] },
-  setFirewallConfig: { channel: 'tc:firewall:config:set', params: ['config_str'] },
-  deleteFirewallConfig: { channel: 'tc:firewall:config:del', params: ['config_str'] },
   delFirewallRules: { channel: 'tc:firewall:rule:del', params: ['params'] }
 }
 
@@ -73,11 +69,20 @@ const FileWallMethodMap: MethodMap<HandleChannel> = {
   }
 }
 
+/**
+ *  @description:  腾讯轻量云实例方法
+ *
+ */
+const TLHInstanceMethodMap: MethodMap<HandleChannel> = {
+  getTLHInstanceList: { channel: 'tlh:instance:list', params: ['apiid', 'apikey', 'region'] }
+}
+
 const methodMap: MethodMap<HandleChannel> = {
   ...CommonMethodMap,
   ...ServerMethodMap,
   ...FirewallMethodMap,
-  ...FileWallMethodMap
+  ...FileWallMethodMap,
+  ...TLHInstanceMethodMap
 }
 
 /**

@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCommonSettingStore } from '@renderer/store'
+import { useServerInfoStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import { Terminal } from 'xterm'
@@ -35,7 +35,8 @@ import { FitAddon } from 'xterm-addon-fit'
 import 'xterm/css/xterm.css'
 
 // -------------------- S T O R E -------------------- //
-const { server_url } = storeToRefs(useCommonSettingStore())
+
+const { server_url, host } = storeToRefs(useServerInfoStore())
 
 // ----------------- C O N S T A N T ----------------- //
 const term_ref = ref<HTMLElement>() // 终端dom
@@ -76,7 +77,7 @@ const createTerminial = async () => {
     rows: 20
   })
   ws_port.value = await window.api.createWsService(server_url.value)
-  socket.value = new WebSocket(`ws://${import.meta.env.RE_Host}:${ws_port.value}`)
+  socket.value = new WebSocket(`ws://${host.value}:${ws_port.value}`)
   socket.value.onopen = () => {
     is_online.value = true
   }

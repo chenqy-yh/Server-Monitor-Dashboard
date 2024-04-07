@@ -1,14 +1,19 @@
 /*
  * @Date: 2024-03-24 22:33:02
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 22:14:44
- * @FilePath: \server-monitor\src\renderer\src\composables\common\header.ts
+ * @LastEditTime: 2024-04-05 22:13:12
+ * @FilePath: \server-monitor\src\renderer\src\composables\header\header.ts
  * @Description: True or False
  */
 import { Drag } from '@renderer/composables/drag/drag'
 import { ref } from 'vue'
+import { usePersonalSettingStore } from '@renderer/store'
 
-const useHeader = (winSize: [number, number]) => {
+const useHeader = () => {
+  // -------------------- S T O R E -------------------- //
+
+  const personalStore = usePersonalSettingStore()
+
   //----------------- C O N S T A N T ----------------- //
   const isFullScreen = ref(false) // 全屏状态
 
@@ -23,7 +28,8 @@ const useHeader = (winSize: [number, number]) => {
   const installDrag = (el: HTMLElement) => {
     if (!el) return
     drag.install(el, (dx, dy) => {
-      window.api.winMove(dx, dy, winSize[0], winSize[1], isFullScreen.value)
+      const win_size = personalStore.getWinSizeVal()
+      window.api.winMove(dx, dy, win_size[0], win_size[1], isFullScreen.value)
     })
   }
 

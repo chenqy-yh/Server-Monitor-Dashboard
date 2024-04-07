@@ -86,7 +86,7 @@
 <script setup lang="ts">
 import Pagination from '@renderer/components/pagination/pagination-1.vue'
 
-import { useCommonSettingStore, usePersonalSettingStore } from '@renderer/store'
+import { useServerInfoStore, usePersonalSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
@@ -106,7 +106,7 @@ interface NginxLogInfo {
 
 // -------------------- S T O R E -------------------- //
 
-const { server_url } = storeToRefs(useCommonSettingStore())
+const { server_url } = storeToRefs(useServerInfoStore())
 
 const { win_size_setting } = storeToRefs(usePersonalSettingStore())
 
@@ -126,7 +126,7 @@ const loading_finish = ref<boolean>(false) // 加载完成
 const page_size = computed(() => {
   switch (win_size_setting.value) {
     case 'small':
-      return 7
+      return 8
     case 'middle':
       return 10
     case 'large':

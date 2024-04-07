@@ -1,9 +1,11 @@
+/*
+ * @Date: 2024-04-04 14:37:57
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-07 19:36:15
+ * @FilePath: \server-monitor\src\main\utils\tencent\firewall\api.ts
+ * @Description: True or False
+ */
 import * as TC from 'tencentcloud-sdk-nodejs-lighthouse'
-import {
-  deleteFirewallConfig as _deleteFirewallConfig,
-  getFirewallConfigList as _getFirewallConfigList,
-  setFirewallConfig as _setFirewallConfig
-} from './config'
 
 const lhclient = TC.lighthouse.v20200324.Client
 
@@ -22,41 +24,6 @@ const createClient = (firewallConfig: FirewallConfig) => {
   })
 }
 
-// ----------------- 配 置 相 关 --------------------
-/**
- * @description 删除防火墙配置
- *
- */
-const deleteFirewallConfig = (firewallConfig: FirewallConfig) => {
-  _deleteFirewallConfig(firewallConfig)
-}
-
-/**
- *  @description 设置防火墙配置
- *
- */
-const setFirewallConfig = (firewallConfig: FirewallConfig) => {
-  _setFirewallConfig(firewallConfig)
-  return 'ok'
-}
-
-/**
- *  @description 根据instanceId 获取防火墙配置
- *
- */
-const getFirewallConfig = (params: FirewallConfig) => {
-  const { instanceId } = params
-  return _getFirewallConfigList().find((item) => item.instanceId === instanceId)
-}
-
-/**
- * @description 获取防火墙配置列表
- *
- */
-const getFirewallConfigList = () => {
-  return _getFirewallConfigList()
-}
-
 // ----------------- 规 则 相 关 --------------------
 
 /**
@@ -64,13 +31,8 @@ const getFirewallConfigList = () => {
  *
  * */
 const descFirewallRules = (params: FirewallConfig) => {
-  const { instanceId } = params
-  const config = getFirewallConfig(params)
-  if (!config || !instanceId) {
-    throw new Error('未找到防火墙配置')
-  }
-  return createClient(config).DescribeFirewallRules({
-    InstanceId: instanceId
+  return createClient(params).DescribeFirewallRules({
+    InstanceId: params.instanceId ?? ''
   })
 }
 
@@ -78,16 +40,13 @@ const descFirewallRules = (params: FirewallConfig) => {
  * 添加防火墙规则
  *
  * */
-const addFirewallRules = (parms) => {
-  const { InstanceId } = parms
-  const config = getFirewallConfig({
-    instanceId: InstanceId
-  })
-  if (!config) {
-    throw new Error('未找到防火墙配置')
-  }
-  return createClient(config)
-    .CreateFirewallRules(parms)
+const addFirewallRules = (params) => {
+  const { firewallConfig, FirewallRules } = params
+  return createClient(firewallConfig)
+    .CreateFirewallRules({
+      InstanceId: firewallConfig.instanceId,
+      FirewallRules
+    })
     .catch((err) => {
       throw new Error(err)
     })
@@ -97,20 +56,13 @@ const addFirewallRules = (parms) => {
  * 删除防火墙规则
  *
  * */
-// const params = {
-//   InstanceId: props.firewallConfig.instanceId,
-//   FirewallRules: [row]
-// }
-const deleteFirewallRules = (parms) => {
-  const { InstanceId } = parms
-  const config = getFirewallConfig({
-    instanceId: InstanceId
-  })
-  if (!config) {
-    throw new Error('未找到防火墙配置')
-  }
-  return createClient(config)
-    .DeleteFirewallRules(parms)
+const deleteFirewallRules = (params) => {
+  const { firewallConfig, FirewallRules } = params
+  return createClient(firewallConfig)
+    .DeleteFirewallRules({
+      InstanceId: firewallConfig.instanceId,
+      FirewallRules
+    })
     .catch((err) => {
       throw new Error(err)
     })
@@ -120,16 +72,14 @@ const deleteFirewallRules = (parms) => {
  * 修改防火墙规则
  *
  */
-const modifyFirewallRules = (parms) => {
-  const { InstanceId } = parms
-  const config = getFirewallConfig({
-    instanceId: InstanceId
-  })
-  if (!config) {
-    throw new Error('未找到防火墙配置')
-  }
-  return createClient(config)
-    .ModifyFirewallRules(parms)
+const modifyFirewallRules = (params) => {
+  const pararms_obj = JSON.parse(params)
+  const { firewallConfig, FirewallRules } = pararms_obj
+  return createClient(firewallConfig)
+    .ModifyFirewallRules({
+      InstanceId: firewallConfig.instanceId,
+      FirewallRules
+    })
     .catch((err) => {
       throw new Error(err)
     })
@@ -139,27 +89,19 @@ const modifyFirewallRules = (parms) => {
  * 修改防火墙规则描述
  *
  * */
-const modifyFirewallRuleDescription = (parms) => {
-  const { InstanceId } = parms
-  const config = getFirewallConfig({
-    instanceId: InstanceId
-  })
-  if (!config) {
-    throw new Error('未找到防火墙配置')
-  }
-  return createClient(config)
-    .ModifyFirewallRuleDescription(parms)
+const modifyFirewallRuleDescription = (params) => {
+  const { firewallConfig, FirewallRule } = params
+  return createClient(firewallConfig)
+    .ModifyFirewallRuleDescription({
+      InstanceId: firewallConfig.instanceId,
+      FirewallRule
+    })
     .catch((err) => {
       throw new Error(err)
     })
 }
 
 export {
-  // config
-  deleteFirewallConfig,
-  getFirewallConfig,
-  getFirewallConfigList,
-  setFirewallConfig,
   // rules
   deleteFirewallRules,
   addFirewallRules,

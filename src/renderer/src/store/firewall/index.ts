@@ -1,8 +1,14 @@
 import { defineStore } from 'pinia'
 import Sortable from 'sortablejs'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useTcloudStore, useServerInfoStore } from '@renderer/store'
+import { storeToRefs } from 'pinia'
 
 export const useFirewallStore = defineStore('firewall', () => {
+  // -------------------- S T O R E -------------------- //
+  const { apiId, apiKey, region } = storeToRefs(useTcloudStore())
+  const { instance } = storeToRefs(useServerInfoStore())
+
   // ----------------- C O N S T A N T ----------------- //
   // 表格列 配置
   const col_list = ref([
@@ -50,9 +56,14 @@ export const useFirewallStore = defineStore('firewall', () => {
   const sort_obj = ref<Sortable>() // 排序对象
   const save_loading = ref(false)
 
-  const firewall_config_list = ref<FirewallConfig[]>([]) // 防火墙配置列表
-
-  const choose_firewall_config = ref<string>() // 选择的防火墙配置
+  const choose_firewall_config = computed<FirewallConfig>(() => {
+    return {
+      instanceId: instance.value?.InstanceId ?? '',
+      secretId: apiId.value,
+      secretKey: apiKey.value,
+      region: region.value
+    }
+  })
 
   const error_code = ref(0) // 错误码 1 实例配置错误
 
@@ -102,12 +113,11 @@ export const useFirewallStore = defineStore('firewall', () => {
   const saveList = async () => {
     try {
       save_loading.value = true
-      await window.api.modifyFirewallRules(
-        JSON.stringify({
-          InstanceId: import.meta.env.RE_InstanceID,
-          FirewallRules: firewall_rule_list_copy.value
-        })
-      )
+      const pararms = {
+        firewallConfig: choose_firewall_config.value,
+        FirewallRules: firewall_rule_list_copy.value
+      }
+      await window.api.modifyFirewallRules(JSON.stringify(pararms))
     } finally {
       save_loading.value = false
       cancelSort()
@@ -148,25 +158,17 @@ export const useFirewallStore = defineStore('firewall', () => {
    * @return {*}
    */
   async function requestFirewallRules(params: FirewallConfig) {
-    console.log('requestFirewallRules', params)
     clearStore()
     try {
-      const res = await window.api.descFirewallRules(JSON.stringify(params))
+      const res = await window.api.descFirewallRules(params)
       firewall_rule_list.value = res.FirewallRuleSet
       firewall_rule_list_copy.value = firewall_rule_list.value.map((item) => infoToRule(item))
       return firewall_rule_list.value
     } catch (error) {
       console.error('requestFirewallRules error', error)
       error_code.value = 1
+      return []
     }
-  }
-
-  /**
-   * @description:  获取防火墙配置列表
-   * @return {*}
-   */
-  const getFirewallConfigKeyList = async () => {
-    firewall_config_list.value = await window.api.getFirewallConfigList()
   }
 
   return {
@@ -175,9 +177,7 @@ export const useFirewallStore = defineStore('firewall', () => {
     firewall_rule_list,
     active_sort_mode,
     save_loading,
-    firewall_config_list,
     choose_firewall_config,
-    getFirewallConfigKeyList,
     activeSortMode,
     saveList,
     cancelSort,

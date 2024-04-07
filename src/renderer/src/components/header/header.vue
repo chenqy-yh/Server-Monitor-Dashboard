@@ -1,16 +1,23 @@
 <!--
  * @Date: 2024-03-09 20:21:29
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 20:20:03
- * @FilePath: \server-monitor\src\renderer\src\views\home\components\header\header.vue
+ * @LastEditTime: 2024-04-07 17:51:14
+ * @FilePath: \server-monitor\src\renderer\src\components\header\header.vue
  * @Description: True or False
 -->
 
 <template>
-  <div ref="header_ref">
+  <div ref="header_ref" class="header-box">
     <el-header class="header">
+      <div class="brand">
+        <BrandIcon />
+        <span class="brand-title">{{ i18n.global.t('brand.name') }}</span>
+      </div>
       <div class="content"></div>
       <div class="btn-group">
+        <el-button text circle @click="openSetting">
+          <i class="ri-settings-6-line ri-lg"></i>
+        </el-button>
         <el-button text circle @click="_appMin">
           <i class="ri-subtract-line ri-2x"></i>
         </el-button>
@@ -48,11 +55,14 @@
 </template>
 
 <script setup lang="ts">
+import BrandIcon from '@renderer/components/icon/brand.vue'
+
 import { useHeader } from '@renderer/composables/header/header'
 import { i18n } from '@renderer/plugins/i18n'
 import { usePersonalSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 // -------------------- S T O R E -------------------- //
 
@@ -60,9 +70,11 @@ const personalSettingStore = usePersonalSettingStore()
 
 const { direct_exit_setting } = storeToRefs(personalSettingStore)
 
-const { installDrag, appMin, fullScreen, exit } = useHeader(personalSettingStore.getWinSizeVal())
+const { installDrag, appMin, fullScreen, exit } = useHeader()
 
 // ----------------- C O N S T A N T ----------------- //
+
+const router = useRouter()
 
 const header_ref = ref<HTMLElement>() // 头部元素
 
@@ -75,6 +87,16 @@ onMounted(() => {
 })
 
 // ----------------- F U N C T I O N ----------------- //
+
+/**
+ * @description:  打开设置
+ * @return {*}
+ */
+const openSetting = () => {
+  if (router.currentRoute.value.name === 'Setting') router.go(-1)
+  else router.push({ name: 'Setting' })
+}
+
 /**
  * @description:  最小化
  * @return {*}
@@ -136,7 +158,9 @@ const _exit = () => {
     gap: var(--space-sm);
   }
 }
-
+.header-box {
+  width: 100%;
+}
 .header {
   cursor: move;
   border-bottom: 1px solid var(--header-border-color);
@@ -144,10 +168,21 @@ const _exit = () => {
   background-color: var(--bg-color);
   transition: var(--transition);
   display: grid;
-  grid-template-columns: 1fr max-content;
+  grid-template-columns: max-content 1fr max-content;
   align-items: center;
   justify-items: center;
-  // border: 1px solid red;
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    .brand-title {
+      font-size: var(--brand-font-size);
+      font-weight: bold;
+      font-family: 'josefin-sans', sans-serif;
+      color: var(--font-color);
+    }
+  }
+
   .btn-group {
     justify-self: flex-end;
     display: flex;

@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-12-22 22:19:19
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-02 23:33:31
+ * @LastEditTime: 2024-04-07 19:53:25
  * @FilePath: \server-monitor\src\main\typings\ipc.d.ts
  * @Description: True or False
  */
@@ -11,11 +11,6 @@ type ServerHandleChannel = 'ping' | 'os:grt' | 'os:info' | 'ws:cws' | 'log:info'
 
 type FirewallHandleChannel =
   | 'tc:ins:list'
-  | 'tc:client:info:get'
-  | 'tc:firewall:config:get'
-  | 'tc:firewall:config:list'
-  | 'tc:firewall:config:set'
-  | 'tc:firewall:config:del'
   | 'tc:firewall:rules'
   | 'tc:firewall:modify'
   | 'tc:firewall:add'
@@ -40,11 +35,14 @@ type FileWallHandleChannel =
   | 'file:query-finished-chunk'
 type CommonHandleChannel = 'open-window' | 'get-win-id'
 
+type TLHInstanceHandleChannel = 'tlh:instance:list'
+
 type HandleChannel =
   | FirewallHandleChannel
   | ServerHandleChannel
   | FileWallHandleChannel
   | CommonHandleChannel
+  | TLHInstanceHandleChannel
 
 type SendChannel =
   | 'context-menu'

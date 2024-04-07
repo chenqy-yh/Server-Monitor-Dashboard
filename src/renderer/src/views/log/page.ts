@@ -1,21 +1,21 @@
-import { IRouterConfig } from '@renderer/typings/vue-router'
-
 /*
  * @Date: 2024-04-04 21:01:25
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 22:32:17
+ * @LastEditTime: 2024-04-07 14:52:42
  * @FilePath: \server-monitor\src\renderer\src\views\log\page.ts
  * @Description: True or False
  */
+import { IRouterConfig } from '@renderer/typings/vue-router'
 export default {
   name: 'log',
-  path: 'log',
+  path: '/log',
   meta: {
     icon: 'ri-file-list-3-fill',
     menuItem: true,
     title: 'menu.log',
-    menuIndex: 4
+    menuIndex: 4,
+    permission: ['detail'],
+    parRoute: 'Detail'
   },
-  parent: 'home',
   component: () => import('./index.vue')
 } as IRouterConfig

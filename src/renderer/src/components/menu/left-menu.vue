@@ -1,84 +1,114 @@
 <!--
- * @Date: 2024-03-31 22:09:39
- * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 14:38:58
- * @FilePath: \server-monitor\src\renderer\src\components\menu\left-menu.vue
- * @Description: True or False
--->
-<!--
  * @Date: 2023-12-22 15:54:21
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-27 16:23:39
+ * @LastEditTime: 2024-04-07 17:49:31
  * @FilePath: \server-monitor\src\renderer\src\components\menu\left-menu.vue
  * @Description: True or False
 -->
+
 <template>
-  <Menu>
-    <menu-item style="height: var(--header-height)">
-      <template #icon>
-        <BrandIcon />
-      </template>
-      <template #default>
-        <span class="brand-title">{{ i18n.global.t('brand.name') }}</span>
-      </template>
-    </menu-item>
-    <MenuItem
-      v-for="(menuIem, idx) in menu?.menu_tree"
-      :key="idx"
-      :active="menuIem.meta.active"
-      @click="() => navigateTo(menuIem.name)"
-    >
-      <template #icon>
-        <i :class="menuIem.meta.icon + ' icon'"></i>
-      </template>
-      <template #default>
-        <span class="menu-item-title">{{ i18n.global.t(menuIem.meta.title) }}</span>
-      </template>
-    </MenuItem>
-  </Menu>
+  <Transition name="fade">
+    <Menu>
+      <MenuItem
+        v-for="(menuItem, idx) in menu"
+        :key="idx"
+        :level="0"
+        :menu="menuItem"
+        :has-child="menuItem.children && menuItem.children.length > 0"
+      />
+      <div class="back" @click="backInstances">
+        <i class="ri-arrow-left-line"></i>
+        <span>{{ i18n.global.t('common.back') }}</span>
+      </div>
+    </Menu>
+  </Transition>
 </template>
 
 <script setup lang="ts">
-import BrandIcon from '@renderer/components/icon/brand.vue'
-import Menu from './menu.vue'
 import MenuItem from './menu-item.vue'
+import Menu from './menu.vue'
 
-import { i18n } from '@renderer/plugins/i18n'
-import { ref, onMounted } from 'vue'
+import { usePermissionStore } from '@renderer/store'
+import { storeToRefs } from 'pinia'
+import { onMounted, ref, watch } from 'vue'
 import useMenu from './index'
-import { router } from '@renderer/router'
+import { RouteRecordRaw } from 'vue-router'
+import { i18n } from '@renderer/plugins/i18n'
+import { useRouter } from 'vue-router'
 
-const menu = ref<IMenu>()
+// -------------------- P R O P S -------------------- //
+
+const emits = defineEmits(['show-menu'])
+
+// -------------------- S T O R E -------------------- //
+
+const { role_list } = storeToRefs(usePermissionStore())
+
+// ----------------- C O N S T A N T ----------------- //
+
+const menu = ref<RouteRecordRaw[]>([]) // 菜单列表
+
+const router = useRouter()
 
 // ------------------- C I R C L E ------------------- //
 onMounted(() => {
-  menu.value = useMenu()
+  initMenu()
+  triggerShowMenu()
+})
+
+watch(role_list, () => {
+  refreshMenu()
+  triggerShowMenu()
 })
 
 // ----------------- F U N C T I O N ----------------- //
-const navigateTo = (name: string) => {
-  menu.value?.menu_tree.forEach((item) => {
-    item.meta.active = false
-    if (item.name === name) {
-      item.meta.active = true
-    }
+
+/**
+ * @description:  初始化菜单
+ * @return {*}
+ */
+const initMenu = () => {
+  menu.value = useMenu().menu_tree
+}
+
+/**
+ * @description:  刷新菜单
+ * @return {*}
+ */
+const refreshMenu = () => {
+  useMenu().refresh()
+  menu.value = useMenu().menu_tree
+}
+
+/**
+ * @description:  触发显示菜单
+ * @return {*}
+ */
+const triggerShowMenu = () => {
+  emits('show-menu', menu.value.length > 0)
+}
+
+/**
+ * @description:  返回实例列表
+ * @return {*}
+ */
+const backInstances = () => {
+  router.push({
+    name: 'instances'
   })
-  router.push({ name })
 }
 </script>
 
 <style lang="scss" scoped>
-.brand {
-  font-size: var(--brand-icon-size);
-  color: var(--brand-icon-color);
-}
-.brand-title {
-  font-size: var(--brand-font-size);
-  font-weight: bold;
-  font-family: 'josefin-sans', sans-serif;
-}
-// menu-item
-.icon {
-  font-size: 1.3rem;
+.back {
+  display: flex;
+  color: var(--font-color);
+  padding-left: var(--space-md);
+  gap: var(--space-lg);
+  padding-block: var(--space-sm);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--menu-item-hover-bg);
+  }
 }
 </style>

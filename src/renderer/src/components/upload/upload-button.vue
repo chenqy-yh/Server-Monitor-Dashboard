@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-29 23:06:59
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 15:42:09
+ * @LastEditTime: 2024-04-06 15:04:09
  * @FilePath: \server-monitor\src\renderer\src\components\upload\upload-button.vue
  * @Description: True or False
 -->
@@ -17,13 +17,13 @@
     />
     <Transition name="fade" mode="out-in">
       <i v-if="!uploading" class="ri-upload-2-line ri-lg"></i>
-      <loading3 v-else />
+      <loading v-else :r="6" />
     </Transition>
   </el-button>
 </template>
 
 <script setup lang="ts">
-import loading3 from '@renderer/components/loading/loading-icon.vue'
+import loading from '@renderer/components/loading/loading-icon.vue'
 
 import { ref } from 'vue'
 import { useUpload } from './index'

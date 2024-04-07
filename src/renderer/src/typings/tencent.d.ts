@@ -1,3 +1,10 @@
+/*
+ * @Date: 2024-04-04 14:37:57
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-07 18:25:23
+ * @FilePath: \server-monitor\src\renderer\src\typings\tencent.d.ts
+ * @Description: True or False
+ */
 type FirewallConfig = {
   instanceId: string
   region: string
@@ -5,11 +12,22 @@ type FirewallConfig = {
   secretKey: string
 }
 
-interface CosInstance {
+interface TLHInstance {
   InstanceId: string
   InstanceName: string
   PublicAddresses: string[]
   Platform: string
+  ExpiredTime: string
+  PublicAddresses: string[]
+  CPU: number
+  Memery: number
+  InstanceState: string
+  Zone: string
+  SystemDisk: {
+    DiskId: string
+    DiskSize: number
+    DiskType: string
+  }
 }
 
 interface FirewallRule {

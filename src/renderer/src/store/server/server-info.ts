@@ -1,13 +1,24 @@
-import { useCommonSettingStore } from '@renderer/store'
+import { getItem, setItem } from '@renderer/utils/store'
 import { formatDateString } from '@renderer/utils/time'
-import { defineStore, storeToRefs } from 'pinia'
-import { onMounted, ref, watch } from 'vue'
+import { defineStore } from 'pinia'
+import { computed, onBeforeMount, onMounted, ref } from 'vue'
 
 export const useServerInfoStore = defineStore('server-info', () => {
   // -------------------- S T O R E -------------------- //
-  const { server_url } = storeToRefs(useCommonSettingStore())
 
   // ----------------- C O N S T A N T ----------------- //
+
+  const instance = ref<TLHInstance>()
+
+  const server_port = ref(import.meta.env.RE_Remoteserver_Port) // 服务器端口
+
+  const prefix = ref(import.meta.env.RE_Remoteserver_Prefix) // 服务器前缀
+
+  const host = ref() // 远程服务器地址
+
+  const server_url = computed(() => {
+    return `http://${host.value}:${server_port.value}${prefix.value}`
+  }) // 远程服务器url
 
   const interval = ref(5) // 每次记录网络信息的时间间隔（单位：D秒）
   const maxL = 15 // Echarts横坐标最大长度
@@ -31,6 +42,10 @@ export const useServerInfoStore = defineStore('server-info', () => {
 
   // ------------------- C I R C L E ------------------- //
 
+  onBeforeMount(() => {
+    init_common_settings()
+  })
+
   onMounted(async () => {
     setInterval(
       (() => {
@@ -42,10 +57,25 @@ export const useServerInfoStore = defineStore('server-info', () => {
   })
 
   // ----------------- F U N C T I O N ----------------- //
+
   /**
-   * 获取服务器信息
+   *  @description 清空服务器信息
    *
-   * */
+   */
+  const clearServerInfo = () => {
+    down_list.value = []
+    up_list.value = []
+    down_total.value = 0
+    up_total.value = 0
+    down_cur.value = 0
+    up_cur.value = 0
+    cpu_usage_list.value = []
+  }
+
+  /**
+   *  @description 定时任务
+   *
+   */
   const scheduledTask = async () => {
     try {
       loading.value = false
@@ -56,6 +86,10 @@ export const useServerInfoStore = defineStore('server-info', () => {
     }
   }
 
+  /**
+   * 获取服务器信息
+   *
+   * */
   const getServerInfo = async () => {
     server_info.value = await window.api.getServerInfo(server_url.value)
     network_step(server_info.value.network)
@@ -63,6 +97,23 @@ export const useServerInfoStore = defineStore('server-info', () => {
   }
 
   // ----------------- F U N C T I O N ----------------- //
+
+  /**
+   *  @description 初始化公共设置
+   *
+   */
+  const init_common_settings = () => {
+    host.value = getItem('host') || '0.0.0.0'
+  }
+
+  /**
+   *  @description 更新主机设置
+   *
+   */
+  const update_host_setting = (val: string) => {
+    host.value = val
+    setItem('host', val)
+  }
 
   /**
    * @description 获取服务器网络信息
@@ -111,9 +162,15 @@ export const useServerInfoStore = defineStore('server-info', () => {
 
   return {
     // -------------------- I N D E X -------------------- //
+    instance,
     server_info,
     loading,
     show_error,
+    server_port,
+    prefix,
+    host,
+    server_url,
+
     // -------------------- N E T W O R K ----------------//
     down_list,
     up_list,
@@ -122,6 +179,9 @@ export const useServerInfoStore = defineStore('server-info', () => {
     down_cur,
     up_cur,
     // -------------------- C P U -----------------------//
-    cpu_usage_list
+    cpu_usage_list,
+    // -------------------- F U N C T I O N ----------------//
+    clearServerInfo,
+    update_host_setting
   }
 })

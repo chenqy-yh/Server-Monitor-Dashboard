@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-26 11:24:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-26 21:57:41
+ * @LastEditTime: 2024-04-06 15:05:58
  * @FilePath: \server-monitor\src\renderer\src\components\loading\loading-icon.vue
  * @Description: True or False
 -->
@@ -13,7 +13,7 @@
       cy="50%"
       :r="r"
       fill="none"
-      stroke="#888"
+      :stroke="color"
       :stroke-width="stroke_w"
       :stroke-dasharray="dasharray(300)"
     />
@@ -21,15 +21,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
+
+const props = defineProps({
+  r: {
+    type: Number,
+    default: 6
+  },
+  color: {
+    type: String,
+    default: '#888'
+  }
+})
 
 const pi = Math.PI
-const r = ref(6)
 
-const svg_size = computed(() => r.value * 3 + 'px')
+const svg_size = computed(() => props.r * 3 + 'px')
 
-const dasharray = computed(() => (rt) => `${(pi * 2 * r.value * rt) / 360}`)
-const stroke_w = computed(() => r.value * 0.3)
+const dasharray = computed(() => (rt) => `${(pi * 2 * props.r * rt) / 360}`)
+const stroke_w = computed(() => props.r * 0.3)
 </script>
 
 <style lang="scss" scoped>

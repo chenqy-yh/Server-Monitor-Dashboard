@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-31 19:39:33
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 00:19:03
+ * @LastEditTime: 2024-04-07 11:30:57
  * @FilePath: \server-monitor\src\renderer\src\components\message\message-box.vue
  * @Description: True or False
 -->
@@ -36,12 +36,12 @@
           <el-input
             v-model="user_msg"
             v-enter="submitMsg"
-            placeholder="Message ChatGPT"
+            :placeholder="i18n.global.t('message-box.placeholder')"
             :suffix-icon="SubmitIcon"
           ></el-input>
         </div>
       </div>
-      <div class="message-btn" @click="toggleChatWin">
+      <div class="message-btn" :class="{ unread: unread_msg_cnt > 0 }" @click="toggleChatWin">
         <i class="ri-question-answer-fill ri-lg"></i>
         <div v-if="unread_msg_cnt" class="tip">You have {{ unread_msg_cnt }} unread messages</div>
       </div>
@@ -55,6 +55,7 @@ import Bubble from './bubble.vue'
 
 import { useMessageBox } from './message-box'
 import { onMounted, onUnmounted } from 'vue'
+import { i18n } from '@renderer/plugins/i18n'
 
 // -------------------- S T O R E -------------------- //
 
@@ -202,8 +203,13 @@ onUnmounted(() => {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   cursor: pointer;
   transition: var(--transition);
+  opacity: 0.8;
+  &.unread {
+    background-color: var(--active-color);
+  }
   &:hover {
-    background-color: var(--message-box-bg-hover-color);
+    opacity: 1;
+    // background-color: var(--message-box-bg-hover-color);
     .tip {
       opacity: 1;
       transition:
