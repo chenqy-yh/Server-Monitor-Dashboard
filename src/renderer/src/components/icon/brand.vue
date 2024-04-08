@@ -1,13 +1,10 @@
 <!--
  * @Date: 2024-03-25 12:22:13
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-27 16:23:21
- * @FilePath: \server-monitor\src\renderer\src\components\icon\brand.vue
+ * @LastEditTime: 2024-04-08 12:10:24
+ * @FilePath: \Spirit-client\src\renderer\src\components\icon\brand.vue
  * @Description: True or False
 -->
-<!-- #4158d0 0%,
-    #c850c0 46%,
-    #ffcc70 100% -->
 <template>
   <div class="brand-icon">
     <svg

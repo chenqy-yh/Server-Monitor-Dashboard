@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-03-18 20:43:56
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 12:41:35
- * @FilePath: \server-monitor\src\main\ipc\handle\file.ts
+ * @LastEditTime: 2024-04-08 11:17:41
+ * @FilePath: \Spirit-client\src\main\ipc\handle\file.ts
  * @Description: True or False
  */
 import { BrowserWindow, ipcMain } from 'electron'
@@ -54,7 +54,7 @@ addIpcHandle('file:editor:find', async (_e, ...args: unknown[]) => {
   return handleEditorWindowFind(win_id)
 })
 
-addIpcHandle('get-win-id', async (_e, ...args) => {
+addIpcHandle('get-win-id', async (_e) => {
   const win = BrowserWindow.fromWebContents(_e.sender)
   return win?.id
 })

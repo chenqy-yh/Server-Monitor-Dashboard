@@ -1,8 +1,8 @@
 <!--
  * @Date: 2023-12-22 15:54:21
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 17:49:31
- * @FilePath: \server-monitor\src\renderer\src\components\menu\left-menu.vue
+ * @LastEditTime: 2024-04-08 12:46:06
+ * @FilePath: \Spirit-client\src\renderer\src\components\menu\left-menu.vue
  * @Description: True or False
 -->
 
@@ -102,10 +102,12 @@ const backInstances = () => {
 <style lang="scss" scoped>
 .back {
   display: flex;
+  align-items: center;
   color: var(--font-color);
   padding-left: var(--space-md);
   gap: var(--space-lg);
   padding-block: var(--space-sm);
+  font-family: 'roboto';
   cursor: pointer;
   &:hover {
     background-color: var(--menu-item-hover-bg);

@@ -1,15 +1,16 @@
 <!--
  * @Date: 2024-04-06 23:35:55
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 16:05:33
- * @FilePath: \server-monitor\src\renderer\src\components\card\instance-card.vue
+ * @LastEditTime: 2024-04-07 23:49:14
+ * @FilePath: \Spirit-client\src\renderer\src\components\card\instance-card.vue
  * @Description: True or False
 -->
 <template>
   <div class="instance-card" @click="chooseInstance">
     <el-row class="row1">
       <div class="row1-left">
-        <img :src="imgHelper.getImg(instance.Platform.toLowerCase() as any)" />
+        <img :src="platform_icon_map[instance.Platform.toLowerCase()]" />
+        <!-- <img src="../../assets/svg/CentOS.svg" /> -->
         <span class="name">{{ instance.InstanceName }}</span>
       </div>
     </el-row>
@@ -47,7 +48,9 @@
 </template>
 
 <script setup lang="ts">
-import { imgHelper } from '@renderer/utils/img'
+import CentosIcon from '../../assets/svg/CentOS.svg'
+import WindowsIcon from '../../assets/svg/windows-server.svg'
+
 import { formatDateString } from '@renderer/utils/time'
 import { i18n } from '@renderer/plugins/i18n'
 import { messageStore } from '@renderer/composables/message'
@@ -64,6 +67,11 @@ const props = defineProps<{ instance: TLHInstance }>()
 const { host, instance: choose_instance } = storeToRefs(useServerInfoStore())
 
 // ----------------- C O N S T A N T ----------------- //
+
+const platform_icon_map = {
+  centos: CentosIcon,
+  windows: WindowsIcon
+}
 
 const router = useRouter()
 

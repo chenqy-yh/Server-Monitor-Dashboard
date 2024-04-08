@@ -1,11 +1,11 @@
 /*
  * @Date: 2024-04-01 14:56:25
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 17:18:33
- * @FilePath: \server-monitor\src\renderer\src\composables\listener\index.ts
+ * @LastEditTime: 2024-04-08 11:19:10
+ * @FilePath: \Spirit-client\src\renderer\src\composables\listener\index.ts
  * @Description: True or False
  */
-import { onUnmounted, ref } from 'vue'
+import { onUnmounted } from 'vue'
 
 type ListenerTarget = Element | Window | Document
 

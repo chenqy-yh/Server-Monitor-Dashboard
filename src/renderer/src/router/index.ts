@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 17:52:31
- * @FilePath: \server-monitor\src\renderer\src\router\index.ts
+ * @LastEditTime: 2024-04-07 23:23:26
+ * @FilePath: \Spirit-client\src\renderer\src\router\index.ts
  * @Description: True or False
  */
 import { IRouterConfig } from '@renderer/typings/vue-router'

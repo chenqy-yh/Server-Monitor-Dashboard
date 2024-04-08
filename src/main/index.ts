@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-12-21 23:40:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 23:34:30
- * @FilePath: \server-monitor\src\main\index.ts
+ * @LastEditTime: 2024-04-08 12:18:25
+ * @FilePath: \Spirit-client\src\main\index.ts
  * @Description: True or False
  */
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
@@ -21,7 +21,7 @@ function createWindow(): void {
     autoHideMenuBar: true,
     resizable: false,
     transparent: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    ...(process.platform === 'linux' ? { icon } : { icon }),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false

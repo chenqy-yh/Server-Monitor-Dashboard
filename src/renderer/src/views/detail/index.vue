@@ -1,8 +1,8 @@
 <!--
  * @Date: 2023-12-22 00:35:03
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 19:49:34
- * @FilePath: \server-monitor\src\renderer\src\views\detail\index.vue
+ * @LastEditTime: 2024-04-07 23:14:44
+ * @FilePath: \Spirit-client\src\renderer\src\views\detail\index.vue
  * @Description: True or False
 -->
 <template>
@@ -25,9 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import LeftMenu from '@renderer/components/menu/left-menu.vue';
+import LeftMenu from '@renderer/components/menu/left-menu.vue'
 
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 
 // ----------------- C O N S T A N T ----------------- //
 

@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-04-01 12:01:09
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-03 00:07:46
- * @FilePath: \server-monitor\src\renderer\src\components\message\bubble.vue
+ * @LastEditTime: 2024-04-08 11:19:01
+ * @FilePath: \Spirit-client\src\renderer\src\components\message\bubble.vue
  * @Description: True or False
 -->
 <template>
@@ -19,8 +19,6 @@ import { computed } from 'vue'
 const props = defineProps<{
   content: string
 }>()
-
-const { render } = markdown
 
 const mkd = computed(() => markdown.render(props.content))
 </script>

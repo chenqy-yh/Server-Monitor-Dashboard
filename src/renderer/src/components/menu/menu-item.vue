@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 16:28:30
- * @FilePath: \server-monitor\src\renderer\src\components\menu\menu-item.vue
+ * @LastEditTime: 2024-04-08 11:18:54
+ * @FilePath: \Spirit-client\src\renderer\src\components\menu\menu-item.vue
  * @Description: True or False
 -->
 <template>
@@ -64,8 +64,6 @@ const props = defineProps({
 const router = useRouter()
 
 const show = ref(false) // 是否显示子菜单
-
-const childMenuRef = ref<HTMLElement | null>(null) // 子菜单元素
 
 const active_menu = computed(() => {
   return router.currentRoute.value.name === props.menu.name

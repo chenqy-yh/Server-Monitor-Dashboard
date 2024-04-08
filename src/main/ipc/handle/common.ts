@@ -1,17 +1,15 @@
 /*
  * @Date: 2024-03-23 10:50:37
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-25 22:05:14
- * @FilePath: \server-monitor\src\main\ipc\handle\common.ts
+ * @LastEditTime: 2024-04-08 11:17:26
+ * @FilePath: \Spirit-client\src\main\ipc\handle\common.ts
  * @Description: True or False
  */
-import { BrowserWindow, BrowserWindowConstructorOptions, session } from 'electron'
+import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
+import { join } from 'path'
 import { is } from '../../index'
 import { addIpcHandle } from './utils'
-// import { windowMap, WindowKey } from '../../model/windows'
-import { join } from 'path'
 
-const CREATE_SUCCESS = 1
 const CREATE_FAIL = 0
 
 // 新开窗口
@@ -31,7 +29,7 @@ addIpcHandle('open-window', async (_e, ...args) => {
     if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
       newWin.loadURL(process.env['ELECTRON_RENDERER_URL'] + '#' + hash)
     } else {
-      newWin.loadFile(join(__dirname, '../../renderer/index.html'), {
+      newWin.loadFile(join(__dirname, '../renderer/index.html'), {
         hash: hash as string
       })
     }

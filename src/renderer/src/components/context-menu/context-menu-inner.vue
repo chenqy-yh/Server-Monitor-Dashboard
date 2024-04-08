@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-28 13:45:09
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 23:36:04
- * @FilePath: \server-monitor\src\renderer\src\components\context-menu\context-menu-inner.vue
+ * @LastEditTime: 2024-04-08 11:18:38
+ * @FilePath: \Spirit-client\src\renderer\src\components\context-menu\context-menu-inner.vue
  * @Description: True or False
 -->
 <template>
@@ -128,7 +128,7 @@ export default defineComponent({
        * @param {*} index
        * @return {*}
        */
-      toggleSubMenu: (e: MouseEvent, item: ContextMenuItem, index: number) => {
+      toggleSubMenu: (_: MouseEvent, item: ContextMenuItem, index: number) => {
         submenuManagement.hiddeAllMenu(props.menus)
         item.showSubMenu = true
         submenuManagement.calcSubMenuPosition(index)
@@ -165,7 +165,7 @@ export default defineComponent({
        * @param {*} item
        * @return {*}
        */
-      handleMenuItemMouseout: (e: MouseEvent, item: ContextMenuItem) => {
+      handleMenuItemMouseout: (_: MouseEvent, item: ContextMenuItem) => {
         item.showSubMenu = false
       },
       /**

@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: server-monitor
+appId: com.chenqy-yh.spirit
+productName: Spirit
 directories:
   buildResources: build
 files:
@@ -11,13 +11,15 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
-win:
-  executableName: server-monitor
 nsis:
-  artifactName: ${name}-${version}-setup.${ext}
-  shortcutName: ${productName}
-  uninstallDisplayName: ${productName}
-  createDesktopShortcut: always
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: true
+  createDesktopShortcut: true
+win:
+  executableName: Spirit
 mac:
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
@@ -33,11 +35,11 @@ linux:
     - AppImage
     - snap
     - deb
-  maintainer: electronjs.org
+  maintainer: chenqy.icu
   category: Utility
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
   provider: generic
-  url: https://example.com/auto-updates
+  url: https://github.com/chenqy-yh/Spirit-client

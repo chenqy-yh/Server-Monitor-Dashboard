@@ -1,12 +1,12 @@
 /*
  * @Date: 2024-03-28 13:27:58
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 22:49:22
- * @FilePath: \server-monitor\src\renderer\src\directive\context-menu\index.ts
+ * @LastEditTime: 2024-04-08 11:19:18
+ * @FilePath: \Spirit-client\src\renderer\src\directive\context-menu\index.ts
  * @Description: True or False
  */
-import { Directive, DirectiveBinding, createVNode, nextTick, render } from 'vue'
 import ContextMenuComponent from '@renderer/components/context-menu/context-menu-outer.vue'
+import { Directive, DirectiveBinding, createVNode, render } from 'vue'
 
 const ContextHandlerKey = 'contextmenu-handler' // 保存右键菜单事件的key
 

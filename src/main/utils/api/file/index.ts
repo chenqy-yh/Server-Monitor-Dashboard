@@ -1,12 +1,11 @@
 /*
  * @Date: 2024-03-18 20:32:56
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 12:34:36
- * @FilePath: \server-monitor\src\main\utils\api\file\index.ts
+ * @LastEditTime: 2024-04-08 11:17:46
+ * @FilePath: \Spirit-client\src\main\utils\api\file\index.ts
  * @Description: True or False
  */
 import { httpService } from '../../http'
-import * as fs from 'fs'
 
 /**
  * @description:  获取文件列表

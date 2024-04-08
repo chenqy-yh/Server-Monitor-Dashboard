@@ -1,3 +1,10 @@
+/*
+ * @Date: 2024-04-07 22:35:38
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-08 11:31:51
+ * @FilePath: \Spirit-client\electron.vite.config.ts
+ * @Description: True or False
+ */
 import vue from '@vitejs/plugin-vue'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import { resolve } from 'path'

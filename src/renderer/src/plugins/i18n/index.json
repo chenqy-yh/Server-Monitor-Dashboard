@@ -195,6 +195,7 @@
       "placeholder": "Message ChatGPT..."
     },
     "instances": {
+      "title": "Instances",
       "state": {
         "running": "Running"
       },
@@ -202,6 +203,12 @@
         "info": "CPU {cpu} core-Memory {mem}GB-System disk {disksize}GiB",
         "extime": "Expiration time: {exTime}"
       }
+    },
+    "login": {
+      "title": "TCloud Configuration",
+      "remme": "Remember password",
+      "start": "Start",
+      "login-fail": "start failed"
     }
   },
   "cn": {
@@ -406,6 +413,7 @@
       "placeholder": "聊聊 ChatGPT..."
     },
     "instances": {
+      "title": "实例",
       "desc": {
         "info": "CPU {cpu}核-内存 {mem}GB-系统盘 {disksize}GiB",
         "extime": "到期时间：{exTime}"
@@ -413,6 +421,12 @@
       "state": {
         "running": "运行中"
       }
+    },
+    "login": {
+      "title": "腾讯云配置",
+      "remme": "记住密码",
+      "start": "开始",
+      "login-fail": "启动失败"
     }
   }
 }

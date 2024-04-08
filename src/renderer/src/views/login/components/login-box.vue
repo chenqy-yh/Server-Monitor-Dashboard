@@ -1,13 +1,13 @@
 <!--
  * @Date: 2024-04-05 23:00:59
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 18:13:11
- * @FilePath: \server-monitor\src\renderer\src\views\login\components\login-box.vue
+ * @LastEditTime: 2024-04-07 22:56:36
+ * @FilePath: \Spirit-client\src\renderer\src\views\login\components\login-box.vue
  * @Description: True or False
 -->
 <template>
   <div class="login-box">
-    <div class="title">Tcloud Config</div>
+    <div class="title">{{ i18n.global.t('login.title') }}</div>
     <el-form ref="loginForm" @submit.prevent>
       <el-form-item prop="username">
         <el-input v-model="form_apiId" placeholder="ApiID" :spellcheck="false"></el-input>
@@ -21,18 +21,13 @@
         ></el-input>
       </el-form-item>
       <el-form-item prop="region">
-        <el-input
-          v-model="form_region"
-          :spellcheck="false"
-          show-password
-          placeholder="Region"
-        ></el-input>
+        <el-input v-model="form_region" :spellcheck="false" placeholder="Region"></el-input>
       </el-form-item>
       <el-form-item>
         <div class="login-help">
-          <el-checkbox v-model="rememberMe">Remember me</el-checkbox>
+          <el-checkbox v-model="rememberMe">{{ i18n.global.t('login.remme') }}</el-checkbox>
           <span class="login-validate-info" :class="{ active: submission_error }"
-            >Submission Error
+            >{{ i18n.global.t('login.login-fail') }}
           </span>
           <el-tooltip content="How to get this key?" placement="top">
             <el-button text circle @click="clickHelpLink">
@@ -42,7 +37,11 @@
         </div>
       </el-form-item>
       <el-form-item>
-        <LoginButton v-button-loading="loading" label="START" @click="confirm"></LoginButton>
+        <LoginButton
+          v-button-loading="loading"
+          :label="i18n.global.t('login.start')"
+          @click="confirm"
+        ></LoginButton>
       </el-form-item>
     </el-form>
   </div>
@@ -55,6 +54,7 @@ import { useTcloudStore } from '@renderer/store'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getItem, setItem } from '@renderer/utils/store'
+import { i18n } from '@renderer/plugins/i18n'
 // -------------------- S T O R E -------------------- //
 const tcloud = useTcloudStore()
 

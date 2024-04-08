@@ -1,45 +1,10 @@
 /*
  * @Date: 2024-03-23 23:54:08
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-30 23:44:59
- * @FilePath: \server-monitor\src\renderer\src\utils\file\index.ts
+ * @LastEditTime: 2024-04-08 11:21:27
+ * @FilePath: \Spirit-client\src\renderer\src\utils\file\index.ts
  * @Description: True or False
  */
-const openFileTypeList: string[] = [
-  'js',
-  'ts',
-  'html',
-  'css',
-  'json',
-  'md',
-  'vue',
-  'yaml',
-  'yml',
-  'xml',
-  'sh',
-  'less',
-  'scss',
-  'sass',
-  'styl',
-  'stylus',
-  'php',
-  'py',
-  'java',
-  'go',
-  'rb',
-  'c',
-  'cpp',
-  'h',
-  'hpp',
-  'cs',
-  'ts',
-  'jsx',
-  'tsx',
-  'sql',
-  'swift',
-  'kt',
-  'kts'
-] as const
 
 const READ_FILE_SIZE_LIMIT = 1024 * 20 // 20KB
 
@@ -65,16 +30,11 @@ const dirComparer = (a: FileStat, b: FileStat) => {
   }
 }
 
-const checkFileType = (path: string) => {
-  const suffix = path.split('.').pop()
-  return suffix && openFileTypeList.includes(suffix)
-}
-
 const checkFileSize = (size: number) => {
   return size < READ_FILE_SIZE_LIMIT
 }
 
-const checkIsReadable = (path: string, type: string, size?: number) => {
+const checkIsReadable = (_: string, type: string, size?: number) => {
   return checkFileSize(size || 0) && checkIsFile(type)
 }
 

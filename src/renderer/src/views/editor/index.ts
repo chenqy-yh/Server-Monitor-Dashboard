@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-03-25 23:00:52
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 20:14:33
- * @FilePath: \server-monitor\src\renderer\src\views\editor\index.ts
+ * @LastEditTime: 2024-04-07 23:23:05
+ * @FilePath: \Spirit-client\src\renderer\src\views\editor\index.ts
  * @Description: True or False
  */
 import { setupEditor, UseEditor } from './editor'

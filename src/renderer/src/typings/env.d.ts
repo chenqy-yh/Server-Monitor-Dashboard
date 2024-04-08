@@ -8,10 +8,8 @@ declare module '*.vue' {
 }
 
 interface ImportMetaEnv {
-  readonly RE_InstanceID: string
   readonly RE_Remoteserver_Port: number
   readonly RE_Remoteserver_Prefix: string
-  readonly RE_Host: string
 }
 
 interface ImportMeta {

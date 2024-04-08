@@ -3,14 +3,14 @@ import { Directive, createVNode, render } from 'vue'
 
 let container: HTMLElement | null = null
 
-const appendMessageBoxToBody = (el: HTMLElement) => {
+const appendMessageBoxToBody = (_: HTMLElement) => {
   container = document.createElement('div')
   const vm = createVNode(MessageBox, {}, null)
   render(vm, container)
   document.body.appendChild(container)
 }
 
-const removeMessageBox = (el: HTMLElement) => {
+const removeMessageBox = (_: HTMLElement) => {
   if (container) {
     document.body.removeChild(container)
     container = null
@@ -18,7 +18,7 @@ const removeMessageBox = (el: HTMLElement) => {
 }
 
 const MessageDirective: Directive = {
-  mounted(el, binding) {
+  mounted(el) {
     appendMessageBoxToBody(el)
   },
   unmounted(el) {

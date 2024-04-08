@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-26 11:06:45
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 17:52:16
- * @FilePath: \server-monitor\src\renderer\src\views\setting\index.vue
+ * @LastEditTime: 2024-04-07 22:42:43
+ * @FilePath: \Spirit-client\src\renderer\src\views\setting\index.vue
  * @Description: True or False
 -->
 <template>
@@ -16,7 +16,9 @@
           >{{ i18n.global.t(`setting.${setting_item}.label`) }}</el-radio-button
         >
       </el-radio-group>
-      <el-button @click="back"> {{ i18n.global.t('common.back') }} </el-button>
+      <el-button text circle @click="back">
+        <i class="ri-arrow-right-line ri-lg"></i>
+      </el-button>
     </div>
 
     <Transition name="fade" mode="out-in">
@@ -51,8 +53,6 @@ const setting_block = ref<SettingType>('personal') // 当前设置类型
 const setting_component = computed(() => {
   return setting_component_list[setting_block.value]
 }) // 当前设置组件
-
-// ------------------- C I R C L E ------------------- //
 
 // ----------------- F U N C T I O N ----------------- //
 
