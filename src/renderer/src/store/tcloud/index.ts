@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-04-05 23:27:46
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 18:27:56
- * @FilePath: \server-monitor\src\renderer\src\store\tcloud\index.ts
+ * @LastEditTime: 2024-04-17 12:08:42
+ * @FilePath: \Spirit-client\src\renderer\src\store\tcloud\index.ts
  * @Description: True or False
  */
 import { defineStore } from 'pinia'

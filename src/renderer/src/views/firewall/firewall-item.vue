@@ -154,7 +154,7 @@ const { active_sort_mode, col_list, firewall_rule_list, save_loading } = storeTo
 
 const page_size_map = {
   small: 8,
-  middle: 10,
+  medium: 10,
   large: 12
 } // 每页显示条数映射
 

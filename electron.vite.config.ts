@@ -27,7 +27,10 @@ export default defineConfig(() => {
           '@main': resolve('src/main/src')
         }
       },
-      plugins: [...setupPlugins(), vue()]
+      plugins: [...setupPlugins(), vue()],
+      build: {
+        assetsInlineLimit: 0 // 禁止内联资源
+      }
     }
   }
 })

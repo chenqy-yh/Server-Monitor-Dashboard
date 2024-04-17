@@ -23,7 +23,7 @@
           </Transition>
         </div>
 
-        <img class="file-type-icon" :src="imgHelper.getImg(fileType)" />
+        <img class="file-type-icon" :src="getIcon(fileType)" />
         <span>{{ row.name }}</span>
       </div>
     </div>
@@ -47,12 +47,15 @@
 </template>
 
 <script setup lang="ts">
+import dirIcon from '@renderer/assets/img/folder.png'
+import fileIcon from '@renderer/assets/img/file.png'
 import LoadingIcon from '@renderer/components/loading/loading-icon.vue'
 
-import { imgHelper } from '@renderer/utils/img'
 import { computed, ref } from 'vue'
 import { RowItem } from '.'
 import { useEditor } from '../../index'
+
+type FileType = 'directory' | 'file'
 
 const props = defineProps<{
   row: RowItem
@@ -87,10 +90,15 @@ const isActive = computed(() => {
 
 // 文件类型
 const fileType = computed(() => {
-  return props.row.dir ? 'directory' : 'file'
+  const fType = props.row.dir ? 'directory' : 'file'
+  return fType
 })
 
 // ----------------- F U N C T I O N ----------------- //
+
+const getIcon = (fileType: FileType) => {
+  return fileType === 'directory' ? dirIcon : fileIcon
+}
 
 /**
  * @description:  更新当前目录树节点信息

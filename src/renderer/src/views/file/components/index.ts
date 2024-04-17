@@ -1,5 +1,5 @@
 import { useContextMenu } from '@renderer/components/context-menu'
-import { setupFile } from '../index'
+import { useFile } from '../index'
 import { messageStore } from '@renderer/composables/message'
 import { i18n } from '@renderer/plugins/i18n'
 import { useServerInfoStore } from '@renderer/store'
@@ -14,7 +14,7 @@ const useFileList = ({ emits }) => {
   // -------------------- S T O R E -------------------- //
   const { server_url } = storeToRefs(useServerInfoStore())
 
-  const { file_path } = setupFile()
+  const { file_path } = useFile()
 
   const { success, error } = messageStore
 

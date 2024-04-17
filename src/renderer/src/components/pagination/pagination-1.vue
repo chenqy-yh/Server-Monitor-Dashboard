@@ -6,7 +6,7 @@
     <button class="pre arrow" @click="pre">
       <i class="ri-arrow-left-s-line ri-2x"></i>
     </button>
-    <div class="p-btn-list">
+    <div v-if="btnNum" class="p-btn-list">
       <button
         v-for="item in btnNum"
         :key="item"

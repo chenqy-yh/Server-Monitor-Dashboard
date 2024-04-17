@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-19 14:38:10
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 16:58:41
- * @FilePath: \server-monitor\src\renderer\src\views\editor\components\editor\editor.vue
+ * @LastEditTime: 2024-04-17 17:26:53
+ * @FilePath: \Spirit-client\src\renderer\src\views\editor\components\editor\editor.vue
  * @Description: True or False
 -->
 <template>
@@ -34,7 +34,11 @@ onMounted(() => {
 watch(
   () => props.value,
   (value) => {
-    if (value !== toRaw(monacoEditor.value).getValue()) toRaw(monacoEditor.value).setValue(value)
+    const rawEditor = toRaw(monacoEditor.value)
+    if (value !== rawEditor.getValue()) {
+      monaco.editor.setModelLanguage(rawEditor.getModel(), props.options.language)
+      rawEditor.setValue(value)
+    }
   }
 )
 

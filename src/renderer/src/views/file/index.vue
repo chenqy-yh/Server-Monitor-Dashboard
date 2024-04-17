@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-18 18:35:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 15:53:54
- * @FilePath: \server-monitor\src\renderer\src\views\file\index.vue
+ * @LastEditTime: 2024-04-17 14:29:21
+ * @FilePath: \Spirit-client\src\renderer\src\views\file\index.vue
  * @Description: True or False
 -->
 <template>
@@ -86,7 +86,7 @@ import FileList from './components/file-list.vue'
 import { useServerInfoStore, usePersonalSettingStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
-import { setupFile } from './index'
+import { useFile } from './index'
 import { i18n } from '@renderer/plugins/i18n'
 
 // -------------------- S T O R E -------------------- //
@@ -104,10 +104,10 @@ const {
   handleDbclickFile,
   search,
   handleRrefresh
-} = setupFile()
+} = useFile()
 
 // 分页大小
-const sizeMpa = {
+const sizeMap = {
   small: 8,
   medium: 10,
   large: 12
@@ -118,7 +118,7 @@ const moveable = ref(false)
 
 // 单页显示数量
 const size = computed(() => {
-  return sizeMpa[win_size_setting.value || 'medium']
+  return sizeMap[win_size_setting.value || 'medium']
 })
 
 // 当前页
@@ -128,7 +128,9 @@ const cur_page = ref(1)
 const total = computed(() => Math.ceil((file_stat_list.value?.length ?? 0) / size.value))
 
 // 分页列表
-const paginationList = computed(() => calcPagination(file_stat_list.value ?? [], cur_page.value))
+const paginationList = computed(() =>
+  calcPagination(file_stat_list.value ?? [], cur_page.value, size.value)
+)
 
 // 面包屑列表
 const breadcrumb_list = computed(() => calcBreadcrumbList(file_path.value))
@@ -162,9 +164,9 @@ const gotoFirstPage = () => {
  * @param {*} curPage
  * @return {*}
  */
-const calcPagination = (fileList: FileStat[], curPage: number) => {
-  const start = (curPage - 1) * size.value
-  const end = curPage * size.value
+const calcPagination = (fileList: FileStat[], curPage: number, size: number) => {
+  const start = (curPage - 1) * size
+  const end = curPage * size
   return fileList.slice(start, end)
 }
 

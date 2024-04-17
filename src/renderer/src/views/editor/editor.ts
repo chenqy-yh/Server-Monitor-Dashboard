@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-03-24 16:37:20
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 20:16:39
- * @FilePath: \server-monitor\src\renderer\src\views\editor\editor.ts
+ * @LastEditTime: 2024-04-17 17:24:07
+ * @FilePath: \Spirit-client\src\renderer\src\views\editor\editor.ts
  * @Description: True or False
  */
 import { EditorOptions } from './components/editor'
@@ -123,8 +123,8 @@ const setupEditor = () => {
   const openFile = async (path: string, size: number, type: string) => {
     if (!checkIsReadable(path, type, size)) return
     filePath.value = path
-    await getFileContent()
     initLanguage()
+    await getFileContent()
   }
 
   /**
@@ -230,7 +230,8 @@ const setupEditor = () => {
    */
   const getLanguagesForFile = (file) => {
     const ext = '.' + file.split('.').pop()
-    return languages.find((lang) => lang.extensions && lang.extensions.includes(ext))
+    const lang = languages.find((lang) => lang.extensions && lang.extensions.includes(ext))
+    return lang
   }
 
   /**

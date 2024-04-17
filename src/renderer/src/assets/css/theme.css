@@ -9,6 +9,8 @@
   --bg-color: var(--color);
   --active-color: #1677ff;
   --error-color: #ff4d4f;
+  --white: #fefefe;
+  --black: #1a1a1a;
   /* radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.4rem;
@@ -50,7 +52,7 @@
   /* brand */
   --brand-icon-color: #1677ff;
   /* editor */
-  --editor-color: #1a1a1a;
+  --editor-color: var(--black);
   --editor-bg-color: color-mix(in lch, var(--editor-color) 95%, #fff);
   --editor-bg-bt-color: color-mix(in lch, var(--editor-bg-color) 95%, #fff);
   --editor-font-color: #ccc;
@@ -66,10 +68,10 @@
 
 
 :root[theme="light"] {
-  --color: #fefefe;
-  --reverse-color: #1a1a1a;
+  --color: var(--white);
+  --reverse-color: var(--black);
   /* font */
-  --font-color: #1a1a1a;
+  --font-color: var(--black);
   --font-color-2: #888;
   --font-color-3: #b3b3b3;
   --font-sub-color: color-mix(in srgb, var(--font-color) 40%, #fff);
@@ -90,10 +92,10 @@
     inset 0px 0px 4px rgba(255, 255, 255, 0.08);
   /* card */
   --card-bg-color: color-mix(in lch, var(--color) 100%, black);
-  --card-footer-font-color: #1a1a1a;
+  --card-footer-font-color: var(--black);
   /* pagination */
   --pagination-color: #2b2b2b;
-  --pagination-bg-color: #fefefe;
+  --pagination-bg-color: var(--bg-color);
   --pagination-border-color: var(--border-color);
   --pagination-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
@@ -102,8 +104,8 @@
 }
 
 :root[theme="dark"] {
-  --color: #1a1a1a;
-  --reverse-color: #fefefe;
+  --color: var(--black);
+  --reverse-color: var(--white);
   /* font */
   --font-color: #ccc;
   --font-color-2: #aaa;
@@ -128,9 +130,9 @@
     inset -1px -1px 4px rgba(255, 255, 255, 0.08);
   /* card */
   --card-bg-color: color-mix(in lch, var(--color) 95%, #fff);
-  --card-footer-font-color: #1a1a1a;
-  /* pagination */
-  --pagination-color: #bbbbbb;
+  --card-footer-font-color: var(--font-color)
+    /* pagination */
+    --pagination-color: #bbbbbb;
   --pagination-bg-color: #181818;
   --pagination-border-color: var(--border-color);
 }

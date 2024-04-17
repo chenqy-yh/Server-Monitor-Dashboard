@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-04-06 00:22:47
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 15:33:37
- * @FilePath: \server-monitor\src\renderer\src\store\permission\index.ts
+ * @LastEditTime: 2024-04-17 12:45:12
+ * @FilePath: \Spirit-client\src\renderer\src\store\permission\index.ts
  * @Description: True or False
  */
 import { defineStore } from 'pinia'

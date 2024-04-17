@@ -15,13 +15,22 @@ const usePersonalSettingStore = defineStore('personalSetting', () => {
 
   const opacity_setting = ref<number>() // 透明度设置
 
+  const init_config = {
+    lang: 'en' as Lang,
+    theme: 'light' as Theme,
+    win_size: 'medium' as WinSize,
+    direct_exit: false,
+    opacity: 100
+  } // 初始配置
+
   const sizeMap: Record<WinSize, [number, number]> = {
     small: [1024, 700],
-    middle: [1280, 768],
+    medium: [1280, 768],
     large: [1440, 800]
   } // 窗口大小映射
 
   // ------------------- C I R C L E ------------------- //
+
   onBeforeMount(() => {
     init_personal_settings()
   })
@@ -40,7 +49,11 @@ const usePersonalSettingStore = defineStore('personalSetting', () => {
   }
 
   const init_personal_setting_of_opacity = () => {
-    opacity_setting.value = getItem('opacity_setting') || 100
+    const opacity_setting_from_store = getItem('opacity_setting') as number
+    if (!opacity_setting_from_store) {
+      setItem('opacity_setting', init_config.opacity)
+    }
+    opacity_setting.value = getItem('opacity_setting') || init_config.opacity
   }
 
   /**
@@ -48,7 +61,11 @@ const usePersonalSettingStore = defineStore('personalSetting', () => {
    *
    */
   const init_personal_setting_of_lang = () => {
-    lang_setting.value = getItem('lang_setting') || 'en'
+    const lang_setting_from_store = getItem('lang_setting') as Lang
+    if (!lang_setting_from_store) {
+      setItem('lang_setting', init_config.lang)
+    }
+    lang_setting.value = getItem('lang_setting') || init_config.lang
     i18n.global.locale.value = lang_setting.value
   }
 
@@ -57,7 +74,11 @@ const usePersonalSettingStore = defineStore('personalSetting', () => {
    *
    */
   const init_personal_setting_of_theme = () => {
-    theme_setting.value = getItem('theme_setting') || 'light'
+    const theme_setting_from_store = getItem('theme_setting') as Theme
+    if (!theme_setting_from_store) {
+      setItem('theme_setting', init_config.theme)
+    }
+    theme_setting.value = getItem('theme_setting') || init_config.theme
     document.documentElement.setAttribute('theme', theme_setting.value)
   }
 
@@ -66,7 +87,11 @@ const usePersonalSettingStore = defineStore('personalSetting', () => {
    *
    */
   const init_personal_setting_of_win_size = () => {
-    win_size_setting.value = getItem('win_size_setting') || 'middle'
+    const win_size_setting_from_store = getItem('win_size_setting') as WinSize
+    if (!win_size_setting_from_store) {
+      setItem('win_size_setting', init_config.win_size)
+    }
+    win_size_setting.value = win_size_setting_from_store || init_config.win_size
     window.api.winResize(...sizeMap[win_size_setting.value])
   }
 
@@ -75,7 +100,11 @@ const usePersonalSettingStore = defineStore('personalSetting', () => {
    *
    */
   const init_personal_setting_of_direct_exit = () => {
-    direct_exit_setting.value = getItem('direct_exit_setting') || false
+    const direct_exit_setting_from_store = getItem('direct_exit_setting') as boolean
+    if (!direct_exit_setting_from_store) {
+      setItem('direct_exit_setting', init_config.direct_exit)
+    }
+    direct_exit_setting.value = getItem('direct_exit_setting') || init_config.direct_exit
   }
 
   const update_opacity_setting = (val: number) => {
@@ -124,7 +153,7 @@ const usePersonalSettingStore = defineStore('personalSetting', () => {
   }
 
   const getWinSizeVal = (): [number, number] => {
-    if (!win_size_setting.value) return sizeMap.middle
+    if (!win_size_setting.value) return sizeMap.medium
     return sizeMap[win_size_setting.value]
   }
 

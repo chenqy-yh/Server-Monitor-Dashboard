@@ -9,7 +9,7 @@ type BreadcrumbItem = {
   name: string
 }
 
-const useFile = () => {
+const _useFile = () => {
   // -------------------- S T O R E -------------------- //
 
   const { server_url } = storeToRefs(useServerInfoStore()) // 服务器地址
@@ -197,13 +197,13 @@ const useFile = () => {
   }
 }
 
-type UseFile = ReturnType<typeof useFile>
+type UseFile = ReturnType<typeof _useFile>
 
 let fileComposables: UseFile | undefined = undefined
 
-const setupFile = () => {
-  if (!fileComposables) fileComposables = useFile()
+const useFile = () => {
+  if (!fileComposables) fileComposables = _useFile()
   return fileComposables
 }
 
-export { setupFile }
+export { useFile }

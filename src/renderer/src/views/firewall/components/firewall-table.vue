@@ -84,7 +84,7 @@ const { col_list, firewall_rule_list } = storeToRefs(firewall_store)
 
 const page_size_map = {
   small: 5,
-  middle: 8,
+  medium: 8,
   large: 10
 }
 

@@ -74,9 +74,9 @@
         "cn": "Chinese",
         "en": "English",
         "winsize": "Window Size",
-        "small": "Small 800 x 600",
-        "middle": "Middle 1024 x 768",
-        "large": "Large 1280 x 800",
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large",
         "exit-direct": "Exit Direct",
         "opacity": "Opacity"
       },
@@ -293,7 +293,7 @@
         "en": "英文",
         "winsize": "窗口大小",
         "small": "小 ",
-        "middle": "中 ",
+        "medium": "中 ",
         "large": "大 ",
         "exit-direct": "直接退出",
         "opacity": "透明度"

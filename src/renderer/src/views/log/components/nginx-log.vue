@@ -127,7 +127,7 @@ const page_size = computed(() => {
   switch (win_size_setting.value) {
     case 'small':
       return 8
-    case 'middle':
+    case 'medium':
       return 10
     case 'large':
       return 12

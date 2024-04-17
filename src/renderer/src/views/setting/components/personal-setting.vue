@@ -107,7 +107,7 @@ const { theme_setting, lang_setting, win_size_setting, direct_exit_setting, opac
 
 const lang_list: Lang[] = ['en', 'cn'] // 语言列表
 
-const win_size_list: WinSize[] = ['small', 'middle', 'large'] // 窗口大小列表
+const win_size_list: WinSize[] = ['small', 'medium', 'large'] // 窗口大小列表
 
 const transformSize = computed(() => (size: string) => {
   return i18n.global.t('setting.personal.' + size) + ' ' + sizeMap[size].join(' x ')

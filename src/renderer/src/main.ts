@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-12-21 23:40:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-28 13:27:20
- * @FilePath: \server-monitor\src\renderer\src\main.ts
+ * @LastEditTime: 2024-04-08 18:55:47
+ * @FilePath: \Spirit-client\src\renderer\src\main.ts
  * @Description: True or False
  */
 import { setupPlugins } from '@renderer/plugins'
