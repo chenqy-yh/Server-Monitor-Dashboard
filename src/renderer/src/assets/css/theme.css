@@ -130,9 +130,9 @@
     inset -1px -1px 4px rgba(255, 255, 255, 0.08);
   /* card */
   --card-bg-color: color-mix(in lch, var(--color) 95%, #fff);
-  --card-footer-font-color: var(--font-color)
-    /* pagination */
-    --pagination-color: #bbbbbb;
+  --card-footer-font-color: var(--font-color);
+  /* pagination */
+  --pagination-color: #bbbbbb;
   --pagination-bg-color: #181818;
   --pagination-border-color: var(--border-color);
 }

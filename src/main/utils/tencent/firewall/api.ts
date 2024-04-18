@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 19:36:15
- * @FilePath: \server-monitor\src\main\utils\tencent\firewall\api.ts
+ * @LastEditTime: 2024-04-18 00:09:55
+ * @FilePath: \Spirit-client\src\main\utils\tencent\firewall\api.ts
  * @Description: True or False
  */
 import * as TC from 'tencentcloud-sdk-nodejs-lighthouse'
@@ -58,6 +58,7 @@ const addFirewallRules = (params) => {
  * */
 const deleteFirewallRules = (params) => {
   const { firewallConfig, FirewallRules } = params
+  console.log(firewallConfig, FirewallRules)
   return createClient(firewallConfig)
     .DeleteFirewallRules({
       InstanceId: firewallConfig.instanceId,

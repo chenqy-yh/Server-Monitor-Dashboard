@@ -76,6 +76,7 @@ const _useFile = () => {
       )
       return true
     } catch (err) {
+      console.error(err)
       return false
     } finally {
       loading.value = false

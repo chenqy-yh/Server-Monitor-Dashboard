@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 19:09:05
- * @FilePath: \server-monitor\src\main\ipc\handle\firewall.ts
+ * @LastEditTime: 2024-04-18 00:07:55
+ * @FilePath: \Spirit-client\src\main\ipc\handle\firewall.ts
  * @Description: True or False
  */
 import { IpcMainInvokeEvent } from 'electron'

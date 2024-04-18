@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-18 18:35:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-17 14:29:21
+ * @LastEditTime: 2024-04-18 00:23:02
  * @FilePath: \Spirit-client\src\renderer\src\views\file\index.vue
  * @Description: True or False
 -->
@@ -49,7 +49,6 @@
           <UploadButton
             :server-url="server_url"
             :upload-path="file_path"
-            :upload-file-list="uploadFileList"
             @finished="() => handleRrefresh(gotoFirstPage)"
           ></UploadButton>
         </el-tooltip>
@@ -66,11 +65,8 @@
       ></FileList>
       <div class="footer">
         <Pagination
-          ref="pagination_ref"
-          v-model="cur_page"
-          :btn-num="Math.min(total, 4)"
-          :min-num="1"
-          :max-num="total"
+          v-model:current-page="cur_page"
+          :total="file_stat_list?.length ?? 0"
         ></Pagination>
       </div>
     </div>
@@ -122,21 +118,15 @@ const size = computed(() => {
 })
 
 // 当前页
-const cur_page = ref(1)
-
-// 总页数
-const total = computed(() => Math.ceil((file_stat_list.value?.length ?? 0) / size.value))
+const cur_page = ref(0)
 
 // 分页列表
-const paginationList = computed(() =>
-  calcPagination(file_stat_list.value ?? [], cur_page.value, size.value)
-)
+const paginationList = computed(() => {
+  return calcPagination(file_stat_list.value ?? [], cur_page.value, size.value)
+})
 
 // 面包屑列表
 const breadcrumb_list = computed(() => calcBreadcrumbList(file_path.value))
-
-// 上传文件列表
-const uploadFileList = ref([])
 
 // ------------------- C I R C L E ------------------- //
 
@@ -155,7 +145,7 @@ watch(
  * @return {*}
  */
 const gotoFirstPage = () => {
-  cur_page.value = 1
+  cur_page.value = 0
 }
 
 /**
@@ -165,8 +155,8 @@ const gotoFirstPage = () => {
  * @return {*}
  */
 const calcPagination = (fileList: FileStat[], curPage: number, size: number) => {
-  const start = (curPage - 1) * size
-  const end = curPage * size
+  const start = curPage * size
+  const end = (curPage + 1) * size
   return fileList.slice(start, end)
 }
 

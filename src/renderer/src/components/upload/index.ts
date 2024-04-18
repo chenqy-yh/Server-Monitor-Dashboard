@@ -1,12 +1,13 @@
 /*
  * @Date: 2024-03-29 23:30:20
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 23:36:40
- * @FilePath: \server-monitor\src\renderer\src\components\upload\index.ts
+ * @LastEditTime: 2024-04-18 00:33:10
+ * @FilePath: \Spirit-client\src\renderer\src\components\upload\index.ts
  * @Description: True or False
  */
 import { ArrayBuffer } from 'spark-md5'
 import { BlobToBuffer } from '@renderer/utils/file'
+import { ref } from 'vue'
 
 const useUpload = (serverUrl: string, uploadPath: string) => {
   // ----------------- C O N S T A N T ----------------- //
@@ -14,12 +15,22 @@ const useUpload = (serverUrl: string, uploadPath: string) => {
   const POOL_SIZE = 6
   const CHUNK_SIZE = 1024 * 1024 * 0.5 // 0.5MB
 
+  const has_upload_chunk_count = ref(0) // 当前上传的chunk索引
+
+  const total_chunk_count = ref(0) // 文件的chunk总数
+
+  const init = () => {
+    has_upload_chunk_count.value = 0
+    total_chunk_count.value = 0
+  }
+
   /**
    * @description:  处理上传文件
    * @param {File} rawFile
    * @return {*}
    */
   const handleUploadFile = async (rawFile: File) => {
+    init()
     // 1. 将文件切分成多个chunk
     const file_chunk_list = createFileChunks(rawFile)
 
@@ -87,9 +98,12 @@ const useUpload = (serverUrl: string, uploadPath: string) => {
     }
     // 任务池
     const task_pool: Promise<string>[] = []
-    let index = 0 // 当前上传的chunk索引
-    while (index < formDataList.length) {
-      const task = window.api.uploadFile(serverUrl, uploadPath, formDataList[index])
+    while (has_upload_chunk_count.value < formDataList.length) {
+      const task = window.api.uploadFile(
+        serverUrl,
+        uploadPath,
+        formDataList[has_upload_chunk_count.value]
+      )
       task.then(() => {
         // 任务完成后，从任务池中移除
         task_pool.splice(task_pool.indexOf(task), 1)
@@ -99,7 +113,7 @@ const useUpload = (serverUrl: string, uploadPath: string) => {
       if (task_pool.length === POOL_SIZE) {
         await Promise.race(task_pool)
       }
-      index++
+      has_upload_chunk_count.value++
     }
     // 等待所有任务完成
     await Promise.all(task_pool)
@@ -147,10 +161,13 @@ const useUpload = (serverUrl: string, uploadPath: string) => {
       file_chunk_list.push(file.slice(cur, cur + CHUNK_SIZE))
       cur += CHUNK_SIZE
     }
+    total_chunk_count.value = file_chunk_list.length
     return file_chunk_list
   }
 
   return {
+    has_upload_chunk_count,
+    total_chunk_count,
     handleUploadFile
   }
 }

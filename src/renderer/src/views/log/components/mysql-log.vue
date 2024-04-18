@@ -31,13 +31,7 @@
     </div>
 
     <div class="footer">
-      <Pagination
-        v-if="loading_finish"
-        v-model="cur_page"
-        :btn-num="4"
-        :min-num="1"
-        :max-num="total"
-      ></Pagination>
+      <Pagination v-if="loading_finish" v-model:current-page="cur_page" :total="total"></Pagination>
     </div>
   </div>
 </template>
@@ -65,9 +59,9 @@ const { win_size_setting } = storeToRefs(usePersonalSettingStore())
 
 const log_list = ref<MysqlLogInfo[]>([])
 
-const total = ref<number>(0)
+const cur_page = ref<number>(0)
 
-const cur_page = ref<number>(1)
+const total = ref<number>(0)
 
 const loading_finish = ref<boolean>(false)
 

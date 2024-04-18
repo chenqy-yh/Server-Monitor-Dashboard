@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 19:47:59
- * @FilePath: \server-monitor\src\renderer\src\views\firewall\firewall-item.vue
+ * @LastEditTime: 2024-04-18 00:14:03
+ * @FilePath: \Spirit-client\src\renderer\src\views\firewall\firewall-item.vue
  * @Description: True or False
 -->
 <template>
@@ -39,7 +39,7 @@
         <el-table
           ref="firewall_table_ref"
           v-loading="table_loading"
-          :data="table_data_list.slice((cur_page - 1) * page_size, cur_page * page_size)"
+          :data="table_data_list"
           class="dragTable"
           style="width: 100%"
         >
@@ -81,12 +81,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <Pagination
-          v-model="cur_page"
-          :btn-num="Math.min(total, 4)"
-          :min-num="1"
-          :max-num="total"
-        ></Pagination>
+        <Pagination v-model:current-page="cur_page" :total="firewall_rule_list.length"></Pagination>
       </div>
 
       <AddFirewallRulesDialog
@@ -160,7 +155,7 @@ const page_size_map = {
 
 const firewall_table_ref = ref() // 表格引用
 
-const cur_page = ref(1) // 当前页码
+const cur_page = ref(0) // 当前页码
 
 const del_rules = ref<FirewallRuleInfo[]>([]) // 待删除规则集合
 
@@ -174,20 +169,20 @@ const edit_firewall_rule_index = ref<number>() // 编辑的防火墙规则索引
 
 const table_loading = ref(false) // 加载状态
 
-const table_data_list = ref<TableDataItem[]>([]) // 表格数据
+const table_data_list = computed(() => {
+  const start = cur_page.value * page_size.value
+  const end = (cur_page.value + 1) * page_size.value
+  return infoToTableItem(firewall_rule_list.value).slice(start, end)
+}) // 表格数据
 
 const page_size = computed(() => {
   return page_size_map[win_size_setting.value ?? 'small']
 }) // 每页显示条数
 
-const total = computed(() => Math.ceil(firewall_rule_list.value.length / page_size.value)) // 总页数
-
 // 选中所有
 const select_page_all = computed({
   get() {
-    const startIndex = (cur_page.value - 1) * page_size.value
-    const endIndex = cur_page.value * page_size.value
-    return table_data_list.value.slice(startIndex, endIndex).every((item) => item.checked)
+    return table_data_list.value.every((item) => item.checked)
   },
   set: (checked) => updateDelRules(checked)
 })
@@ -218,11 +213,7 @@ watch(
  * @return {*}
  */
 const updateDelRules = (selectAll: boolean) => {
-  const startIndex = (cur_page.value - 1) * page_size.value
-  const endIndex = cur_page.value * page_size.value
-  const pageItems = table_data_list.value.slice(startIndex, endIndex)
-
-  pageItems.forEach((item) => {
+  table_data_list.value.forEach((item) => {
     if (selectAll !== item.checked) {
       item.checked = selectAll
       const index = del_rules.value.findIndex((x) => _.isEqual(x, item.firewallRuleInfo))
@@ -258,7 +249,6 @@ const deleteChooseRules = async () => {
  */
 const getTableData = async (config: FirewallConfig) => {
   await firewall_store.requestFirewallRules(config)
-  table_data_list.value = infoToTableItem(firewall_rule_list.value)
 }
 
 /**
@@ -313,7 +303,7 @@ const openEditRuleDialog = (row: FirewallRuleInfo, index: number) => {
  */
 const delRule = (row: FirewallRuleInfo, index: number) => {
   const params = {
-    InstanceId: props.firewallConfig.instanceId,
+    firewallConfig: props.firewallConfig,
     FirewallRules: [firewall_store.infoToRule(row)]
   }
   firewall_rule_list.value.splice(index, 1)
@@ -326,12 +316,11 @@ const delRule = (row: FirewallRuleInfo, index: number) => {
  */
 const onAddRulesConfirm = () => {
   show_addrules_dialog.value = false
-  table_data_list.value = infoToTableItem(firewall_rule_list.value)
 }
 
+//TEST
 const onEditRuleConfirm = (new_firwall_rule: FirewallRuleInfo, index: number) => {
   firewall_rule_list.value[index] = new_firwall_rule
-  table_data_list.value = infoToTableItem(firewall_rule_list.value)
   show_editrule_dialog.value = false
 }
 

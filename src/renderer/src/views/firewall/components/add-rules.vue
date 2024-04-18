@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-12 23:33:35
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 19:24:40
- * @FilePath: \server-monitor\src\renderer\src\views\firewall\components\add-rules.vue
+ * @LastEditTime: 2024-04-17 23:47:11
+ * @FilePath: \Spirit-client\src\renderer\src\views\firewall\components\add-rules.vue
  * @Description: True or False
 -->
 <template>
@@ -85,7 +85,8 @@
 import { i18n } from '@renderer/plugins/i18n'
 import { useFirewallStore } from '@renderer/store'
 import { storeToRefs } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed, ref, toRaw } from 'vue'
+import { cloneObjDropFunc } from '@renderer/utils/common'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{ show: boolean; firewallConfig: FirewallConfig }>()
@@ -137,7 +138,7 @@ const confirm = async () => {
     FirewallRules:
       add_rules.value.map((x) => {
         x.Port = x.Port?.toString()
-        return x
+        return x instanceof Proxy ? Proxy.revocable(x, {}).proxy : x
       }) || []
   }
   try {

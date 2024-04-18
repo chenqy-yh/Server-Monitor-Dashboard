@@ -1,123 +1,184 @@
 <template>
   <div class="pagination">
-    <button class="arrow first" @click="goFirst">
+    <button class="arrow first" @click="first">
       <i class="ri-skip-left-line ri-2x"></i>
     </button>
     <button class="pre arrow" @click="pre">
       <i class="ri-arrow-left-s-line ri-2x"></i>
     </button>
-    <div v-if="btnNum" class="p-btn-list">
+    <div class="p-btn-list">
       <button
-        v-for="item in btnNum"
+        v-for="item in showPagerCount"
         :key="item"
-        :class="['p-btn', { active: active_btn === item - 1 }]"
-        @click="changeActiveBtn(item - 1)"
+        :class="['p-btn', { active: active_pager === item - 1 }]"
+        @click="handleClickPager(item - 1)"
       >
-        {{ start_num + item - 1 }}
+        {{ getPagerNumber(item) }}
       </button>
     </div>
-    <button class="post arrow" @click="post">
+    <button class="post arrow" @click="next">
       <i class="ri-arrow-right-s-line ri-2x"></i>
     </button>
-    <button class="arrow last" @click="goLast">
+    <button class="arrow last" @click="last">
       <i class="ri-skip-right-line ri-2x"></i>
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue';
+import { paginationDefaultConfig } from './config';
 // -------------------- P R O P S -------------------- //
 const props = defineProps({
-  minNum: {
+  currentPage: {
     type: Number,
-    default: 1
+    default: paginationDefaultConfig.currentPage
   },
-  maxNum: {
+  defaultPageSize: {
     type: Number,
-    default: 10
+    default: paginationDefaultConfig.defaultPageSize
   },
-  btnNum: {
-    type: Number,
-    default: 4
-  },
-  modelValue: {
+  total: {
     type: Number,
     required: true
   }
 })
 
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:currentPage'])
 
 // ----------------- C O N S T A N T ----------------- //
 
-const active_btn = ref<number>(0)
-const start_num = ref<number>(0)
+type PagerAction = 'pre' | 'next' | 'first' | 'last' // 操作页号动作
+
+const maxShowPagerCount = paginationDefaultConfig.maxShowPagerCount // 最大显示页码数量
+
+const pager_count = computed(() => getPagerCount()) // 总页数
+
+const showPagerCount = computed(() => Math.min(pager_count.value, maxShowPagerCount)) // 显示页码数量
+
+const cur_max_pager = computed(() => start_pager.value + showPagerCount.value - 1) // 当前最大页码
+
+const cur_min_pager = computed(() => start_pager.value) // 当前最小页码
+
+const _cur_page = ref(props.currentPage) // 当前页码
+
+const start_pager = ref(0) // 开始页码
+
+const active_pager = computed(() => _cur_page.value - start_pager.value) // 当前激活页码
 
 // ------------------- C I R C L E ------------------- //
-
-onMounted(() => init())
-
-watch(
-  () => props.modelValue,
-  (val) => {
-    if (val === props.minNum) {
-      init()
-    }
-  }
-)
+onBeforeMount(() => {
+  initPager()
+})
 
 // ----------------- F U N C T I O N ----------------- //
-function init() {
-  if (props.maxNum - props.modelValue + 1 < props.btnNum) {
-    active_btn.value = props.maxNum - props.modelValue
-    start_num.value = props.maxNum - props.btnNum + 1
+
+/**
+ * @description:  初始化页码
+ * @return {*}
+ */
+const initPager = () => {
+  if (props.currentPage + showPagerCount.value > pager_count.value) {
+    start_pager.value = pager_count.value - showPagerCount.value
   } else {
-    active_btn.value = 0
-    start_num.value = props.modelValue
+    start_pager.value = props.currentPage
   }
 }
 
-const changeActiveBtn = (index: number) => {
-  active_btn.value = index
-  emits('update:modelValue', start_num.value + index)
+/**
+ * @description:  更新开始页码
+ * @param {PagerAction} action
+ * @return {*}
+ */
+const updateStartPager = (action: PagerAction) => {
+  switch (action) {
+    case 'pre':
+      if (cur_min_pager.value > _cur_page.value) {
+        start_pager.value--
+      }
+      break
+    case 'next':
+      if (_cur_page.value > cur_max_pager.value) {
+        start_pager.value++
+      }
+      break
+    case 'first':
+      start_pager.value = 0
+      break
+    case 'last':
+      start_pager.value = pager_count.value - showPagerCount.value
+      break
+  }
 }
 
+/**
+ * @description:  获取总页数
+ * @return {*}
+ */
+function getPagerCount() {
+  return Math.ceil(props.total / props.defaultPageSize) ?? 1
+}
+
+/**
+ * @description:  点击页码
+ * @param {number} index
+ * @return {*}
+ */
+const handleClickPager = (index: number) => {
+  _cur_page.value = start_pager.value + index
+  emits('update:currentPage', _cur_page.value)
+}
+
+/**
+ * @description:  获取页码
+ * @param {number} index
+ * @return {*}
+ */
+const getPagerNumber = (index: number) => {
+  return index + start_pager.value
+}
+
+/**
+ * @description:  上一页
+ * @return {*}
+ */
 const pre = () => {
-  if (props.modelValue <= props.minNum) return
-  if (active_btn.value > 0) {
-    active_btn.value -= 1
-  } else {
-    start_num.value -= 1
-  }
-  emits('update:modelValue', props.modelValue - 1)
+  if (_cur_page.value === 0) return
+  _cur_page.value--
+  updateStartPager('pre')
+  emits('update:currentPage', _cur_page.value)
 }
 
-const goFirst = () => {
-  active_btn.value = 0
-  start_num.value = props.minNum
-  emits('update:modelValue', props.minNum)
+/**
+ * @description:  下一页
+ * @return {*}
+ */
+const next = () => {
+  if (_cur_page.value === pager_count.value - 1) return
+  _cur_page.value++
+  updateStartPager('next')
+  emits('update:currentPage', _cur_page.value)
 }
 
-const goLast = () => {
-  active_btn.value = props.btnNum - 1
-  start_num.value = props.maxNum - props.btnNum + 1
-  emits('update:modelValue', props.maxNum)
+/**
+ * @description:  首页
+ * @return {*}
+ */
+const first = () => {
+  _cur_page.value = 0
+  updateStartPager('first')
+  emits('update:currentPage', _cur_page.value)
 }
 
-const post = () => {
-  if (props.modelValue >= props.maxNum) return
-  if (active_btn.value < props.btnNum - 1) {
-    active_btn.value += 1
-  } else {
-    start_num.value += 1
-  }
-  emits('update:modelValue', props.modelValue + 1)
+/**
+ * @description:  尾页
+ * @return {*}
+ */
+const last = () => {
+  _cur_page.value = pager_count.value - 1
+  updateStartPager('last')
+  emits('update:currentPage', _cur_page.value)
 }
-
-defineExpose({
-  change: init
-})
 </script>
 
 <style lang="scss" scoped>

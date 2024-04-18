@@ -1,12 +1,13 @@
 <!--
  * @Date: 2024-03-29 23:06:59
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-06 15:04:09
- * @FilePath: \server-monitor\src\renderer\src\components\upload\upload-button.vue
+ * @LastEditTime: 2024-04-18 00:33:44
+ * @FilePath: \Spirit-client\src\renderer\src\components\upload\upload-button.vue
  * @Description: True or False
 -->
 <template>
   <el-button text circle @click="click">
+    <div>{{ has_upload_chunk_count + '/' + total_chunk_count }}</div>
     <input
       ref="uploadFileRef"
       type="file"
@@ -39,7 +40,10 @@ const uploading = ref(false)
 
 // -------------------- S T O R E -------------------- //
 
-const { handleUploadFile } = useUpload(props.serverUrl, props.uploadPath)
+const { has_upload_chunk_count, total_chunk_count, handleUploadFile } = useUpload(
+  props.serverUrl,
+  props.uploadPath
+)
 
 // ----------------- C O N S T A N T ----------------- //
 
