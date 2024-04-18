@@ -89,6 +89,7 @@ watch(
 // ----------------- F U N C T I O N ----------------- //
 
 async function getLogInfo(page: number) {
+  console.log
   const res = await window.api.getServerLog(server_url.value, 'mysql', page, page_size.value)
   const { data, total: _total } = res
   total.value = _total

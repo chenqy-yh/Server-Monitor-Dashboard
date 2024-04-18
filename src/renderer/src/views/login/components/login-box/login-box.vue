@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-05 23:00:59
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 23:05:40
+ * @LastEditTime: 2024-04-19 00:25:08
  * @FilePath: \Spirit-client\src\renderer\src\views\login\components\login-box\login-box.vue
  * @Description: True or False
 -->
@@ -228,8 +228,6 @@ const handleRememberMe = () => {
 <script setup lang="ts">
 import LoginButton from '@renderer/components/button/login-button.vue'
 
-import { useTcloudStore } from '@renderer/store'
-import { getItem, setItem } from '@renderer/utils/store'
 import { i18n } from '@renderer/plugins/i18n'
 import useLoginBox from './index'
 
@@ -243,9 +241,7 @@ const {
   loading,
   rememberMe,
   clickHelpLink,
-  confirm,
-  setSubmissionError,
-  handleRememberMe
+  confirm
 } = useLoginBox()
 </script>
 

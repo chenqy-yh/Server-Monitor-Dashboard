@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 22:48:31
+ * @LastEditTime: 2024-04-19 00:25:14
  * @FilePath: \Spirit-client\src\renderer\src\typings\vue-router.d.ts
  * @Description: True or False
  */
@@ -13,7 +13,7 @@ declare module 'vue-router' {
     title?: string
     menuItem?: boolean
     active?: boolean
-    keepAlive?: boolean
+    // keepAlive?: boolean
     menuIndex?: number
     parMenu?: string
     parRoute?: string
