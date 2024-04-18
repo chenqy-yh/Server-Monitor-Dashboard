@@ -12,7 +12,6 @@ export default {
   meta: {
     icon: 'ri-settings-6-fill',
     title: 'menu.setting',
-    permission: ['setting'],
     parRoute: 'home'
   },
   component: () => import('./index.vue')

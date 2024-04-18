@@ -6,7 +6,6 @@
  * @Description: True or False
  */
 import { Drag } from '@renderer/composables/drag/drag'
-import { ref } from 'vue'
 import { usePersonalSettingStore } from '@renderer/store'
 
 const useHeader = () => {

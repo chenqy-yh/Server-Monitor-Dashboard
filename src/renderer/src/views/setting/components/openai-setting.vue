@@ -52,7 +52,6 @@
 import Card from '@renderer/components/card/card.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
-import { onMounted, reactive, watch } from 'vue'
 import { useOpenaiStore, ModelConfigItem, ModelType } from '@renderer/store'
 
 // -------------------- S T O R E -------------------- //

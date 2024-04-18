@@ -26,8 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from 'vue';
-import { paginationDefaultConfig } from './config';
+import { paginationDefaultConfig } from './config'
 // -------------------- P R O P S -------------------- //
 const props = defineProps({
   currentPage: {

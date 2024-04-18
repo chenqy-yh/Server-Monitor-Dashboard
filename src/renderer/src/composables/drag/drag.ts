@@ -5,7 +5,6 @@
  * @FilePath: \server-monitor\src\renderer\src\composables\drag\drag.ts
  * @Description: True or False
  */
-import { ref } from 'vue'
 import { useListenerRegister } from '@renderer/composables/listener'
 
 class Drag {

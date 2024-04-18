@@ -3,8 +3,6 @@ import { useFile } from '../index'
 import { messageStore } from '@renderer/composables/message'
 import { i18n } from '@renderer/plugins/i18n'
 import { useServerInfoStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { reactive, ref } from 'vue'
 
 type TableItem = FileStat & { checked: boolean }
 
@@ -274,7 +272,7 @@ const useFileList = ({ emits }) => {
     targetItem.value = row
     contextMenu.forEach((item) => {
       if (item.label === i18n.global.t('context-menu.del')) {
-        item.disabled = row.dir
+        item.disabled = row.dir ?? false
       }
     })
 

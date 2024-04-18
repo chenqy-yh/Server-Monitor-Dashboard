@@ -39,8 +39,6 @@ import { i18n } from '@renderer/plugins/i18n'
 import { useServerInfoStore, usePersonalSettingStore } from '@renderer/store'
 import { sizeFormat } from '@renderer/utils/os'
 import * as echarts from 'echarts'
-import { storeToRefs } from 'pinia'
-import { onMounted, ref, watch } from 'vue'
 
 type EChartsOption = echarts.EChartsOption
 

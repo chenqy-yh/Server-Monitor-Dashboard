@@ -1,3 +1,20 @@
+// progress
+.el-progress-bar {
+  .el-progress-bar__outer {
+    background-color: transparent !important;
+    border: 1px solid var(--border-color) !important;
+  }
+}
+
+// drawer
+.el-drawer {
+  background-color: var(--bg-bt-color) !important;
+  color: var(--font-color) !important;
+  .el-drawer__header {
+    color: var(--font-color) !important;
+  }
+}
+
 //breadcrumb
 .el-breadcrumb {
   display: flex;

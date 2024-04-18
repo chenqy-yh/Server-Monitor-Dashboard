@@ -32,9 +32,6 @@
 <script setup lang="ts">
 import { useServerInfoStore, usePersonalSettingStore } from '@renderer/store'
 import * as echarts from 'echarts'
-import { storeToRefs } from 'pinia'
-import { computed, onMounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 
 // -------------------- S T O R E -------------------- //
 const { theme_setting } = storeToRefs(usePersonalSettingStore())

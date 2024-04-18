@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent } from 'vue'
 import ContextMenuInner from './context-menu-inner.vue'
 
 export default defineComponent({

@@ -5,7 +5,6 @@
  * @FilePath: \server-monitor\src\renderer\src\composables\message\index.ts
  * @Description: True or False
  */
-import { ref } from 'vue'
 
 type MessageType = 'success' | 'error' | 'warning' | 'info' | 'robot' | 'user'
 

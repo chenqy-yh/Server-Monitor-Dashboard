@@ -92,9 +92,7 @@
 <script setup lang="ts">
 import Card from '@renderer/components/card/card.vue'
 import { usePersonalSettingStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
 import { i18n } from '@renderer/plugins/i18n'
-import { computed } from 'vue'
 // -------------------- S T O R E -------------------- //
 
 const personalSettingStore = usePersonalSettingStore()

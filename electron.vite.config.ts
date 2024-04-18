@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-07 22:35:38
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-08 11:31:51
+ * @LastEditTime: 2024-04-18 09:12:54
  * @FilePath: \Spirit-client\electron.vite.config.ts
  * @Description: True or False
  */
@@ -25,6 +25,13 @@ export default defineConfig(() => {
         alias: {
           '@renderer': resolve('src/renderer/src'),
           '@main': resolve('src/main/src')
+        }
+      },
+      css: {
+        preprocessorOptions: {
+          scss: {
+            additionalData: `@import "./src/renderer/src/assets/css/mixin.scss";`
+          }
         }
       },
       plugins: [...setupPlugins(), vue()],

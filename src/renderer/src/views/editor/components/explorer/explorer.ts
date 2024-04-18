@@ -1,5 +1,3 @@
-import { ref } from 'vue'
-
 class Explorer {
   active_path = ref<string>('')
 

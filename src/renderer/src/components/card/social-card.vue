@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-18 00:02:23
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-03-31 22:39:00
- * @FilePath: \server-monitor\src\renderer\src\components\card\social-card.vue
+ * @LastEditTime: 2024-04-18 20:32:53
+ * @FilePath: \Spirit-client\src\renderer\src\components\card\social-card.vue
  * @Description: True or False
 -->
 <template>
@@ -16,8 +16,6 @@
 
 <script setup lang="ts">
 import Loading from '@renderer/components/loading/loading-2.vue'
-
-import { computed, onMounted, ref } from 'vue'
 
 const time = ref(new Date())
 

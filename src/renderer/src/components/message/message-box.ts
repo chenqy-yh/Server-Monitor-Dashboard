@@ -1,7 +1,6 @@
 import { useListenerRegister } from '@renderer/composables/listener'
 import { messageStore } from '@renderer/composables/message'
 import { useOpenaiStore } from '@renderer/store'
-import { computed, ref } from 'vue'
 
 const useMessageBox = () => {
   // -------------------- S T O R E -------------------- //

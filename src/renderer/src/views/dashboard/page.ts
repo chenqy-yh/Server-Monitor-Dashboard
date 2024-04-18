@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-04-04 20:25:00
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 15:01:16
- * @FilePath: \server-monitor\src\renderer\src\views\dashboard\page.ts
+ * @LastEditTime: 2024-04-18 22:21:07
+ * @FilePath: \Spirit-client\src\renderer\src\views\dashboard\page.ts
  * @Description: True or False
  */
 
@@ -16,8 +16,8 @@ const config: IRouterConfig = {
     menuItem: true,
     title: 'menu.dashboard',
     menuIndex: 0,
-    permission: ['detail'],
-    parRoute: 'Detail'
+    parRoute: 'Detail',
+    belongToMenu: 'instance-detail'
   },
   component: () => import('./index.vue')
 }

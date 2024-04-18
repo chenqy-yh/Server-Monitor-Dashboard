@@ -54,8 +54,6 @@
 import { i18n } from '@renderer/plugins/i18n'
 import { useFirewallStore } from '@renderer/store'
 import _ from 'lodash'
-import { storeToRefs } from 'pinia'
-import { computed, ref, watch } from 'vue'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{

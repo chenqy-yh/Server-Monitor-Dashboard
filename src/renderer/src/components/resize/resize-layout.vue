@@ -19,8 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
 // -------------------- P R O P S -------------------- //
 
 defineProps<{ height: string }>()

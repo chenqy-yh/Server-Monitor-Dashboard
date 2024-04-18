@@ -189,7 +189,7 @@
         "search-file": "Search file"
       },
       "move-file": "Move file",
-      "upload-file": "Upload file"
+      "upload-file": "Upload"
     },
     "message-box": {
       "placeholder": "Message ChatGPT..."
@@ -209,6 +209,13 @@
       "remme": "Remember password",
       "start": "Start",
       "login-fail": "start failed"
+    },
+    "detail-setting": {
+      "remote-api": {
+        "label": "Remote API",
+        "prefix": "Prefix",
+        "port": "Port"
+      }
     }
   },
   "cn": {
@@ -427,6 +434,13 @@
       "remme": "记住密码",
       "start": "开始",
       "login-fail": "启动失败"
+    },
+    "detail-setting": {
+      "remote-api": {
+        "label": "远程 API",
+        "prefix": "前缀",
+        "port": "端口"
+      }
     }
   }
 }

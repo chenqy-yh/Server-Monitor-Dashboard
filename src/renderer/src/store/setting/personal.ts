@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-import { onBeforeMount, ref } from 'vue'
 import { getItem, setItem } from '@renderer/utils/store'
 import { i18n } from '@renderer/plugins/i18n'
 

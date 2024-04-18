@@ -46,7 +46,6 @@ import BrandIcon from '@renderer/components/icon/brand.vue'
 import { useHeader } from '@renderer/composables/header/header'
 import { setupEditor, registerEditorStore } from './index'
 import { i18n } from '@renderer/plugins/i18n'
-import { computed, onMounted, ref, watch } from 'vue'
 
 // -------------------- S T O R E -------------------- //
 

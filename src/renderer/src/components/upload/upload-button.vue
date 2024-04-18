@@ -1,13 +1,12 @@
 <!--
  * @Date: 2024-03-29 23:06:59
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 00:33:44
+ * @LastEditTime: 2024-04-18 09:26:20
  * @FilePath: \Spirit-client\src\renderer\src\components\upload\upload-button.vue
  * @Description: True or False
 -->
 <template>
   <el-button text circle @click="click">
-    <div>{{ has_upload_chunk_count + '/' + total_chunk_count }}</div>
     <input
       ref="uploadFileRef"
       type="file"
@@ -26,7 +25,6 @@
 <script setup lang="ts">
 import loading from '@renderer/components/loading/loading-icon.vue'
 
-import { ref } from 'vue'
 import { useUpload } from './index'
 
 // -------------------- P R O P S -------------------- //

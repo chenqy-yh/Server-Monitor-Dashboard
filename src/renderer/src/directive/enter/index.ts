@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-03-29 15:27:03
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-02 22:24:00
- * @FilePath: \server-monitor\src\renderer\src\directive\enter\index.ts
+ * @LastEditTime: 2024-04-18 20:45:50
+ * @FilePath: \Spirit-client\src\renderer\src\directive\enter\index.ts
  * @Description: True or False
  */
 import { Directive } from 'vue'

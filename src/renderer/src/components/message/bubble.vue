@@ -13,7 +13,6 @@
 
 <script setup lang="ts">
 import { markdown } from '@renderer/composables/markdown'
-import { computed } from 'vue'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{

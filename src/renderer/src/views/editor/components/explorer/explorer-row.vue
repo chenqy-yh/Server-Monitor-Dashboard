@@ -51,7 +51,6 @@ import dirIcon from '@renderer/assets/img/folder.png'
 import fileIcon from '@renderer/assets/img/file.png'
 import LoadingIcon from '@renderer/components/loading/loading-icon.vue'
 
-import { computed, ref } from 'vue'
 import { RowItem } from '.'
 import { useEditor } from '../../index'
 

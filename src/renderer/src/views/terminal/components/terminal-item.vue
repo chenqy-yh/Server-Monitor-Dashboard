@@ -1,3 +1,10 @@
+<!--
+ * @Date: 2024-04-07 22:35:38
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-18 20:39:41
+ * @FilePath: \Spirit-client\src\renderer\src\views\terminal\components\terminal-item.vue
+ * @Description: True or False
+-->
 <template>
   <div class="main-content">
     <div class="tool-bar">
@@ -27,8 +34,6 @@
 
 <script setup lang="ts">
 import { useServerInfoStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
 import { Terminal } from 'xterm'
 import { AttachAddon } from 'xterm-addon-attach'
 import { FitAddon } from 'xterm-addon-fit'

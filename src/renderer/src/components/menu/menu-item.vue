@@ -33,10 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, computed, ref } from 'vue'
-import { RouteRecordRaw } from 'vue-router'
 import { i18n } from '@renderer/plugins/i18n'
-import { useRouter } from 'vue-router'
 import * as _ from 'lodash'
 
 // -------------------- P R O P S -------------------- //

@@ -1,10 +1,11 @@
 <!--
- * @Date: 2024-03-19 20:42:50
+ * @Date: 2024-04-07 22:35:38
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-01 14:33:01
- * @FilePath: \server-monitor\src\renderer\src\views\editor\components\explorer\explorer.vue
+ * @LastEditTime: 2024-04-18 20:38:45
+ * @FilePath: \Spirit-client\src\renderer\src\views\editor\components\explorer\explorer.vue
  * @Description: True or False
 -->
+
 <template>
   <div v-if="fileTree" ref="explorerRef" class="explorer">
     <div class="dir-name" @click="toggleOpenFolder">
@@ -34,7 +35,6 @@
 <script setup lang="ts">
 import ExplorerRow from './explorer-row.vue'
 
-import { ref } from 'vue'
 import { RowItem } from './index'
 import { useEditor } from '../../index'
 

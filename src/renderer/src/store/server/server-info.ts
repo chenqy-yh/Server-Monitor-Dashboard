@@ -1,20 +1,12 @@
-import { getItem, setItem } from '@renderer/utils/store'
 import { formatDateString } from '@renderer/utils/time'
-import { defineStore } from 'pinia'
-import { computed, onBeforeMount, onMounted, ref } from 'vue'
+import { getItem, setItem } from '@renderer/utils/store'
 
 export const useServerInfoStore = defineStore('server-info', () => {
-  // -------------------- S T O R E -------------------- //
-
   // ----------------- C O N S T A N T ----------------- //
 
-  const instance = ref<TLHInstance>()
+  const server_port = ref(54321 /** as default */) // 服务器端口
 
-  const server_port = ref(import.meta.env.RE_Remoteserver_Port) // 服务器端口
-
-  const prefix = ref(import.meta.env.RE_Remoteserver_Prefix) // 服务器前缀
-
-  const host = ref() // 远程服务器地址
+  const prefix = ref('/api' /** as default */) // 服务器前缀
 
   const server_url = computed(() => {
     return `http://${host.value}:${server_port.value}${prefix.value}`
@@ -40,11 +32,27 @@ export const useServerInfoStore = defineStore('server-info', () => {
 
   const cpu_usage_list = ref<[Date, number][]>([]) // CPU使用率列表
 
-  // ------------------- C I R C L E ------------------- //
-
-  onBeforeMount(() => {
-    init_common_settings()
+  const instance = computed({
+    get() {
+      return (getItem('instance') as TLHInstance) || undefined
+    },
+    set(val: TLHInstance | undefined) {
+      setItem('instance', val)
+    }
   })
+
+  const shouldQueryInfo = computed(() => {
+    return instance.value
+  })
+
+  const host = computed(() => {
+    if (!instance.value) {
+      throw new Error('host is not defined')
+    }
+    return instance.value.PublicAddresses[0]
+  })
+
+  // ------------------- C I R C L E ------------------- //
 
   onMounted(async () => {
     setInterval(
@@ -77,6 +85,7 @@ export const useServerInfoStore = defineStore('server-info', () => {
    *
    */
   const scheduledTask = async () => {
+    if (!shouldQueryInfo.value) return
     try {
       loading.value = false
       await getServerInfo()
@@ -84,6 +93,18 @@ export const useServerInfoStore = defineStore('server-info', () => {
     } catch (error) {
       show_error.value = true
     }
+  }
+
+  // ----------------- F U N C T I O N ----------------- //
+
+  const chooseInstance = (val: TLHInstance) => {
+    clearServerInfo()
+    instance.value = val
+    console.log('choose instance:', val)
+  }
+
+  const clearInstance = () => {
+    instance.value = undefined
   }
 
   /**
@@ -94,25 +115,6 @@ export const useServerInfoStore = defineStore('server-info', () => {
     server_info.value = await window.api.getServerInfo(server_url.value)
     network_step(server_info.value.network)
     cput_step(server_info.value.cpu)
-  }
-
-  // ----------------- F U N C T I O N ----------------- //
-
-  /**
-   *  @description 初始化公共设置
-   *
-   */
-  const init_common_settings = () => {
-    host.value = getItem('host') || '0.0.0.0'
-  }
-
-  /**
-   *  @description 更新主机设置
-   *
-   */
-  const update_host_setting = (val: string) => {
-    host.value = val
-    setItem('host', val)
   }
 
   /**
@@ -182,6 +184,7 @@ export const useServerInfoStore = defineStore('server-info', () => {
     cpu_usage_list,
     // -------------------- F U N C T I O N ----------------//
     clearServerInfo,
-    update_host_setting
+    chooseInstance,
+    clearInstance
   }
 })

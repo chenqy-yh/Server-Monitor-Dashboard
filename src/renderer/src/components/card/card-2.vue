@@ -38,9 +38,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-
 // -------------------- P R O P S -------------------- //
 const props = defineProps({
   rate: {

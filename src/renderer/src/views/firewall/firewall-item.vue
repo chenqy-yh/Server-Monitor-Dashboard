@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 00:14:03
+ * @LastEditTime: 2024-04-18 23:38:35
  * @FilePath: \Spirit-client\src\renderer\src\views\firewall\firewall-item.vue
  * @Description: True or False
 -->
@@ -55,7 +55,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-for="(col, i) in col_list"
+            v-for="(col, i) in col_template"
             :key="i"
             :prop="`firewallRuleInfo.${col.prop}`"
             :label="i18n.global.t(col.label)"
@@ -119,8 +119,7 @@ import EditFirewallRulesDialog from '@renderer/views/firewall/components/edit-ru
 import { i18n } from '@renderer/plugins/i18n'
 import { useFirewallStore, usePersonalSettingStore, useServerInfoStore } from '@renderer/store'
 import _ from 'lodash'
-import { storeToRefs } from 'pinia'
-import { PropType, computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { col_template } from './template'
 
 type TableDataItem = {
   checked: boolean
@@ -143,7 +142,7 @@ const { show_error, server_url } = storeToRefs(useServerInfoStore())
 
 const firewall_store = useFirewallStore()
 
-const { active_sort_mode, col_list, firewall_rule_list, save_loading } = storeToRefs(firewall_store)
+const { active_sort_mode, firewall_rule_list, save_loading } = storeToRefs(firewall_store)
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -248,6 +247,7 @@ const deleteChooseRules = async () => {
  *
  */
 const getTableData = async (config: FirewallConfig) => {
+  console.log('getTableData config', config)
   await firewall_store.requestFirewallRules(config)
 }
 

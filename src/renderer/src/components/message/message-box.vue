@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-03-31 19:39:33
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 11:30:57
- * @FilePath: \server-monitor\src\renderer\src\components\message\message-box.vue
+ * @LastEditTime: 2024-04-18 20:33:49
+ * @FilePath: \Spirit-client\src\renderer\src\components\message\message-box.vue
  * @Description: True or False
 -->
 <template>
@@ -54,7 +54,6 @@ import SubmitIcon from '@renderer/components/icon/submit-icon.vue'
 import Bubble from './bubble.vue'
 
 import { useMessageBox } from './message-box'
-import { onMounted, onUnmounted } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
 
 // -------------------- S T O R E -------------------- //

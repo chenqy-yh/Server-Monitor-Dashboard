@@ -15,8 +15,8 @@ export default {
     menuItem: true,
     title: 'menu.firewall',
     menuIndex: 3,
-    permission: ['detail'],
-    parRoute: 'Detail'
+    parRoute: 'Detail',
+    belongToMenu: 'instance-detail'
   },
   component: () => import('./index.vue')
 } as IRouterConfig

@@ -1,54 +1,14 @@
-import { defineStore } from 'pinia'
 import Sortable from 'sortablejs'
-import { computed, ref } from 'vue'
 import { useTcloudStore, useServerInfoStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
 
 export const useFirewallStore = defineStore('firewall', () => {
+  console.log('useFirewallStore')
+
   // -------------------- S T O R E -------------------- //
   const { apiId, apiKey, region } = storeToRefs(useTcloudStore())
   const { instance } = storeToRefs(useServerInfoStore())
 
   // ----------------- C O N S T A N T ----------------- //
-  // 表格列 配置
-  const col_list = ref([
-    {
-      prop: 'AppType',
-      label: 'firewall.apptype',
-      align: 'center',
-      width: 120,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'CidrBlock',
-      label: 'firewall.source',
-      width: 120,
-      align: 'center'
-    },
-    {
-      prop: 'Protocol',
-      label: 'firewall.protocol',
-      width: 100,
-      align: 'center'
-    },
-    {
-      prop: 'Port',
-      label: 'firewall.port',
-      align: 'center'
-    },
-    {
-      prop: 'Action',
-      label: 'firewall.action',
-      align: 'center'
-    },
-    {
-      prop: 'FirewallRuleDescription',
-      label: 'firewall.description',
-      width: 120,
-      showOverflowTooltip: true,
-      align: 'center'
-    }
-  ])
 
   const firewall_rule_list = ref<FirewallRuleInfo[]>([]) // 防火墙规则列表
   const firewall_rule_list_copy = ref<FirewallRuleInfo[]>([]) // 防火墙规则列表副本
@@ -158,6 +118,7 @@ export const useFirewallStore = defineStore('firewall', () => {
    * @return {*}
    */
   async function requestFirewallRules(params: FirewallConfig) {
+    console.log('requestFirewallRules', params)
     clearStore()
     try {
       const res = await window.api.descFirewallRules(params)
@@ -173,7 +134,6 @@ export const useFirewallStore = defineStore('firewall', () => {
 
   return {
     error_code,
-    col_list,
     firewall_rule_list,
     active_sort_mode,
     save_loading,

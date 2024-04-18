@@ -13,7 +13,6 @@ export default {
   meta: {
     icon: 'ri-flask-line',
     title: 'menu.test',
-    permission: ['detail'],
     parRoute: 'Detail'
   },
   parent: 'home',

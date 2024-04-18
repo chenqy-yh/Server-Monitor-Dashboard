@@ -60,9 +60,6 @@ import BrandIcon from '@renderer/components/icon/brand.vue'
 import { useHeader } from '@renderer/composables/header/header'
 import { i18n } from '@renderer/plugins/i18n'
 import { usePersonalSettingStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 // -------------------- S T O R E -------------------- //
 

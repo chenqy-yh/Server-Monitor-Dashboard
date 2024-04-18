@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-28 13:45:09
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-08 11:18:38
+ * @LastEditTime: 2024-04-18 20:44:19
  * @FilePath: \Spirit-client\src\renderer\src\components\context-menu\context-menu-inner.vue
  * @Description: True or False
 -->
@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, VNodeRef, defineComponent, nextTick, ref } from 'vue'
+import { VNodeRef } from 'vue'
 
 type VNodeHTMLElementIntersection = VNodeRef & HTMLElement
 

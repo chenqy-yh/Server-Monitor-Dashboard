@@ -1,12 +1,10 @@
 /*
  * @Date: 2024-04-06 00:22:47
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-17 12:45:12
+ * @LastEditTime: 2024-04-18 22:02:31
  * @FilePath: \Spirit-client\src\renderer\src\store\permission\index.ts
  * @Description: True or False
  */
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
 
 type Role = 'tourist' | 'user'
 type Permission = 'login' | 'instances' | 'detail' | 'setting'

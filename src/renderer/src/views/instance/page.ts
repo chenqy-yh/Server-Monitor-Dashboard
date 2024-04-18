@@ -13,7 +13,6 @@ export default {
   meta: {
     icon: 'ri-server-line',
     title: 'menu.instances',
-    permission: ['instances'],
     parRoute: 'home'
   },
   component: () => import('./index.vue')

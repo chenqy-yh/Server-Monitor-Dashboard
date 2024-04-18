@@ -11,7 +11,6 @@
 
 <script lang="ts" setup>
 import './init'
-import { onMounted, ref, toRaw, watch } from 'vue'
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.main.js'
 import { EditorOptions } from '.'
 

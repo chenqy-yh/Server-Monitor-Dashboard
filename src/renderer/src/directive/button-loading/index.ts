@@ -1,6 +1,6 @@
-import { Directive, createApp } from 'vue'
 import Loading from './button-loading.vue'
 import { delay } from '@renderer/utils/common'
+import { Directive } from 'vue'
 
 const animaDuration = 500
 

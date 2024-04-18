@@ -1,13 +1,13 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-04 22:48:27
- * @FilePath: \server-monitor\src\renderer\src\directive\loading\index.ts
+ * @LastEditTime: 2024-04-18 20:46:26
+ * @FilePath: \Spirit-client\src\renderer\src\directive\loading\index.ts
  * @Description: True or False
  */
-import { Directive, createApp } from 'vue'
 import Loading from '@renderer/components/loading/loading-3.vue'
 import { delay } from '@renderer/utils/common'
+import { Directive } from 'vue'
 
 const animaDuration = 500
 

@@ -7,8 +7,6 @@
  */
 import OpenAI from 'openai'
 import { getItem, setItem } from '@renderer/utils/store'
-import { defineStore } from 'pinia'
-import { onBeforeMount, ref } from 'vue'
 import { messageStore } from '@renderer/composables/message'
 
 type ModelType = 'gpt-3.5-turbo' | 'gpt-4'

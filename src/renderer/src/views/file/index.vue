@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-18 18:35:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 00:23:02
+ * @LastEditTime: 2024-04-18 08:46:59
  * @FilePath: \Spirit-client\src\renderer\src\views\file\index.vue
  * @Description: True or False
 -->
@@ -52,6 +52,7 @@
             @finished="() => handleRrefresh(gotoFirstPage)"
           ></UploadButton>
         </el-tooltip>
+        <el-button @click="toggleUploadDrawer">btn</el-button>
       </div>
     </div>
     <div class="file-list-content">
@@ -70,6 +71,12 @@
         ></Pagination>
       </div>
     </div>
+    <UploadDrawer
+      v-model:show="show_drawer"
+      :server-url="server_url"
+      :file-path="file_path"
+      direction="rtl"
+    ></UploadDrawer>
   </div>
 </template>
 
@@ -78,10 +85,9 @@ import ArrowRightIcon from '@renderer/components/icon/arrow-right.vue'
 import Pagination from '@renderer/components/pagination/pagination-1.vue'
 import UploadButton from '@renderer/components/upload/upload-button.vue'
 import FileList from './components/file-list.vue'
+import UploadDrawer from '@renderer/components/upload/upload-drawer.vue'
 
 import { useServerInfoStore, usePersonalSettingStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { computed, ref, watch } from 'vue'
 import { useFile } from './index'
 import { i18n } from '@renderer/plugins/i18n'
 
@@ -127,6 +133,8 @@ const paginationList = computed(() => {
 
 // 面包屑列表
 const breadcrumb_list = computed(() => calcBreadcrumbList(file_path.value))
+
+const show_drawer = ref(false)
 
 // ------------------- C I R C L E ------------------- //
 
@@ -182,6 +190,10 @@ const calcBreadcrumbList = (filePath) => {
       }, res)
   }
   return res
+}
+
+const toggleUploadDrawer = () => {
+  show_drawer.value = !show_drawer.value
 }
 </script>
 

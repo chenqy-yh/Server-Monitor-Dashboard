@@ -1,16 +1,16 @@
 <!--
  * @Date: 2023-12-22 15:54:21
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-08 12:46:06
+ * @LastEditTime: 2024-04-18 22:43:23
  * @FilePath: \Spirit-client\src\renderer\src\components\menu\left-menu.vue
  * @Description: True or False
 -->
 
 <template>
   <Transition name="fade">
-    <Menu>
+    <MenuBase>
       <MenuItem
-        v-for="(menuItem, idx) in menu"
+        v-for="(menuItem, idx) in menu_tree"
         :key="idx"
         :level="0"
         :menu="menuItem"
@@ -20,35 +20,35 @@
         <i class="ri-arrow-left-line"></i>
         <span>{{ i18n.global.t('common.back') }}</span>
       </div>
-    </Menu>
+    </MenuBase>
   </Transition>
 </template>
 
 <script setup lang="ts">
 import MenuItem from './menu-item.vue'
-import Menu from './menu.vue'
+import MenuBase from './menu.vue'
 
-import { usePermissionStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { onMounted, ref, watch } from 'vue'
-import useMenu from './index'
-import { RouteRecordRaw } from 'vue-router'
 import { i18n } from '@renderer/plugins/i18n'
-import { useRouter } from 'vue-router'
+import { useServerInfoStore } from '@renderer/store'
+import useMenu, { type Menu } from './index'
 
 // -------------------- P R O P S -------------------- //
+
+const props = defineProps<{ menuType: string }>()
 
 const emits = defineEmits(['show-menu'])
 
 // -------------------- S T O R E -------------------- //
 
-const { role_list } = storeToRefs(usePermissionStore())
+const serverInfoStore = useServerInfoStore()
 
 // ----------------- C O N S T A N T ----------------- //
 
-const menu = ref<RouteRecordRaw[]>([]) // 菜单列表
+const menuIns = ref<Menu>() // 菜单实例
 
-const router = useRouter()
+const router = useRouter() // 路由
+
+const menu_tree = computed(() => getMenuList()) // 菜单树
 
 // ------------------- C I R C L E ------------------- //
 onMounted(() => {
@@ -56,28 +56,23 @@ onMounted(() => {
   triggerShowMenu()
 })
 
-watch(role_list, () => {
-  refreshMenu()
-  triggerShowMenu()
-})
-
 // ----------------- F U N C T I O N ----------------- //
+
+/**
+ * @description:  获取菜单列表
+ * @return {*}
+ */
+const getMenuList = () => {
+  if (!menuIns.value) return []
+  return menuIns.value.getMenu()
+}
 
 /**
  * @description:  初始化菜单
  * @return {*}
  */
 const initMenu = () => {
-  menu.value = useMenu().menu_tree
-}
-
-/**
- * @description:  刷新菜单
- * @return {*}
- */
-const refreshMenu = () => {
-  useMenu().refresh()
-  menu.value = useMenu().menu_tree
+  menuIns.value = useMenu(props.menuType)
 }
 
 /**
@@ -85,7 +80,8 @@ const refreshMenu = () => {
  * @return {*}
  */
 const triggerShowMenu = () => {
-  emits('show-menu', menu.value.length > 0)
+  if (!menuIns.value) return
+  emits('show-menu', menu_tree.value.length > 0)
 }
 
 /**
@@ -93,6 +89,7 @@ const triggerShowMenu = () => {
  * @return {*}
  */
 const backInstances = () => {
+  serverInfoStore.clearInstance()
   router.push({
     name: 'instances'
   })

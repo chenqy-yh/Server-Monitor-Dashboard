@@ -1,14 +1,14 @@
 <!--
  * @Date: 2023-12-22 00:35:03
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 23:14:44
+ * @LastEditTime: 2024-04-18 22:45:47
  * @FilePath: \Spirit-client\src\renderer\src\views\detail\index.vue
  * @Description: True or False
 -->
 <template>
   <div class="home-content" :class="{ showMenu }">
     <el-aside width="max-content">
-      <LeftMenu @show-menu="handleShowMenu"></LeftMenu>
+      <LeftMenu menu-type="instance-detail" @show-menu="handleShowMenu"></LeftMenu>
     </el-aside>
     <el-container class="right-container">
       <el-main class="content">
@@ -21,13 +21,13 @@
         </div>
       </el-main>
     </el-container>
+    <MessageBox></MessageBox>
   </div>
 </template>
 
 <script setup lang="ts">
 import LeftMenu from '@renderer/components/menu/left-menu.vue'
-
-import { onMounted, ref } from 'vue'
+import MessageBox from '@renderer/components/message/message-box.vue'
 
 // ----------------- C O N S T A N T ----------------- //
 

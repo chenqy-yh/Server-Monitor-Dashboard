@@ -1,18 +1,20 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 15:08:46
- * @FilePath: \server-monitor\src\renderer\src\components\menu\index.ts
+ * @LastEditTime: 2024-04-18 22:47:26
+ * @FilePath: \Spirit-client\src\renderer\src\components\menu\index.ts
  * @Description: True or False
  */
 import { router } from '@renderer/router'
 import { RouteRecordRaw } from 'vue-router'
-import { usePermissionStore } from '@renderer/store'
 
-class Menu implements IMenu {
-  menu_tree: RouteRecordRaw[] = []
+class Menu {
+  private menu_tree: RouteRecordRaw[] = []
 
-  constructor() {
+  private menuType: string
+
+  constructor(menuType: string) {
+    this.menuType = menuType
     this._init()
   }
 
@@ -21,16 +23,12 @@ class Menu implements IMenu {
    * @return {*}
    */
   _init() {
-    // 获取当前用户的权限
-    const permissionStore = usePermissionStore()
-    const permissions = permissionStore.getCurAllPermissions()
     // 获取所有路由
     const routes = router.getRoutes()
     const node_list: RouteRecordRaw[] = []
-    // 过滤出有权限的路由
     for (const route of routes) {
-      const havePermission = route.meta.permission?.every((item) => permissions.includes(item))
-      if (route.meta.menuItem && havePermission) {
+      const isBelonged = route.meta.belongToMenu === this.menuType
+      if (route.meta.menuItem && isBelonged) {
         node_list.push(route)
       }
     }
@@ -79,13 +77,19 @@ class Menu implements IMenu {
     this.menu_tree = []
     this._init()
   }
+
+  getMenu() {
+    return this.menu_tree
+  }
 }
 
-let menuInstance: Menu | null = null
+const menuInstanceMap = new Map<string, Menu>()
 
-export default () => {
-  if (!menuInstance) {
-    menuInstance = new Menu()
+export { Menu }
+
+export default (menuType: string) => {
+  if (!menuInstanceMap.has(menuType)) {
+    menuInstanceMap.set(menuType, new Menu(menuType))
   }
-  return menuInstance
+  return menuInstanceMap.get(menuType)!
 }

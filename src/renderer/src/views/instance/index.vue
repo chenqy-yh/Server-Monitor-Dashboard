@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-06 14:10:39
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 23:29:30
+ * @LastEditTime: 2024-04-18 22:49:03
  * @FilePath: \Spirit-client\src\renderer\src\views\instance\index.vue
  * @Description: True or False
 -->
@@ -27,15 +27,12 @@
 <script setup lang="ts">
 import InstanceCard from '@renderer/components/card/instance-card.vue'
 
-import { useTcloudStore, usePermissionStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
+import { useTcloudStore } from '@renderer/store'
 import { i18n } from '@renderer/plugins/i18n'
 import { useRouter } from 'vue-router'
 // -------------------- S T O R E -------------------- //
 
 const { instanceList } = storeToRefs(useTcloudStore())
-
-const permission = usePermissionStore()
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -44,7 +41,6 @@ const router = useRouter()
 // ----------------- F U N C T I O N ----------------- //
 
 const backLogin = () => {
-  permission.setRoleList(['tourist'])
   router.push({ name: 'Login' })
 }
 </script>

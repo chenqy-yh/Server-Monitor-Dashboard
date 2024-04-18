@@ -28,7 +28,6 @@ import FirewallItem from './firewall-item.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
 import { useFirewallStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
 
 // -------------------- S T O R E -------------------- //
 

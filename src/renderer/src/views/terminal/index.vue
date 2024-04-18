@@ -29,7 +29,6 @@ import Tabbed from '@renderer/components/tabbed/tabbed.vue'
 import TerminalItem from './components/terminal-item.vue'
 
 import { i18n } from '@renderer/plugins/i18n'
-import { ref } from 'vue'
 
 // ----------------- C O N S T A N T ----------------- //
 

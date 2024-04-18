@@ -40,8 +40,6 @@
 import Pagination from '@renderer/components/pagination/pagination-1.vue'
 
 import { usePersonalSettingStore, useServerInfoStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { computed, ref, watch } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
 
 interface MysqlLogInfo {

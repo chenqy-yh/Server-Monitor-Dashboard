@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-12 23:33:35
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-17 23:47:11
+ * @LastEditTime: 2024-04-18 20:32:17
  * @FilePath: \Spirit-client\src\renderer\src\views\firewall\components\add-rules.vue
  * @Description: True or False
 -->
@@ -84,9 +84,6 @@
 <script setup lang="ts">
 import { i18n } from '@renderer/plugins/i18n'
 import { useFirewallStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { computed, ref, toRaw } from 'vue'
-import { cloneObjDropFunc } from '@renderer/utils/common'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{ show: boolean; firewallConfig: FirewallConfig }>()

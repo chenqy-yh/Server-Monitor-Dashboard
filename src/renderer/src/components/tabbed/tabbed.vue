@@ -36,7 +36,6 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, ref } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
 
 // -------------------- P R O P S -------------------- //

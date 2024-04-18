@@ -1,8 +1,8 @@
 <!--
  * @Date: 2024-04-04 23:41:13
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 15:54:38
- * @FilePath: \server-monitor\src\renderer\src\views\log\index.vue
+ * @LastEditTime: 2024-04-18 20:17:45
+ * @FilePath: \Spirit-client\src\renderer\src\views\log\index.vue
  * @Description: True or False
 -->
 <template>
@@ -37,10 +37,8 @@
 import MysqlLog from './components/mysql-log.vue'
 import NginxLog from './components/nginx-log.vue'
 
-import { computed, ref } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
 import { useServerInfoStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
 
 // -------------------- S T O R E -------------------- //
 

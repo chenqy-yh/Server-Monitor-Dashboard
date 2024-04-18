@@ -1,14 +1,20 @@
 <!--
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 17:53:02
- * @FilePath: \server-monitor\src\renderer\src\views\dashboard\index.vue
+ * @LastEditTime: 2024-04-18 20:36:53
+ * @FilePath: \Spirit-client\src\renderer\src\views\dashboard\index.vue
  * @Description: True or False
 -->
 <template>
   <div class="server-content">
-    <div class="card-container">
-      <TransitionGroup v-if="!loading" class="card-list" name="fade" tag="div" mode="out-in">
+    <el-alert
+      v-if="show_error"
+      title="Error"
+      type="error"
+      description="Failed to get server information"
+    ></el-alert>
+    <div v-else class="card-container">
+      <TransitionGroup class="card-list" name="fade" tag="div" mode="out-in">
         <SocialCard key="scard"></SocialCard>
         <InfoCard
           v-for="(item, i) in card_list ?? 3"
@@ -39,8 +45,6 @@ import NetworkChart from '@renderer/views/dashboard/components/network-chart.vue
 
 import { useServerInfoStore } from '@renderer/store'
 import { sizeStrToByte, sortDisk } from '@renderer/utils/os'
-import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
 import { i18n } from '@renderer/plugins/i18n'
 
 type CardItem = {
@@ -55,7 +59,7 @@ type CardItem = {
 }
 
 // -------------------- S T O R E -------------------- //
-const { server_info, loading } = storeToRefs(useServerInfoStore())
+const { server_info, loading, show_error } = storeToRefs(useServerInfoStore())
 
 // ----------------- C O N S T A N T ----------------- //
 

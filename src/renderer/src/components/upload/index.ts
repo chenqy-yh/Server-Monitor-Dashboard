@@ -7,7 +7,6 @@
  */
 import { ArrayBuffer } from 'spark-md5'
 import { BlobToBuffer } from '@renderer/utils/file'
-import { ref } from 'vue'
 
 const useUpload = (serverUrl: string, uploadPath: string) => {
   // ----------------- C O N S T A N T ----------------- //

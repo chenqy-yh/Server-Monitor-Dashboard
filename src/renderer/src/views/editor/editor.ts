@@ -9,7 +9,6 @@ import { EditorOptions } from './components/editor'
 import { RowItem } from './components/explorer/index'
 import { checkIsReadable, dirComparer } from '@renderer/utils/file'
 import * as monaco from 'monaco-editor'
-import { nextTick, onBeforeMount, onMounted, onUnmounted, ref } from 'vue'
 import { useListenerRegister } from '@renderer/composables/listener'
 
 const setupEditor = () => {

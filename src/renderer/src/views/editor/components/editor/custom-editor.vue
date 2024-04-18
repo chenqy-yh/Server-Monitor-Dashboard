@@ -34,7 +34,6 @@ import ResizeLayout from '@renderer/components/resize/resize-layout.vue'
 import Editor from './editor.vue'
 import Explorer from '../explorer/explorer.vue'
 
-import { onMounted, onUnmounted, ref, toRaw, watch } from 'vue'
 import { EditorOptions } from '.'
 import { RowItem } from '../explorer/index'
 import { useListenerRegister } from '@renderer/composables/listener'

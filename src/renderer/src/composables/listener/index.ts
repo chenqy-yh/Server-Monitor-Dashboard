@@ -5,7 +5,6 @@
  * @FilePath: \Spirit-client\src\renderer\src\composables\listener\index.ts
  * @Description: True or False
  */
-import { onUnmounted } from 'vue'
 
 type ListenerTarget = Element | Window | Document
 

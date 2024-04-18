@@ -53,7 +53,6 @@
 </template>
 
 <script setup lang="ts">
-import { onUnmounted, watch } from 'vue'
 import { useFileList } from './index'
 import { i18n } from '@renderer/plugins/i18n'
 

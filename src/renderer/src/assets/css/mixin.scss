@@ -1,0 +1,22 @@
+// 定义container mixin
+@mixin padding($padding) {
+  padding: var(--space-1x);
+  @if $padding {
+    padding: $padding;
+  }
+}
+
+@mixin border-radius($radius) {
+  border-radius: var(--radius-sm);
+  @if $radius {
+    border-radius: $radius;
+  }
+}
+
+@mixin container($settings) {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--font-color);
+  @include padding(map-get($settings, padding));
+  @include border-radius(map-get($settings, radius));
+}

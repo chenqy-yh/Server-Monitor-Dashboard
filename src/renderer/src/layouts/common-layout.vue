@@ -1,4 +1,11 @@
 <!--
+ * @Date: 2024-04-07 22:35:38
+ * @LastEditors: Chenqy
+ * @LastEditTime: 2024-04-18 20:35:31
+ * @FilePath: \Spirit-client\src\renderer\src\layouts\common-layout.vue
+ * @Description: True or False
+-->
+<!--
  * @Date: 2023-12-22 00:35:03
  * @LastEditors: Chenqy
  * @LastEditTime: 2024-04-07 17:52:41
@@ -20,8 +27,6 @@
 import Header from '@renderer/components/header/header.vue'
 
 import { usePersonalSettingStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
 
 // -------------------- P R O P S -------------------- //
 

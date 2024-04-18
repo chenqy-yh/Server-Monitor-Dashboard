@@ -1,7 +1,5 @@
 import { useServerInfoStore } from '@renderer/store'
 import { checkIsReadable, dirComparer, solveNextPath } from '@renderer/utils/file'
-import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
 import { createEditorWindow } from '@renderer/views/editor'
 
 type BreadcrumbItem = {

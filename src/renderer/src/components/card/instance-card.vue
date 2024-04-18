@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-06 23:35:55
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-07 23:49:14
+ * @LastEditTime: 2024-04-18 20:10:37
  * @FilePath: \Spirit-client\src\renderer\src\components\card\instance-card.vue
  * @Description: True or False
 -->
@@ -51,12 +51,10 @@
 import CentosIcon from '../../assets/svg/CentOS.svg'
 import WindowsIcon from '../../assets/svg/windows-server.svg'
 
-import { formatDateString } from '@renderer/utils/time'
-import { i18n } from '@renderer/plugins/i18n'
 import { messageStore } from '@renderer/composables/message'
+import { i18n } from '@renderer/plugins/i18n'
 import { useServerInfoStore } from '@renderer/store'
-import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
+import { formatDateString } from '@renderer/utils/time'
 
 // -------------------- P R O P S -------------------- //
 
@@ -64,7 +62,7 @@ const props = defineProps<{ instance: TLHInstance }>()
 
 // -------------------- S T O R E -------------------- //
 
-const { host, instance: choose_instance } = storeToRefs(useServerInfoStore())
+const serverInfoStore = useServerInfoStore()
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -85,8 +83,7 @@ const copyIp = (e) => {
 }
 
 const chooseInstance = () => {
-  host.value = props.instance.PublicAddresses[0]
-  choose_instance.value = props.instance
+  serverInfoStore.chooseInstance(props.instance)
   router.push({
     name: 'Detail'
   })
