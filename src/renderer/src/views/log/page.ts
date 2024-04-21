@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-04 21:01:25
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 22:22:26
+ * @LastEditTime: 2024-04-19 19:43:37
  * @FilePath: \Spirit-client\src\renderer\src\views\log\page.ts
  * @Description: True or False
  */

@@ -20,3 +20,16 @@
   @include padding(map-get($settings, padding));
   @include border-radius(map-get($settings, radius));
 }
+
+@mixin gap($gap) {
+  gap: var(--space-1x);
+  @if $gap {
+    gap: $gap;
+  }
+}
+
+@mixin flex-column($setting) {
+  display: flex;
+  flex-direction: column;
+  @include gap(map-get($setting, gap));
+}

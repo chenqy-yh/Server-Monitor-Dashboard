@@ -99,6 +99,14 @@
     border-color: var(--button-hover-color) !important;
     color: var(--button-hover-color) !important;
   }
+  &.disabled {
+    filter: brightness(0.5);
+    // 取消hover效果
+    &:hover {
+      border-color: inherit !important;
+      color: inherit !important;
+    }
+  }
 }
 
 .el-message {

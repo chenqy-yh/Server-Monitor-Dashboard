@@ -1,32 +1,36 @@
 // 字节转MB GB
 
+const G = 1 << 30
+const M = 1 << 20
+const K = 1 << 10
+
 const size_map = {
-  GB: 1024 * 1024 * 1024,
-  G: 1024 * 1024 * 1024,
-  MB: 1024 * 1024,
-  M: 1024 * 1024,
-  KB: 1024,
-  K: 1024,
+  GB: G,
+  G: G,
+  MB: M,
+  M: M,
+  KB: K,
+  K: K,
   B: 1
 }
 
 const sizeFormat = (size: number) => {
-  if (size < 1024) {
+  if (size < K) {
     return size.toFixed(2) + 'B'
-  } else if (size < 1024 * 1024) {
-    return (size / 1024).toFixed(2) + 'KB'
-  } else if (size < 1024 * 1024 * 1024) {
-    return (size / 1024 / 1024).toFixed(2) + 'MB'
+  } else if (size < M) {
+    return (size / K).toFixed(2) + 'KB'
+  } else if (size < G) {
+    return (size / M).toFixed(2) + 'MB'
   } else {
-    return (size / 1024 / 1024 / 1024).toFixed(2) + 'GB'
+    return (size / G).toFixed(2) + 'GB'
   }
 }
 const byteToMB = (byte: number) => {
-  return (byte / 1024 / 1024).toFixed(2)
+  return (byte / M).toFixed(2)
 }
 
 const byteToGB = (byte: number) => {
-  return (byte / 1024 / 1024 / 1024).toFixed(2)
+  return (byte / G).toFixed(2)
 }
 
 const sizeStrToByte = (size: string) => {

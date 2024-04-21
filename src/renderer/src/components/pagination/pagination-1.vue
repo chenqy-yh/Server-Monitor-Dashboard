@@ -70,6 +70,16 @@ onBeforeMount(() => {
   initPager()
 })
 
+watch(
+  () => props.currentPage,
+  () => {
+    if (_cur_page.value === props.currentPage) return
+    _cur_page.value = props.currentPage
+    if (props.currentPage >= cur_min_pager.value && props.currentPage <= cur_max_pager.value) return
+    initPager()
+  }
+)
+
 // ----------------- F U N C T I O N ----------------- //
 
 /**

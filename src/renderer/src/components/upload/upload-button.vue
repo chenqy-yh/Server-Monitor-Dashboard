@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-29 23:06:59
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 09:26:20
+ * @LastEditTime: 2024-04-21 23:11:24
  * @FilePath: \Spirit-client\src\renderer\src\components\upload\upload-button.vue
  * @Description: True or False
 -->
@@ -25,7 +25,9 @@
 <script setup lang="ts">
 import loading from '@renderer/components/loading/loading-icon.vue'
 
-import { useUpload } from './index'
+// import useUpload from './index'
+import useUpload from './index'
+import { UploadExecutor } from './useExecutor'
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps<{ serverUrl: string; uploadPath: string }>()
@@ -34,14 +36,13 @@ const emits = defineEmits(['finished'])
 
 // ----------------- C O N S T A N T ----------------- //
 
+const chunkSize = 1024 * 1024 * 0.5 // 0.5MB
+
 const uploading = ref(false)
 
 // -------------------- S T O R E -------------------- //
 
-const { has_upload_chunk_count, total_chunk_count, handleUploadFile } = useUpload(
-  props.serverUrl,
-  props.uploadPath
-)
+const { createUploadTask } = useUpload()
 
 // ----------------- C O N S T A N T ----------------- //
 
@@ -52,14 +53,37 @@ const click = () => {
   uploadFileRef.value.click()
 }
 
-const getUploadFileList = async (e: Event) => {
+const resetInputValue = (e) => {
+  ;(e.target as HTMLInputElement).value = ''
+}
+
+const getUploadFileList = (e: Event) => {
   uploading.value = true
   const rawFileList = (e.target as HTMLInputElement).files
+
   // TODO 暂时只处理单文件上传
   if (!rawFileList || !rawFileList.length) return
-  await handleUploadFile(rawFileList[0])
-  emits('finished')
-  uploading.value = false
+  const task_list: Promise<UploadExecutor>[] = []
+  for (let i = 0; i < rawFileList.length; i++) {
+    const create_executor = createUploadTask({
+      chunkSize: chunkSize,
+      rawFile: rawFileList[i],
+      serverUrl: props.serverUrl,
+      uploadPath: props.uploadPath,
+      failTaskItemEffect: () => {
+        uploading.value = false
+        emits('finished')
+      },
+      finishTaskEffect: () => {
+        uploading.value = false
+        emits('finished')
+      }
+    })
+    task_list.push(create_executor)
+  }
+  Promise.all(task_list).then(() => {
+    resetInputValue(e)
+  })
 }
 </script>
 
@@ -68,3 +92,4 @@ const getUploadFileList = async (e: Event) => {
   display: none;
 }
 </style>
+.

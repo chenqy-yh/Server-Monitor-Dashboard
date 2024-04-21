@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-18 18:35:05
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 08:46:59
+ * @LastEditTime: 2024-04-21 23:57:29
  * @FilePath: \Spirit-client\src\renderer\src\views\file\index.vue
  * @Description: True or False
 -->
@@ -35,6 +35,12 @@
         </el-tooltip>
       </div>
       <div class="btn-groups">
+        <el-tooltip effect="dark" content="Refresh">
+          <el-button text circle @click="() => handleRrefresh()">
+            <i class="ri-refresh-line ri-lg"></i>
+          </el-button>
+        </el-tooltip>
+
         <el-tooltip effect="dark" :content="i18n.global.t('file.move-file')" placement="top">
           <el-button text circle @click="moveable = !moveable">
             <i
@@ -45,14 +51,9 @@
             ></i>
           </el-button>
         </el-tooltip>
-        <el-tooltip effect="dark" :content="i18n.global.t('file.upload-file')" placement="top">
-          <UploadButton
-            :server-url="server_url"
-            :upload-path="file_path"
-            @finished="() => handleRrefresh(gotoFirstPage)"
-          ></UploadButton>
-        </el-tooltip>
-        <el-button @click="toggleUploadDrawer">btn</el-button>
+        <el-button text circle @click="toggleUploadDrawer">
+          <i class="ri-upload-2-line ri-lg"></i>
+        </el-button>
       </div>
     </div>
     <div class="file-list-content">
@@ -65,10 +66,7 @@
         @refresh="handleRrefresh"
       ></FileList>
       <div class="footer">
-        <Pagination
-          v-model:current-page="cur_page"
-          :total="file_stat_list?.length ?? 0"
-        ></Pagination>
+        <Pagination v-model:current-page="cur_page" :total="total_file_list_len"></Pagination>
       </div>
     </div>
     <UploadDrawer
@@ -76,6 +74,7 @@
       :server-url="server_url"
       :file-path="file_path"
       direction="rtl"
+      @finished="handleUploadFileFinished"
     ></UploadDrawer>
   </div>
 </template>
@@ -83,7 +82,6 @@
 <script setup lang="ts">
 import ArrowRightIcon from '@renderer/components/icon/arrow-right.vue'
 import Pagination from '@renderer/components/pagination/pagination-1.vue'
-import UploadButton from '@renderer/components/upload/upload-button.vue'
 import FileList from './components/file-list.vue'
 import UploadDrawer from '@renderer/components/upload/upload-drawer.vue'
 
@@ -125,6 +123,10 @@ const size = computed(() => {
 
 // 当前页
 const cur_page = ref(0)
+
+const total_file_list_len = computed(() => {
+  return file_stat_list.value?.length ?? 0
+})
 
 // 分页列表
 const paginationList = computed(() => {
@@ -194,6 +196,10 @@ const calcBreadcrumbList = (filePath) => {
 
 const toggleUploadDrawer = () => {
   show_drawer.value = !show_drawer.value
+}
+
+const handleUploadFileFinished = () => {
+  handleRrefresh()
 }
 </script>
 

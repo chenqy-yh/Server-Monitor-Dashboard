@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-19 00:25:14
+ * @LastEditTime: 2024-04-19 19:22:03
  * @FilePath: \Spirit-client\src\renderer\src\typings\vue-router.d.ts
  * @Description: True or False
  */

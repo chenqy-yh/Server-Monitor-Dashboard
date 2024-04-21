@@ -15,7 +15,7 @@
   --radius-sm: 0.25rem;
   --radius-md: 0.4rem;
   /* transition */
-  --transition: all 0.2s ease-out;
+  --transition: all 0.3s ease-out;
   --transition-5: all 0.5s;
   /* header */
   --header-height: 3rem;
@@ -45,6 +45,7 @@
   /* font */
   --font-size-title: 1.3rem;
   --font-size-content: 1rem;
+  --font-size-content-sm: 0.5rem;
   /* scroll bar */
   --scroll-bar-thumb-color: var(--border-color);
   /* radio */

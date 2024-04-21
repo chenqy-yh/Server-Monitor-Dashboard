@@ -39,10 +39,11 @@ const _useFile = () => {
    * @param {BreadcrumbItem} item
    * @return {*}
    */
-  const handleClickBreadcrumb = async (item: BreadcrumbItem) => {
+  const handleClickBreadcrumb = async (item: BreadcrumbItem, effect?: () => void) => {
     const res = await getFileList(item.path)
     if (res) {
       file_path.value = item.path
+      effect && effect()
     }
   }
 
@@ -161,24 +162,22 @@ const _useFile = () => {
 
   /**
    * @description: 搜索
-   * @param {() => void} cb
+   * @param {() => void} effect
    * @return {*}
    */
-  const search = async (cb: () => void) => {
+  const search = async (effect: () => void) => {
     await getFileList(file_path.value, file_filter.value)
-    // cur_page.value = 1
-    cb()
+    effect()
   }
 
   /**
    * @description: 刷新
-   * @param {() => void} cb
+   * @param {() => void} effect
    * @return {*}
    */
-  const handleRrefresh = async (cb: () => void) => {
+  const handleRrefresh = async (effect?: () => void) => {
     await getFileList(file_path.value)
-    // cur_page.value = 1
-    cb()
+    effect && effect()
   }
 
   return {

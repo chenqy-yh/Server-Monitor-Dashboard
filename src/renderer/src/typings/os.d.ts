@@ -21,10 +21,6 @@ interface CpuData {
 }
 
 interface LoadData {
-  // avload_1: string
-  // avload_5: string
-  // avload_15: string
-  // active_total_per: string
   one: string
   five: string
   fifteen: string

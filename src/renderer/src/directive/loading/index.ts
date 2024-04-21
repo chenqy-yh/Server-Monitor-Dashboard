@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 20:46:26
+ * @LastEditTime: 2024-04-21 23:43:20
  * @FilePath: \Spirit-client\src\renderer\src\directive\loading\index.ts
  * @Description: True or False
  */
@@ -10,6 +10,10 @@ import { delay } from '@renderer/utils/common'
 import { Directive } from 'vue'
 
 const animaDuration = 500
+
+function checkLoadingExist(el: HTMLElement) {
+  return el.contains((el as any).instance.$el)
+}
 
 const loadingDirective: Directive = {
   mounted(el, binding) {
@@ -43,7 +47,8 @@ async function remove(el: HTMLElement) {
   })
   await delay(animaDuration + 1).then(() => {
     ;(el as any).instance.$el.classList.remove('come-out')
-    el.removeChild((el as any).instance.$el)
+    // check el.instance.$el is removed
+    checkLoadingExist(el) && el.removeChild((el as any).instance.$el)
   })
 }
 

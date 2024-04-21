@@ -15,4 +15,12 @@ const cloneObjDropFunc = (obj: Record<string, any>) => {
   return newObj
 }
 
-export { delay, objToArr, cloneObjDropFunc }
+const shallowClone = <T>(obj: T) => {
+  const newObj = {} as T
+  for (const key in obj) {
+    newObj[key] = obj[key]
+  }
+  return newObj as T
+}
+
+export { delay, objToArr, cloneObjDropFunc, shallowClone }
