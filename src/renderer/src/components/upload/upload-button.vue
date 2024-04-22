@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-29 23:06:59
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-21 23:11:24
+ * @LastEditTime: 2024-04-22 11:00:04
  * @FilePath: \Spirit-client\src\renderer\src\components\upload\upload-button.vue
  * @Description: True or False
 -->
@@ -71,17 +71,16 @@ const getUploadFileList = (e: Event) => {
       serverUrl: props.serverUrl,
       uploadPath: props.uploadPath,
       failTaskItemEffect: () => {
-        uploading.value = false
         emits('finished')
       },
       finishTaskEffect: () => {
-        uploading.value = false
         emits('finished')
       }
     })
     task_list.push(create_executor)
   }
   Promise.all(task_list).then(() => {
+    uploading.value = false
     resetInputValue(e)
   })
 }

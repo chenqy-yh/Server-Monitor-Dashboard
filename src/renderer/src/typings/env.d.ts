@@ -6,12 +6,3 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
-
-interface ImportMetaEnv {
-  readonly RE_Remoteserver_Port: number
-  readonly RE_Remoteserver_Prefix: string
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv
-}

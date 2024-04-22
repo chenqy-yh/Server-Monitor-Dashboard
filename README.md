@@ -29,18 +29,13 @@ git clone https://github.com/chenqy-yh/server-monitor-api/tree/master
 pnpm install
 
 pnpm run start
-```     
+```
 ~~~
 
 2.部署客户端(只保证windows下可运行)
 
 ```bash
 pnpm install
-
-# 配置env
-
-RE_Remoteserver_Port = 54321
-RE_Remoteserver_Prefix = /api
 
 
 # 开发模式
@@ -53,7 +48,7 @@ pnpm start
 
 # 打包
 
-# for win 
+# for win
 
 pnpm build:win
 ```
@@ -61,7 +56,16 @@ pnpm build:win
 
 
 <h2>项目预览</h2>
-v2
+
+
+v0.0.3
+1.upload file
+
+  ![](https://server-monitor-readme-1300131488.cos.ap-beijing.myqcloud.com/readme%2Fv3%2Fe97bef2584aee3db28f80a97a0912a1.png)
+
+  ![](https://server-monitor-readme-1300131488.cos.ap-beijing.myqcloud.com/readme%2Fv3%2Fc68e1bd2b76ac7ed996c4205da4face.png)
+
+v0.0.2
 1.Dashboard
 
    ![](https://server-monitor-readme-1300131488.cos.ap-beijing.myqcloud.com/readme%2Fv2%2Fdashboard.png)
@@ -75,7 +79,7 @@ v2
    ![](https://server-monitor-readme-1300131488.cos.ap-beijing.myqcloud.com/readme%2Fv2%2Flogin.png)
 
 
-v1
+v0.0.1
 
 1. Dashboard
 
@@ -95,7 +99,7 @@ v1
 
    ![](https://server-monitor-readme-1300131488.cos.ap-beijing.myqcloud.com/readme%2Fmkfile.png)
 
-   
+
 
 5. Upload
 
@@ -113,7 +117,7 @@ v1
 
    ![](https://server-monitor-readme-1300131488.cos.ap-beijing.myqcloud.com/readme%2Fchatgpt.png)
 
-   
+
 
 9. Common Setting
 

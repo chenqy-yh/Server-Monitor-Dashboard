@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-17 22:04:27
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 23:08:47
+ * @LastEditTime: 2024-04-22 10:52:36
  * @FilePath: \Spirit-client\src\renderer\src\views\test\page.ts
  * @Description: True or False
  */
@@ -12,7 +12,7 @@ export default {
   path: '/test',
   meta: {
     icon: 'ri-shield-cross-fill',
-    menuItem: true,
+    menuItem: false, //show in menu or not
     title: 'menu.test',
     menuIndex: 12,
     parRoute: 'Detail',
