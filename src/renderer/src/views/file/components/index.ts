@@ -78,9 +78,8 @@ const useFileList = ({ emits }) => {
       icon: 'ri-file-copy-line',
       label: i18n.global.t('context-menu.copy'),
       action: async () => {
-        // 监听 ctrl + v
         preFilePath.value = file_path.value
-        window.addEventListener('keydown', handleFileCopy)
+        window.addEventListener('paste', handleFileCopy)
       }
     },
     {
@@ -234,20 +233,18 @@ const useFileList = ({ emits }) => {
    * @param {*} event
    * @return {*}
    */
-  const handleFileCopy = async (event: KeyboardEvent) => {
-    if (event.ctrlKey && event.key === 'v') {
-      const preFullPath = preFilePath.value + '/' + targetItem.value?.name
-      const fullPath = file_path.value + '/' + targetItem.value?.name
-      window.api
-        .copyFile(server_url.value, preFullPath, fullPath)
-        .then(() => {
-          success(`Copy ${targetItem.value?.name} success`)
-          emits('refresh')
-        })
-        .catch(() => {
-          error(`Copy ${targetItem.value?.name} failed`)
-        })
-    }
+  const handleFileCopy = async () => {
+    const preFullPath = preFilePath.value + '/' + targetItem.value?.name
+    const fullPath = file_path.value + '/' + targetItem.value?.name
+    window.api
+      .copyFile(server_url.value, preFullPath, fullPath)
+      .then(() => {
+        success(`Copy ${targetItem.value?.name} success`)
+        emits('refresh')
+      })
+      .catch(() => {
+        error(`Copy ${targetItem.value?.name} failed`)
+      })
     window.removeEventListener('keydown', handleFileCopy)
   }
 
@@ -270,11 +267,11 @@ const useFileList = ({ emits }) => {
     // 触发菜单事件
     e.stopPropagation()
     targetItem.value = row
-    contextMenu.forEach((item) => {
-      if (item.label === i18n.global.t('context-menu.del')) {
-        item.disabled = row.dir ?? false
-      }
-    })
+    // contextMenu.forEach((item) => {
+    //   if (item.label === i18n.global.t('context-menu.del')) {
+    //     item.disabled = row.dir ?? false
+    //   }
+    // })
 
     contextMenuBinding.menus = contextMenu
     useContextMenu(tableRef.value, contextMenuBinding, e)

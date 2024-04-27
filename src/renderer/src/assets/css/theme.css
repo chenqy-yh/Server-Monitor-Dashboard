@@ -78,6 +78,7 @@
   --font-sub-color: color-mix(in srgb, var(--font-color) 40%, #fff);
   --border-color: color-mix(in lch, var(--color) 90%, black);
   --border-color-hover: color-mix(in lch, var(--color) 50%, black);
+  --border-color-deep: color-mix(in lch, var(--color) 80%, black);
   --bg-bt-color: color-mix(in lch, var(--bg-color) 95%, black);
   --bg-color-hover: color-mix(in lch, var(--color) 95%, black);
   /* menu */
@@ -113,6 +114,7 @@
   --font-color-3: #666;
   --font-sub-color: color-mix(in srgb, var(--font-color) 40%, #000);
   --border-color: color-mix(in lch, var(--color) 80%, #fff);
+  --border-color-deep: color-mix(in lch, var(--color) 70%, #fff);
   --border-color-hover: color-mix(in lch, var(--color) 50%, #fff);
   --bg-color-hover: color-mix(in lch, var(--color) 95%, #fff);
   --bg-bt-color: color-mix(in lch, var(--bg-color) 95%, #fff);

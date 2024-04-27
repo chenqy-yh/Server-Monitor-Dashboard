@@ -85,7 +85,7 @@ export const useServerInfoStore = defineStore('server-info', () => {
    *
    */
   const scheduledTask = async () => {
-    if (!shouldQueryInfo.value) return
+    // if (!shouldQueryInfo.value) return
     try {
       loading.value = false
       await getServerInfo()

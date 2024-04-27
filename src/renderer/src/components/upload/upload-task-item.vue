@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-18 09:26:01
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-21 23:02:02
+ * @LastEditTime: 2024-04-22 11:06:29
  * @FilePath: \Spirit-client\src\renderer\src\components\upload\upload-task-item.vue
  * @Description: True or False
 -->
@@ -15,16 +15,10 @@
     </el-row>
     <el-progress :percentage="percentage" :color="STATUS_COLOR[status]"></el-progress>
     <div class="tool-bar">
-      <el-button
-        text
-        circle
-        :disabled="status === 'success'"
-        :class="{ disabled: status === 'success' }"
-        @click="handlePause"
-      >
+      <el-button v-if="status === 'uploading'" text circle @click="handlePause">
         <i class="ri-pause-large-line"></i>
       </el-button>
-      <el-button text circle @click="handlePlay">
+      <el-button v-if="status === 'pause'" text circle @click="handlePlay">
         <i class="ri-play-mini-fill"></i>
       </el-button>
       <el-button text circle @click="handleDelete">

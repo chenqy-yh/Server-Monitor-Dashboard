@@ -16,7 +16,6 @@ declare module 'vue' {
     CircleProgress: typeof import('./src/components/progress/circle-progress.vue')['default']
     ContextMenuInner: typeof import('./src/components/context-menu/context-menu-inner.vue')['default']
     ContextMenuOuter: typeof import('./src/components/context-menu/context-menu-outer.vue')['default']
-    copy: typeof import('./src/components/pagination/pagination-1 copy.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -26,7 +25,6 @@ declare module 'vue' {
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
-    ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
@@ -55,7 +53,6 @@ declare module 'vue' {
     MenuItem: typeof import('./src/components/menu/menu-item.vue')['default']
     MessageBox: typeof import('./src/components/message/message-box.vue')['default']
     Pagination1: typeof import('./src/components/pagination/pagination-1.vue')['default']
-    Pagination2: typeof import('./src/components/pagination/pagination-2.vue')['default']
     ResizeLayout: typeof import('./src/components/resize/resize-layout.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -65,7 +62,6 @@ declare module 'vue' {
     UploadButton: typeof import('./src/components/upload/upload-button.vue')['default']
     UploadDrawer: typeof import('./src/components/upload/upload-drawer.vue')['default']
     UploadTaskItem: typeof import('./src/components/upload/upload-task-item.vue')['default']
-    UploadTasks: typeof import('./src/components/upload/upload-tasks.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-01 14:56:25
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-08 11:19:10
+ * @LastEditTime: 2024-04-22 11:18:12
  * @FilePath: \Spirit-client\src\renderer\src\composables\listener\index.ts
  * @Description: True or False
  */
@@ -18,11 +18,6 @@ type ListenerRegisterItem = {
 
 const useListenerRegister = () => {
   const ListenerRegister = new Map<string, ListenerRegisterItem[]>()
-
-  onUnmounted(() => {
-    clear()
-  })
-
   /**
    * @description:  添加事件监听
    * @param {string} key

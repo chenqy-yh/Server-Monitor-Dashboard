@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-01 12:01:09
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-08 11:19:01
+ * @LastEditTime: 2024-04-23 14:04:44
  * @FilePath: \Spirit-client\src\renderer\src\components\message\bubble.vue
  * @Description: True or False
 -->

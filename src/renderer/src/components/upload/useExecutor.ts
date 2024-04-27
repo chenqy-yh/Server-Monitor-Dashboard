@@ -1,13 +1,14 @@
 /*
  * @Date: 2024-04-21 20:33:53
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-21 23:06:25
+ * @LastEditTime: 2024-04-22 15:32:00
  * @FilePath: \Spirit-client\src\renderer\src\components\upload\useExecutor.ts
  * @Description: True or False
  */
 import { BlobToBuffer } from '@renderer/utils/file'
 import type { UploadExecutorOptions, UploadFormData } from './types'
 import { messageStore } from '@renderer/composables/message'
+import _ from 'lodash'
 
 const _CREATED_ = 'created'
 const _UPLOADING_ = 'uploading'
@@ -22,7 +23,7 @@ const useExecutor = (options: UploadExecutorOptions) => {
 
   // ----------------- C O N S T A N T ----------------- //
 
-  const POOL_SIZE = 6
+  const POOL_SIZE = 4
 
   const rawFile = options.rawFile
   const chunkSize = options.chunkSize
@@ -51,13 +52,50 @@ const useExecutor = (options: UploadExecutorOptions) => {
 
   // ----------------- F U N C T I O N ----------------- //
 
-  const uploading = async () => {
+  const beforeUploading = async () => {
     if (status.value === _FAIL_) {
       error('任务失败,无法继续上传!')
+      return false
+    }
+    // 检查任务状态
+    const finish_chunk_list = await queryfinishedFile(fileHash, totalChunk, serverUrl, uploadPath)
+    const _unfinished_chunk_list = fileChunkList.reduce((acc, _, index) => {
+      finish_chunk_list.includes(index) || acc.push(index)
+      return acc
+    }, [] as number[])
+    // 检查_unfinished_chunk_list是否等于yuunfinishedChunkList
+    if (!_.isEqual(_unfinished_chunk_list, unfinishedChunkList)) {
+      fail()
+      error('任务失败,无法继续上传!')
+      return false
+    }
+    return true
+  }
+
+  /**
+   * @description:  设置任务状态为上传中
+   * @return {*}
+   */
+  const uploading = async () => {
+    // 检查任务状态 是否可以继续上传
+    if (!beforeUploading()) {
       return
     }
     status.value = _UPLOADING_
     await uploadFile()
+  }
+
+  /**
+   * @description 查询未完成的文件
+   *
+   */
+  const queryfinishedFile = async (
+    file_hash: string,
+    total: number,
+    serverUrl: string,
+    uploadPath: string
+  ) => {
+    return await window.api.queryFinishedChunk(serverUrl, uploadPath, file_hash, total)
   }
 
   /**
@@ -71,7 +109,10 @@ const useExecutor = (options: UploadExecutorOptions) => {
    * @param {function} effect
    * @return {*}
    */
-  const fail = () => (status.value = _FAIL_)
+  const fail = () => {
+    status.value = _FAIL_
+    window.api.delFile(serverUrl, uploadPath + '/' + fileHash)
+  }
 
   /**
    * @description:  任务成功
@@ -147,8 +188,8 @@ const useExecutor = (options: UploadExecutorOptions) => {
       const chunk_idx = formDataList[formData_idx].index
       const task = window.api.uploadFile(serverUrl, uploadPath, formDataList[chunk_idx])
       // 更新任务进度
-      update(chunk_idx)
       task.then(() => {
+        update(chunk_idx)
         // 任务完成后，从任务池中移除
         task_pool.splice(task_pool.indexOf(task), 1)
       })

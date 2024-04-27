@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-26 11:06:45
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 12:37:34
+ * @LastEditTime: 2024-04-23 14:06:54
  * @FilePath: \Spirit-client\src\renderer\src\views\setting\index.vue
  * @Description: True or False
 -->
@@ -21,7 +21,7 @@ const radioTabList = [
     component: PersonalSetting
   },
   {
-    label: 'openai',
+    label: 'setting.openai.label',
     component: OpenaiSetting
   }
 ]

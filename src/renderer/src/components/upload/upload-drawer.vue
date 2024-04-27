@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-18 08:21:40
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-21 23:03:03
+ * @LastEditTime: 2024-04-27 16:46:11
  * @FilePath: \Spirit-client\src\renderer\src\components\upload\upload-drawer.vue
  * @Description: True or False
 -->
@@ -9,7 +9,7 @@
   <el-drawer v-model="_show" :with-header="false" :direction="direction">
     <div class="drawer-content">
       <div class="header">
-        <div class="title">Upload</div>
+        <div class="title">{{ i18n.global.t('file.upload-file') }}</div>
         <el-button text circle @click="_show = false">
           <i class="ri-close-large-fill ri-lg"></i>
         </el-button>

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-08 11:18:54
+ * @LastEditTime: 2024-04-22 15:32:37
  * @FilePath: \Spirit-client\src\renderer\src\components\menu\menu-item.vue
  * @Description: True or False
 -->
@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { i18n } from '@renderer/plugins/i18n'
 import * as _ from 'lodash'
+import { RouteRecordRaw } from 'vue-router';
 
 // -------------------- P R O P S -------------------- //
 const props = defineProps({

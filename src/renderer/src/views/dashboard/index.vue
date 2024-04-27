@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-04-04 14:37:57
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 20:36:53
+ * @LastEditTime: 2024-04-22 15:31:52
  * @FilePath: \Spirit-client\src\renderer\src\views\dashboard\index.vue
  * @Description: True or False
 -->
@@ -59,7 +59,7 @@ type CardItem = {
 }
 
 // -------------------- S T O R E -------------------- //
-const { server_info, loading, show_error } = storeToRefs(useServerInfoStore())
+const { server_info, show_error } = storeToRefs(useServerInfoStore())
 
 // ----------------- C O N S T A N T ----------------- //
 

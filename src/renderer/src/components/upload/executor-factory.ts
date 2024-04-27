@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-19 20:42:35
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-21 22:11:45
+ * @LastEditTime: 2024-04-22 15:32:06
  * @FilePath: \Spirit-client\src\renderer\src\components\upload\executor-factory.ts
  * @Description: True or False
  */
@@ -18,14 +18,14 @@ class UploadExectorFacotry {
     const file_hash = await this.calcFileHash(file_chunk_list)
 
     // 3. 查询文件是否已经上传
-    const upload_finished_list = await this.queryUnfinishedFile(
+    const upload_finished_list = await this.queryfinishedFile(
       file_hash,
       file_chunk_list.length,
       options.serverUrl,
       options.uploadPath
     )
 
-    const unfinish_chunk_list = file_chunk_list.reduce((acc, cur, index) => {
+    const unfinish_chunk_list = file_chunk_list.reduce((acc, _, index) => {
       upload_finished_list.includes(index) || acc.push(index)
       return acc
     }, [] as number[])
@@ -87,7 +87,7 @@ class UploadExectorFacotry {
     })
   }
 
-  queryUnfinishedFile = async (
+  queryfinishedFile = async (
     file_hash: string,
     total: number,
     serverUrl: string,

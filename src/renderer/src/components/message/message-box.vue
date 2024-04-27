@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-03-31 19:39:33
  * @LastEditors: Chenqy
- * @LastEditTime: 2024-04-18 20:33:49
+ * @LastEditTime: 2024-04-27 16:56:14
  * @FilePath: \Spirit-client\src\renderer\src\components\message\message-box.vue
  * @Description: True or False
 -->
@@ -107,6 +107,8 @@ onUnmounted(() => {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+  border-radius: var(--space-sm);
+
   .mask {
     position: fixed;
     top: 0;
@@ -115,7 +117,6 @@ onUnmounted(() => {
     bottom: 0;
   }
   .content {
-    border-radius: var(--space-sm);
     width: 1.5rem;
     height: 2rem;
     background-color: transparent;
@@ -164,6 +165,8 @@ onUnmounted(() => {
 
   &.active {
     overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
     .content {
       width: 18rem;
       height: 24rem;
